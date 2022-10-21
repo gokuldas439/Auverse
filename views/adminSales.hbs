@@ -1,3 +1,11 @@
+
+<style>
+    #table{
+        display:none;
+    }
+</style>
+
+
 <label style="margin-top: 6rem; padding-left: 4rem;">Select Date Range :</label>
 <div style=" padding-left: 4rem;">
     <div style="display: flex; gap:20px;">
@@ -8,6 +16,7 @@
 <form action="/salesReport" method="post">
     <input type="text" name="startdate" id="startdate" hidden>
     <input type="text" name="enddate" id="enddate" hidden>
+    {{!-- <input type="text" name="dateShown" id="dateShown" hidden> --}}
     <div><button style="background-color: black; color: white; height: 36px; width: 75px;" type="submit">Filter</button></div>
 </form>
 </div>
@@ -36,7 +45,57 @@
                       
                     </div>
                 </div>
-                <table class="table table-striped table-hover mydatatable" id="table">
+
+
+
+                <table class="table table-striped table-hover mydatatable">
+                    <thead>
+                        <tr>
+                           <th>#</th>
+            {{!-- <th>Image</th> --}}
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Ordered On</th>
+            <th>subTotal</th>
+            {{!-- <th>Shipping Address</th> --}}
+            {{!-- <th>Status Changer</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each sales}}
+                        <tr>
+
+              <td class="indexNo">{{inc @index}}</td>
+              {{!-- <td>
+                {{#each product}}
+                <img src="{{this.productDetails.images.[0]}}" style="width: 82px; height: 70px;">
+               {{/each}}
+                </td> --}}
+              <td>{{this.productName}}</td>
+              <td>{{this.Quantity}}</td>
+              {{!-- {{/each}} --}}
+            
+              <td>{{this.Ordered_On}}</td>
+              <td>Rs. {{this.SubTotal}}</td>
+            
+            
+            
+              
+
+              {{!-- {{#each productstable}} --}}
+             
+
+                        </tr>
+                        {{/each}}
+
+
+                    </tbody>
+                </table>
+
+
+
+                <table class="table" id="table">
                     <thead>
                         <tr>
                            <th>#</th>
@@ -102,7 +161,7 @@ $(function() {
         $('#enddate').val(end.format('YYYY-MM-DD'));
         $('#start').val(start.format('YYYY-MM-DD'));
         $('#end').val(end.format('YYYY-MM-DD'));
-
+       // $('#dateShown').val($('#reportrange span').html)
     }
 
     $('#reportrange').daterangepicker({

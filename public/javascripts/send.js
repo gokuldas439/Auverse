@@ -12,7 +12,7 @@ const number=async(number)=>{
     try{
         const result = await axios({
             method:'POST',
-            url:'http://localhost:3000/otploginpage',
+            url:'/otploginpage',
             data:{
                 number
             }
@@ -77,7 +77,7 @@ const submit=async(number,code)=>{
     try{
         const result = await axios({
             method:'POST',
-            url:'http://localhost:3000/submitOtp',
+            url:'/submitOtp',
             data:{
                 number,
                 code
@@ -118,7 +118,7 @@ const resendOtp=async(number)=>{
     try{
         const result = await axios({
             method:'POST',
-            url:'http://localhost:3000/resendOtp',
+            url:'/resendOtp',
             data:{
                 number
             }

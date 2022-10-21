@@ -2998,7 +2998,7 @@ deleteCoupon:async(req,res)=>{
         console.log({sales})
         // req.session.end=null;
         // req.session.start=null;
-        res.render('adminSales', { stylesheet: 'adminusers.css', admin: true, sales: "active",sales})
+        res.render('adminSales', { stylesheet: 'adminusers.css', admin: true, sales: "active",sales,start,end})
         
       }else{
         const agg = [

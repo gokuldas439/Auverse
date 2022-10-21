@@ -6,7 +6,7 @@ console.log(count)
  console.log(quantity)
 const result=await axios({
     method:'POST',
-      url:'http://localhost:3000/change',
+      url:'/change',
       data:{
         productId,
         count,
