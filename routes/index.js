@@ -137,9 +137,18 @@ console.log(err);
 // logout.........................................
 
 
-// router.get('/userLogout',sessionControllers.userSessionCheck,async(req,res)=> {
+router.get('/userLogout',sessionControllers.userSessionCheck,async(req,res)=> {
+  res.session.login=null;
+  req.session.userId=null;
+  res.redirect('/login')
 
-// });
+});
+router.get('/adminLogout',sessionControllers.adminSessionCheck,async(req,res)=> {
+  req.session.adminlogin = null;
+  // req.session.email = null;
+  res.redirect('/adminlogin')
+
+});
 
 // search..........................
 router.post('/search',productController.search)
