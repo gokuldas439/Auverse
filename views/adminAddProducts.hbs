@@ -1,0 +1,341 @@
+<div>
+
+
+		<form id="productform" action="/addProducts/{{this._id}}" name="gform" method="post" style="padding: 125px"  enctype="multipart/form-data">
+			<h3>&#12302; Add New Products &#12303;</h3><br>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Product :</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Product Name..." name="name"><br>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Price :</label>
+    <input type="number" class="form-control" placeholder="price..." name="price" id="price"><br>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Offer Price :</label>
+    <input type="number" class="form-control" placeholder="offer price..." name="offerprice"><br>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Color of Product :</label>
+    <input type="text" class="form-control" placeholder="available color..." name="color"><br>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Stocks :</label>
+    <input type="number" class="form-control" placeholder="stocks available..." name="stocks"><br>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Choose Category :</label>
+    <select class="form-control" name="categoryId" id="exampleFormControlSelect1">
+      {{!-- <option>Choose an option</option> --}}
+{{#each categoriestable}}
+      <option value="{{this._id}}">{{this.category}}</option>
+{{/each}}
+    </select>
+  </div><br>
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Choose Brand :</label>
+    <select class="form-control" name="brandId" id="exampleFormControlSelect2">
+      {{!-- <option >Choose an option</option> --}}
+{{#each brandstable}}
+      <option value="{{this._id}}" name="{{this._id}}">{{this.brand}}</option>
+	{{/each}}
+    </select>
+  </div><br> 
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Description :</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+  </div><br>
+
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Choose Product images :</label><br>
+    {{!-- <input type="file" class="form-control-file" id="exampleFormControlFile1 fileInput" onchange="handleFileSelect()"> --}}
+  </div><br>
+
+  <input type="file" id="imageCropFileInput"  accept=".jpg,.jpeg,.png" name="images" multiple> 
+{{!-- <input type="hidden" id="profile_img_data"> --}}
+<div class="img-preview"></div>
+<div id="galleryImages"></div>
+<div id="cropper">
+  <canvas id="cropperImg" width="0" height="0" background = "red";></canvas><br><br>
+  <a class="cropImageBtn" id="cropImageBtn">Crop</a><br>
+</div>
+<br>
+<button type="submit" class="btn btn-dark btn-lg btn-block">Save</button>
+</form>
+	</div>
+
+
+
+
+
+
+	<script>
+			var c;
+var galleryImagesContainer = document.getElementById('galleryImages');
+var imageCropFileInput = document.getElementById('imageCropFileInput');
+var cropperImageInitCanvas = document.getElementById('cropperImg');
+var cropImageButton = document.getElementById('cropImageBtn');
+// Crop Function On change
+  function imagesPreview(input) {
+    var cropper;
+    galleryImagesContainer.innerHTML = '';
+    var img = [];
+    if(cropperImageInitCanvas.cropper){
+      cropperImageInitCanvas.cropper.destroy();
+      cropImageButton.style.display = 'none';
+      cropperImageInitCanvas.width = 0;
+      cropperImageInitCanvas.height = 0;
+    }
+    if (input.files.length) {
+      var i = 0;
+      var index = 0;
+      for (let singleFile of input.files) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          var blobUrl = event.target.result;
+          img.push(new Image());
+          img[i].onload = function(e) {
+            // Canvas Container
+            var singleCanvasImageContainer = document.createElement('div');
+            singleCanvasImageContainer.id = 'singleImageCanvasContainer'+index;
+            singleCanvasImageContainer.className = 'singleImageCanvasContainer';
+            // Canvas Close Btn
+            var singleCanvasImageCloseBtn = document.createElement('button');
+            var singleCanvasImageCloseBtnText = document.createTextNode('Close');
+            // var singleCanvasImageCloseBtnText = document.createElement('i');
+            // singleCanvasImageCloseBtnText.className = 'fa fa-times';
+            singleCanvasImageCloseBtn.id = 'singleImageCanvasCloseBtn'+index;
+            singleCanvasImageCloseBtn.className = 'singleImageCanvasCloseBtn';
+            singleCanvasImageCloseBtn.onclick = function() { removeSingleCanvas(this) };
+            singleCanvasImageCloseBtn.appendChild(singleCanvasImageCloseBtnText);
+            singleCanvasImageContainer.appendChild(singleCanvasImageCloseBtn);
+            // Image Canvas
+            var canvas = document.createElement('canvas');
+            canvas.id = 'imageCanvas'+index;
+            canvas.className = 'imageCanvas singleImageCanvas';
+            canvas.width = e.currentTarget.width;
+            canvas.height = e.currentTarget.height;
+            canvas.onclick = function() { cropInit(canvas.id); };
+            singleCanvasImageContainer.appendChild(canvas)
+            // Canvas Context
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(e.currentTarget,0,0);
+            // galleryImagesContainer.append(canvas);
+            galleryImagesContainer.appendChild(singleCanvasImageContainer);
+            while (document.querySelectorAll('.singleImageCanvas').length == input.files.length) {
+              var allCanvasImages = document.querySelectorAll('.singleImageCanvas')[0].getAttribute('id');
+              cropInit(allCanvasImages);
+              break;
+            };
+            urlConversion();
+            index++;
+          };
+          img[i].src = blobUrl;
+          i++;
+        }
+        reader.readAsDataURL(singleFile);
+      }
+     //  addCropButton();
+       //cropImageButton.style.display = 'block';
+    }
+  }
+  imageCropFileInput.addEventListener("change", function(event){
+    imagesPreview(event.target);
+  });
+// Initialize Cropper
+  function cropInit(selector) {
+    c = document.getElementById(selector);
+    console.log(document.getElementById(selector));
+    if(cropperImageInitCanvas.cropper){
+        cropperImageInitCanvas.cropper.destroy();
+    }
+    var allCloseButtons = document.querySelectorAll('.singleImageCanvasCloseBtn');
+    for (let element of allCloseButtons) {
+      element.style.display = 'block';
+    }
+    c.previousSibling.style.display = 'none';
+    // c.id = croppedImg;
+    var ctx=c.getContext('2d');
+    var imgData=ctx.getImageData(0, 0, c.width, c.height);
+    var image = cropperImageInitCanvas;
+    image.width = c.width;
+    image.height = c.height;
+    var ctx = image.getContext('2d');
+    ctx.putImageData(imgData,0,0);
+    cropper = new Cropper(image, {
+      aspectRatio: 1 / 1,
+      preview: '.img-preview',
+      crop: function(event) {
+        // console.log(event.detail.x);
+        // console.log(event.detail.y);
+        // console.log(event.detail.width);
+        // console.log(event.detail.height);
+        // console.log(event.detail.rotate);
+        // console.log(event.detail.scaleX);
+        // console.log(event.detail.scaleY);
+        cropImageButton.style.display = 'block';
+      }
+    });
+
+  }
+// Initialize Cropper on CLick On Image
+  // function cropInitOnClick(selector) {
+  //   if(cropperImageInitCanvas.cropper){
+  //       cropperImageInitCanvas.cropper.destroy();
+  //       // cropImageButton.style.display = 'none';
+  //       cropInit(selector);
+  //       // addCropButton();
+  //       // cropImageButton.style.display = 'block';
+  //   } else {
+  //       cropInit(selector);
+  //       // addCropButton();
+  //       // cropImageButton.style.display = 'block';
+  //   }
+  // }
+// Crop Image
+  function image_crop() {
+    if(cropperImageInitCanvas.cropper){
+      var cropcanvas = cropperImageInitCanvas.cropper.getCroppedCanvas({width: 250, height: 250});
+      // document.getElementById('cropImages').appendChild(cropcanvas);
+      var ctx=cropcanvas.getContext('2d');
+        var imgData=ctx.getImageData(0, 0, cropcanvas.width, cropcanvas.height);
+        // var image = document.getElementById(c);
+        c.width = cropcanvas.width;
+        c.height = cropcanvas.height;
+        var ctx = c.getContext('2d');
+        ctx.putImageData(imgData,0,0);
+        cropperImageInitCanvas.cropper.destroy();
+        cropperImageInitCanvas.width = 0;
+        cropperImageInitCanvas.height = 0;
+        cropImageButton.style.display = 'none';
+        var allCloseButtons = document.querySelectorAll('.singleImageCanvasCloseBtn');
+        for (let element of allCloseButtons) {
+          element.style.display = 'block';
+        }
+        urlConversion();
+        // cropperImageInitCanvas.style.display = 'none';
+    } else {
+      alert('Please select any Image you want to crop');
+    }
+  }
+  cropImageButton.addEventListener("click", function(){
+    image_crop();
+  });
+// Image Close/Remove
+  function removeSingleCanvas(selector) {
+    selector.parentNode.remove();
+    urlConversion();
+  }
+// Dynamically Add Crop Btn
+  // function addCropButton() {
+  //   // add crop button
+  //     var cropBtn = document.createElement('button');
+  //     cropBtn.setAttribute('type', 'button');
+  //     cropBtn.id = 'cropImageBtn';
+  //     cropBtn.className = 'btn btn-block crop-button';
+  //     var cropBtntext = document.createTextNode('crop');
+  //     cropBtn.appendChild(cropBtntext);
+  //     document.getElementById('cropper').appendChild(cropBtn);
+  //     cropBtn.onclick = function() { image_crop(cropBtn.id); };
+  // }
+// Get Converted Url
+  function urlConversion() {
+    var allImageCanvas = document.querySelectorAll('.singleImageCanvas');
+    var convertedUrl = '';
+    for (let element of allImageCanvas) {
+      convertedUrl += element.toDataURL('image/jpeg');
+      convertedUrl += 'img_url';
+    }
+    console.log(convertedUrl)
+   // document.getElementById('profile_img_data').value = convertedUrl;
+    document.getElementById('linkimage1').value = convertedUrl;
+    //document.getElementById('exampleFormControldas').value = convertedUrl;
+  }
+
+		</script>
+
+   
+
+
+
+{{!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> --}}
+   
+   <script>
+    $(document).ready(function(){
+    console.log("hi validator");
+    $("#productform").validate({
+       rules: {
+        name:{
+            required:true,
+        },
+        price:{
+            required:true,
+        },
+        offerprice:{
+            required:true,
+            
+        },
+        color:{
+            required:true,
+        },
+        stocks:{
+            required:true,
+            digits: true,
+        },
+        categoryId:{
+            required:true,
+        },
+        brandId:{
+            required:true,
+        },
+        description:{
+            required:true,
+        },
+        images:{
+            required:true,
+            
+            
+        },
+    },
+    messages: {
+        name:{
+            required:"Please enter Product name *",
+        },
+        price: {
+            required:"Please enter price *",
+            digits:"only numbers are allowed"
+        },
+        offerprice:{
+            required:"Please enter offerPrice *",
+            
+           
+        },
+        color:{
+            required:"Enter a color *",
+        },
+        stocks:{
+            required:"Enter a stocks *",
+        },
+        categoryId:{
+            required:"Enter a Category *",
+        },
+        brandId:{
+            required:"Enter a brand *",
+        },
+        description:{
+            required:"Enter description *",
+           
+        },
+        images:{
+            required:"please select 4 images *",
+           
+           
+        },
+
+    },
+});
+
+
+});
+   </script>

@@ -1,0 +1,366 @@
+  <!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+            <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+            {{#each orders}}
+            <!-- Order -->
+            <div class="card card-lg mb-5 border">
+              <div class="card-body pb-0">
+
+                <!-- Info -->
+                <div class="card card-sm">
+                  <div class="card-body bg-light">
+                    <div class="row">
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order No:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          {{this.tracking_id}}
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Ordered date:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          <time datetime="2019-10-01">
+                            {{this.ordered_on}}
+                          </time>
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order Status:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          {{this.orderstatus}}
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order Amount:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          Rs. {{toLocaleString this.afterDicountTotal}}
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-footer">
+                <div class="row align-items-center">
+                  <div class="col-12 col-lg-6">
+                    <div class="row gx-5 mb-4 mb-lg-0">
+                     
+
+                      <div class="col-3">
+
+                        <!-- Image -->
+                        <div class="ratio ratio-1x1 bg-cover" style="background-image: url({{this.product.[0].productDetails.images.[0]}});"></div>
+
+                      </div>
+                     
+                      
+                      
+                      
+                     
+                    </div>
+                  </div>
+                       {{#eq this.orderstatus "Cancelled"}}
+                  <div class="col-12 col-lg-6">
+                    <div class="row gx-5">
+
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; opacity:0.5 ; border:none;">
+                           
+                        </a>
+
+                      </div>
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Cancelled by User
+                        </a>
+
+                      </div>
+
+                      <div class="col-4">
+
+                        <a class="btn btn-sm w-100 btn-outline-dark"  style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; opacity:0.5 ; border:none;">
+                          
+                        </a>
+                      
+                      </div>
+
+                    </div>
+
+                  </div>
+                      {{else}}  
+                      {{#eq this.orderstatus "Cancelled by Admin"}}
+                      <div class="col-12 col-lg-6">
+                    <div class="row gx-5">
+
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; opacity:0.5 ; border:none;">
+                           
+                        </a>
+
+                      </div>
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none; color:red;">
+                          Cancelled by Admin
+                        </a>
+
+                      </div>
+
+                      <div class="col-4">
+
+                        <a class="btn btn-sm w-100 btn-outline-dark"  style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; opacity:0.5 ; border:none;">
+                          
+                        </a>
+                      
+                      </div>
+
+                    </div>
+
+                  </div>
+                      {{else}}
+                      {{#eq this.orderstatus "Delivered"}} 
+                  <div class="col-12 col-lg-6">
+                    <div class="row gx-5">
+
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        {{!-- <a class="btn btn-sm w-100 btn-outline-dark" href="#!" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important;">
+                          Track order
+                        </a> --}}
+
+                      </div>
+                      <div class="col-4">
+
+
+                      </div>
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" href="/orderDetails/{{this.tracking_id}}" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important;">
+                           Details
+                        </a>
+
+                      </div>
+
+                     
+                      
+
+                    </div>
+
+                  </div>
+                  {{else}}
+                  {{#eq this.orderstatus "Returned"}}
+                    <div class="col-12 col-lg-6">
+                    <div class="row gx-5">
+
+                      <div class="col-4">
+
+                       
+
+                      </div>
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Returned by User
+                        </a>
+
+                      </div>
+
+                      <div class="col-4">
+
+                        
+                      
+                      </div>
+
+                    </div>
+
+                  </div>
+                  {{else}}
+                  <div class="col-12 col-lg-6">
+                    <div class="row gx-5">
+
+                      <div class="col-4">
+
+                        
+                        {{!-- <a class="btn btn-sm w-100 btn-outline-dark" href="#!" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important;">
+                          Track order
+                        </a> --}}
+
+                      </div> 
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" href="/orderDetails/{{this.tracking_id}}" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important;">
+                           Details
+                        </a>
+
+                      </div>
+
+                      <div class="col-4" style="cursor:pointer;">  
+                      <form action="/userCancelOrder/{{this.tracking_id}}" method="post" >                                           
+                         <button type="submit" style="height: 3rem; color: white; background-color: black; font-size: 14px;">Cancel order</button>
+                       
+                        </form>
+                     
+                      </div>
+
+                    </div>
+
+                  </div>
+                  {{/eq}}
+                  {{/eq}}
+                    {{/eq}}
+                    {{/eq}}
+
+
+                </div>
+              </div>
+            </div>
+            {{/each}}
+           
+
+            <!-- Pagination -->
+            <nav class="d-flex justify-content-center justify-content-md-end">
+              <ul class="pagination pagination-sm text-gray-400">
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-left"></i>
+                  </a>
+                </li>
+            {{#each page}}
+                <li class="page-item" style="cursor: pointer;">
+                  <a class="page-link" onclick="page({{this}})">{{this}}</a>
+                </li>
+            {{/each}}
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <style>
+        .card-body {
+             margin-left: 0px !important;
+         }
+    </style>
+
+  
+      <script>
+
+  function page(value) {
+    
+
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set('p', value);
+    let newParams = params.toString();
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+    console.log(newParams)
+   location.href = window.location.protocol + "//" + window.location.host + '/userAccount?' + newParams;
+  }
+</script>

@@ -1,0 +1,217 @@
+
+ <div class="container" style="margin-top: 12rem;">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <h2><b>Products Management</b></h2>
+                        </div>
+                        <div class="col-xs-7">
+                            <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal{{@index}}"
+                  style="padding:0px; "
+                ><a href="/addProducts" class="btn btn-primary"><i class="fa-solid fa-pen"></i> <span>Add
+                                    Products</span></a></button>
+
+     {{!-- <a ><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-solid fa-pen"></i>Add Product</button></a> --}}
+
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover mydatatable" id="">
+                    <thead>
+                        <tr>
+                           <th>#</th>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Stock</th>
+            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each productstable}}
+                        {{#if this.isDeleted}}
+                        {{else}}
+                        <tr>
+
+              <td class="indexNo">{{inc @index}}</td>
+              <td><img src="{{this.images.[0]}}" style="width: 82px; height: 50px;"></td>
+              <td>{{this.name}}</td>
+              <td>{{toLocaleString this.offerprice}}</td>
+              {{!-- {{/each}} --}}
+            {{#each this.category}}
+              <td>{{this.category}}</td>
+            {{/each}}
+            {{#each this.brand}}
+              <td>{{this.brand}}</td>
+            {{/each}}
+              
+
+              {{!-- {{#each productstable}} --}}
+              <td>{{this.stocks}}</td>
+
+              
+              
+
+                            {{!-- <td><span class="status text-success">&bull;</span> Active</td> --}}
+                            <td>
+                                <!-- Button trigger modal -->
+                {{!-- <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal{{@index}}"
+                  style="padding:0px; "
+                >
+                  <i
+                    class="material-icons"
+                    style="margin-top: 5px;"
+                  >edit</i>
+                </button>
+
+                <!-- Modal -->
+
+                <div
+                  class="modal fade"
+                  id="exampleModal{{@index}}"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalLabel{{@index}}"
+                        >Update Category</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                        <form action="/editCategory/{{this._id}}" method="post">
+                      <div class="modal-body">
+                          <div class="mb-3">
+                            <label
+                              for="recipient-name"
+                              class="col-form-label"
+                            >Category Name:</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="recipient-name"
+                              name="category"
+                              value="{{this.category}}"
+                            />
+                          </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >Close</button>
+                       <button type="submit" class="btn btn-primary">Save
+                          Changes</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div> --}}
+
+
+
+
+
+                                {{!-- <a href="/delete/{{this._id}}" class="delete" title="Delete" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE5C9;</i></a> --}}
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal{{@index}}"
+                                    style="padding:0px; ">
+                                    <i class="material-icons" style="margin-top: 5px;">edit</i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{@index}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{@index}}">Edit Product</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Action Will Edit the selected product.<br>
+                                                Are You Sure You Want to continue ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a href="/editProduct/{{this._id}}"><button type="button"
+                                                        class="btn btn-primary">Edit</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal1{{@index}}"
+                                    style="padding:0px; ">
+                                    <i class="material-icons" style="margin-top: 5px;">&#xE5C9;</i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal1{{@index}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel1{{@index}}">Delete Product</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Action Will Delete data of the Product.<br>
+                                                Are You Sure You Want to Delete ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a href="/deleteProduct/{{this._id}}"><button type="button"
+                                                        class="btn btn-danger">Delete Product</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

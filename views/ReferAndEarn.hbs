@@ -1,0 +1,219 @@
+  <style>
+    #snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+  </style>
+  
+  
+  
+  
+  <!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+<section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+             <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+
+            
+
+          </div>
+        <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+                
+            
+            <div class="card p-3 text-center">
+                
+                <div class="position-relative">
+                    
+                    <img src="/images/referEarn.jpg" style="width: 200px;">
+                    <span class="dots"><i class="fa fa-plus"></i></span>
+                </div>
+                
+                <div>
+                    <h5>Refer & Earn</h5>
+                    {{#with referral}}
+                    <span class="earn-text">Earn Rs. <b>{{this.bonus}}</b> per referal.. <br> Offer Closes Soon....</span>
+                    {{/with}}
+                 </div>
+                
+            {{#with userdetail.referral}}
+                
+                <div class="px-3 mt-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        
+                    </div>
+                    <div class="progress" style="height:4px;">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    
+                </div>
+                
+                <div class="px-3 mt-2 d-flex gap-2">
+                    <input type="text"  class="form-control" id="copyId" value="{{this.referralId}}" disabled>
+                    <span ></span>
+                    <button class="btn btn-danger copy" data-clipboard-text="{{this.referralId}}" onclick="myFunction()" id="copyBtn">Copy</button>
+                </div>
+                
+                
+                <div class="mt-3 px-3 d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-start">
+                            <h6 class="mb-0">Copy your referal code from above</h6>
+                        </div>
+                        <span class="email-text">Share it with your friends and make them use it in Signup page of Auverse</span>
+                        <div id="snackbar">Copied to Clipboard...</div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="mt-3 px-3 d-flex justify-content-between align-items-center" style="margin-top: 2.75rem !important;">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-start">
+                            <h6 class="mb-0">Your Total Referals :</h6>
+                        </div>
+                        
+                    </div>
+
+
+
+
+                    
+                    <a class="text-decoration-none" style="font-size: 28px;">{{this.referralCount}}</a>
+                    
+                </div>
+                
+                <div class="mt-3 px-3 d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-start">
+                            <h6 class="mb-0" >Your Total Earnings from Referal:</h6>
+                        </div>
+                        
+                    </div>
+                    
+                    <a href="#" class="text-decoration-none" style="font-size: 28px;">Rs. {{this.totalReward}}</a>
+                    
+                </div>
+                
+                
+                
+                
+                
+            </div>
+            {{/with}}
+            
+                
+        </div>
+        </div>
+      </div>
+    </section>
+
+ <script>
+function myFunction() {
+
+var clipboard = new ClipboardJS('.btn');
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+</script>

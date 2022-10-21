@@ -1,0 +1,371 @@
+<style>
+    .walletdiv {
+        transition: transform .5s;
+        border-radius: 47px;
+        background: #f3f3f3;
+        box-shadow: 15px 15px 30px #9f9f9f,
+            -15px -15px 30px #e5e5e5;
+    }
+
+    .walletdiv:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+
+<nav class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+                    <li class="breadcrumb-item">
+                        <a class="text-gray-400" href="/">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Wallet
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<section class="pt-7 pb-12">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+
+                <!-- Heading -->
+                <h3 class="mb-10">My Wallet</h3>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-3">
+
+                <!-- Nav -->
+                <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+
+            </div>
+            <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+                <div class="row">
+                    <div class="col-12 col-lg-6 ">
+                        <div class="walletdiv" style=" height:10rem; width:100%">
+                            <h6 class="mb-7 text-center" style="padding-top: 1rem;">wallet balance :</h6>
+                            {{#with wallet}}
+                            <h3 class=" text-center" style="color: green;">Rs {{this.walletBalance}}</h3><br>
+                            {{/with}}
+                        </div>
+
+
+                    </div>
+                    <div class="col-12 col-lg-6 "
+                        style="display: flex; align-items: center; justify-content: center; gap: 3rem;">
+
+                        <div class="col-3" style="cursor:pointer;">
+
+                            <button type="submit"
+                                style="height: 3rem; color: white; background-color: black; font-size: 14px; width: 7rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                                Balance</button>
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add to Wallet</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                                <form id="gform">
+                                            <div class="modal-body" style="padding: 1rem !important;">
+                                                <div class="">
+                                                    <label for="recipient-name" class="col-form-label">Enter the Amount :</label>
+                                                    <input type="text" name="amount" class="form-control" id="amount" style="padding: 5px !important;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-dark">Proceed to pay</button>
+                                            </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+
+
+                        </div>
+                        <div class="col-3" style="cursor:pointer;">
+                            <button type="submit"
+                                style="height: 3rem; color: white; background-color: black; font-size: 14px; width: 7rem;" data-bs-toggle="modal" data-bs-target="#exModal">Wallet
+                                Transfer</button>
+                                <div class="modal fade" id="exModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Transfer Balance</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                                <form id="sform" action="/transferWalletBalance" method="post">
+                                            <div class="modal-body" style="padding: 1rem !important;">
+                                                <div class="">
+                                                    <label for="recipient-email" class="col-form-label">Enter the recipient Email :</label>
+                                                    <input type="email" name="email" class="form-control" id="email" style="padding: 5px !important;">
+                                                </div>
+                                                <div class="">
+                                                    <label for="recipient-amount" class="col-form-label">Enter the Amount :</label>
+                                                    <input type="text" name="amount" class="form-control" id="amount" style="padding: 5px !important;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-dark">Transfer</button>
+                                            </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                        </div>
+
+                    </div>
+
+                        <div class="col-12" style="margin-top: 4rem;">
+                        <span style="color: red;"><b>{{this.transferError}}</b></span>
+                        <span style="color: green;"><b>{{this.transfer}}</b></span>
+                        </div>
+                        <div class="col-12 table-responsive" style="margin-top: 4rem;">
+                            <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Reason</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                                {{#each transact.[0].transactions}}
+                                {{#eq this.status "pending"}}
+                                {{else}}
+                                <tr>
+                                <th scope="row">{{inc @index}}</th>
+                                <td><b>Rs. {{this.amount}}</b></td>
+                                <td><b>{{this.reason}}</b></td>
+                                <td><b>#{{this.date}}</b></td>
+                                {{#eq this.type "credited"}}
+                                <td style="color: green;"><i class='bx bx-down-arrow-alt'><b>{{this.type}}</b></i></td>
+                                {{else}}
+                                <td style="color: red;"><b><i class='bx bx-up-arrow-alt'><b>{{this.type}}</b></i></b></td>
+                                {{/eq}}
+                                </tr>
+                                {{/eq}}
+                                {{/each}}
+                                
+                            </tbody>
+                            </table>
+
+                              <!-- Pagination -->
+             <nav class="d-flex justify-content-center justify-content-md-end">
+              <ul class="pagination pagination-sm text-gray-400">
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-left"></i>
+                  </a>
+                </li>
+            {{#each page}}
+                <li class="page-item" style="cursor: pointer;">
+                  <a class="page-link" onclick="page({{this}})">{{this}}</a>
+                </li>
+            {{/each}}
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+      $(document).ready(function(){
+    $("#gform").validate({
+       rules: {
+        amount:{
+            required:true,
+            digits:true
+        },
+    },
+    messages: {
+        amount:{
+            required:"Please enter the amount *",
+            digits:"Only digits are allowed *"
+        },
+        
+
+    },
+
+
+submitHandler:function (form,e) { 
+    e.preventDefault();
+    $.ajax({
+      url: "/addMoneyWallet",
+      method: 'post',
+      data: $('#gform').serialize(),
+
+
+      success: (response) => {
+        console.log(response)
+        razorpayPayment(response);
+      }
+    })
+}
+});
+
+function razorpayPayment(order) {
+    console.log(order)
+    let amount = order.Order.amount
+
+    var options = {
+      "key": "rzp_test_u4PWgGUt0TF205", // Enter the Key ID generated from the Dashboard
+      "amount": amount.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Auverse",
+      "description": "Test Transaction",
+      "order_id": order.Order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+      "handler": function (response) {
+
+
+
+
+        verifyPayment(response, order);
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+
+  };
+
+  function verifyPayment(payment, order) {
+    console.log("hi")
+    console.log(payment, order)
+    $.ajax({
+      url: '/verifyWalletPayment',
+      data: {
+        payment,
+        order
+      },
+      method: 'post',
+      success: (response) => {
+        console.log(response)
+        if (response.status) {
+          location.href='/userWallet'
+        } else {
+          alert("payment failed");
+        }
+      }
+    });
+  };
+
+
+
+});
+</script>
+
+
+<script>
+          $(document).ready(function(){
+    $("#sform").validate({
+       rules: {
+        amount:{
+            required:true,
+            digits:true
+        },
+        email:{
+            required:true,
+            email:true
+        }
+    },
+    messages: {
+        amount:{
+            required:"Please enter the amount *",
+            digits:"Only digits are allowed *"
+        },
+        email:{
+            required:"Please enter the amount *",
+            email:"Enter a valid Email *"
+        }
+        
+
+    },
+})
+});
+</script>
+
+
+     <script>
+
+  function page(value) {
+    
+
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set('p', value);
+    let newParams = params.toString();
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+    console.log(newParams)
+   location.href = window.location.protocol + "//" + window.location.host + '/userWallet?' + newParams;
+  }
+</script>
+
+
+

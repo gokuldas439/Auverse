@@ -1,0 +1,122 @@
+<nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+             <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+
+          </div>
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+            <div class="row">
+
+
+
+              {{#each addresslist}}
+              <div class="col-12 col-lg-6">
+                <div class="card card-lg bg-light mb-8">
+                  <div class="card-body">
+
+                    <!-- Heading -->
+                    <h6 class="mb-6">
+                      Address {{inc @index}}
+                    </h6>
+
+                    <!-- Text -->
+                    <p class="text-muted mb-0">
+                     {{this.firstname}} {{this.lastname}}, <br>
+                      {{this.address}}, <br>
+                      {{this.city}}, {{this.state}}, <br>
+                      {{this.pincode}}<br><br>
+                    email: {{this.email}}<br>
+                    contact: {{this.number}}
+                    </p>
+
+                    <!-- Action -->
+                    <div class="card-action card-action-end">
+
+                      <!-- Button -->
+                      <a class="btn btn-xs btn-circle btn-white-primary" href="editAddress/{{this.address_id}}">
+                        <i class="fe fe-edit-2"></i>
+                      </a>
+
+                      <!-- Button -->
+                      <a class="btn btn-xs btn-circle btn-white-primary" href="/removeAddress/{{this.address_id}}">
+                        <i class="fe fe-x"></i>
+                      </a>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+
+
+              
+              <div class="col-12">
+
+                <!-- Button -->
+                <a class="btn w-100 btn-lg btn-outline-border" href="/addAddress">
+                  Add Address <i class="fe fe-plus"></i>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

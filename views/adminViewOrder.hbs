@@ -1,0 +1,261 @@
+ <style>
+      .card-body{
+        margin-left: 0px !important;
+      }
+       @media (min-width: 992px){
+        .offset-lg-1 {
+         margin-left: 13.333333% !important;
+      }
+      }
+    </style>
+
+ <section class="pt-7 pb-12" style="margin-top: 12rem;">
+      <div class="container">
+        <div class="row">
+          <div class="col-11 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">Order Details</h3>
+
+          </div>
+        </div>
+        
+          {{#with orderDetails}}
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+            <!-- Order -->
+            <div class="card card-lg mb-5 border" style="background-color: #ededed;">
+              <div class="card-body pb-0">
+
+                <!-- Info -->
+                <div class="card card-sm">
+                  <div class="card-body bg-light">
+                    <div class="row">
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order No:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          {{this.tracking_id}}
+                        </p>
+<input type="text" id="trackingid" value="{{this.tracking_id}}" hidden>
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Ordered date:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          <time datetime="2019-10-01">
+                            {{this.ordered_on}}
+                          </time>
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Status:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          {{this.orderstatus}}
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order Amount:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          Rs. {{toLocaleString this.afterDicountTotal}}
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-footer">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Order Item</h6>
+
+                <!-- Divider -->
+                <hr class="my-5">
+                    {{#each product}}
+                <!-- List group -->
+                <ul class="list-group list-group-lg list-group-flush-y list-group-flush-x" style="margin-bottom: 15px;">
+                  <li class="list-group-item">
+                    <div class="row align-items-center">
+                      <div class="col-4 col-md-3 col-xl-2">
+
+                        <!-- Image -->
+                        <a href=""><img src="{{this.productDetails.images.[0]}}" alt="..." class="img-fluid"></a>
+
+                      </div>
+                      <div class="col">
+
+                        <!-- Title -->
+                        <p class="mb-4 fs-sm fw-bold">
+                          <a class="text-body">{{this.productDetails.name}}</a> <br>
+                           {{#when this.productDetails.price 'eq' this.productDetails.offerprice}}
+                        <span class="text" style="color: red;">Rs. {{toLocaleString this.productDetails.offerprice}}</span><br>
+                        <span class="fw text-muted" >( No offers were available at the time of purchase )</span>
+                           {{else}}
+                          <span class="text-muted"><del>Rs. {{toLocaleString this.productDetails.price}}</del></span><br>
+                          <span class="text" style="color: red;">Rs. {{toLocaleString this.productDetails.offerprice}}</span>
+                           {{/when}}
+                        </p>
+
+                        <!-- Text -->
+                        <div class="fs-sm text-muted">
+                          
+                          Color: {{this.productDetails.color}} <br>
+                          Quantity: {{this.count}} 
+                        </div>
+
+                      </div>
+                      {{#if this.cancelled}}
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Cancelled
+                        </a>
+
+                      </div>
+                      {{else}}
+                      
+                      {{#eq ../this.orderstatus "Delivered"}}
+                      {{#if this.returned}}
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Cancelled
+                        </a>
+
+                      </div>
+                      {{else}}
+                      {{/if}}
+                      {{else}}
+                      
+                      {{/eq}}
+                      {{/if}}
+                    </div>
+                  </li>
+                 
+                </ul>
+            {{/each}}
+
+              </div>
+            </div>
+
+            <!-- Total -->
+            <div class="card card-lg mb-5 border" style="background-color: #ededed;">
+              <div class="card-body">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Order Total</h6>
+
+                <!-- List group -->
+                <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x" >
+                  <li class="list-group-item d-flex">
+                    <span>Subtotal</span>
+                    <span class="ms-auto" style="color:red;"><b>Rs. {{toLocaleString this.total}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Other Discounts</span>
+                    
+                    <span class="ms-auto" style="color: green;"><b>- Rs. {{toLocaleString this.discountAmount}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Shipping</span>
+                    <span class="ms-auto">Free</span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Coupon Applied</span>
+                    <span class="ms-auto"><b>{{this.couponApplied}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex fs-lg fw-bold">
+                    <span>Total</span>
+                    <span class="ms-auto" style="color: red;"><b>Rs. {{toLocaleString this.afterDicountTotal}}</b></span>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="card card-lg border" style="background-color: #ededed;">
+              <div class="card-body">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Billing & Shipping Details</h6>
+
+                <!-- Content -->
+                <div class="row">
+                  
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Shipping Address:
+                    </p>
+
+                    <p class="mb-7 mb-md-0 text-gray-500">
+                      {{this.address.firstname}} {{this.address.lastname}}, <br>
+                      {{this.address.address}}, <br>
+                      {{this.address.city}}, {{this.address.state}}, <br>
+                      {{this.address.pincode}}, <br>
+                     contact: {{this.address.number}}
+                    </p>
+
+                  </div>
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Order Status:
+                    </p>
+
+                    <p class="mb-7 text-gray-500">
+                      {{this.orderstatus}}
+                    </p>
+
+                    
+
+                  </div>
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Payment Method:
+                    </p>
+
+                    <p class="mb-0 text-gray-500">
+                      {{this.payment.method}}
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+         
+          </div>
+          
+          {{/with}}
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,481 @@
+
+<style>
+    .error{
+color: red;
+    }
+</style>
+
+
+
+
+
+<div id="content-wrapper" class="d-flex flex-column" style="margin-top: 12rem;">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-center align-item-center">
+            
+            <h5 class="m-0 font-weight-bold text-primary">Offers Management</h5>
+        </div>
+        <div class="row">
+
+             <div class="col-lg-6 col-md-6">
+                <div>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal11" style="margin: 1rem;"><i class="fa-solid fa-pen"></i>Add Category Offer</button>
+
+                   
+
+                   <div class="modal fade" id="exampleModal11" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel11">Add Category Offer</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="/addCategoryOffer" id="addCategoryOffer" method="post">
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">select Category
+                                                :</label>
+                                                    <select name="category">
+                                                        {{#each categories}}
+                                                    <option value="{{this._id}}">{{this.category}}</option>
+                                                    {{/each}}
+                                                    </select>    
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Category Discount
+                                                :</label>
+                                          <input type="text" class="form-control" name="discount">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Add Category Offer</button>
+                                    </div>
+                                     </form>
+                               
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+
+
+
+            <div class="card-body">
+                <div class="table-responsive ">
+                    <table class="table table-bordered" id="productdTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Category Name</th>
+                                <th scope="col" style="width: 100px !important;">Discount</th>
+
+                                <th scope="col" >Settings</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each categoriestable}}
+                            <tr>
+
+                                <td>{{this.category}}</td>
+                                <td>{{this.discount}}%</td>
+
+                                <td style="padding-left: 4rem !important;">
+                                    <a data-bs-toggle="modal" data-bs-target="#editproductModal1{{@index}}" href="" <i
+                                        class="fa-solid fa-pen-to-square "></i></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{@index}}" 
+                                    <i class="fa-solid fa-trash-can"></i></a>
+                                </td>
+                            </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editproductModal1{{@index}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="color:green ;">
+                                                Edit Category Offer
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        
+                                        <div class="modal-body">
+                                            <form action="/addCategoryOffer" id="editCategoryOffer" method="post"
+                                                class="tm-edit-product-form">
+                                                <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">selected Category
+                                                :</label>
+                                                    <select name="category">                                                       
+                                                    <option value="{{this._id}}">{{this.category}}</option>                                                    
+                                                    </select>    
+                                        </div>
+                                                <div class="for col-xl-12 col-lg-12 col-md-12 mb-3">
+                                                    <label for="name">Discount</label>
+                                                    <input name="discount" type="text"
+                                                        class="form-control validate" required
+                                                        value="{{this.discount}}" />
+                                                </div>
+                                                <div class="modal-footer">
+
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save
+                                                        Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---Modal End- --->
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop{{@index}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel" style="color:green;">
+                                                Delete
+                                                Category Offer</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you want to delete this Category Offer?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary"><a style="color: white;"
+                                                    href="/deleteCategoryOffer/{{this._id}}">Confirm</a> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            {{/each}}
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-6">
+                <div>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal1" style="margin: 1rem;"><i class="fa-solid fa-pen" ></i>Add Product Offer</button>
+
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">Add Product Offer</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="/addProductOffer" id="addProductOffer" method="post">
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">select Product
+                                                :</label>
+                                                    <select name="product" id="product">
+                                                        {{#each products}}
+                                                    <option value="{{this._id}}">{{this.name}}</option>
+                                                    {{/each}}
+                                                    </select>    
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Product Discount
+                                                :</label>
+                                          <input type="text" class="form-control" id="productdiscount" name="productdiscount">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Add Product Offer</button>
+                                    </div>
+                                     </form>
+                               
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="card-body">
+                <div class="table-responsive ">
+                    <table class="table table-bordered" id="couponTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Product Name </th>
+                                <th scope="col" style="width: 100px !important;">Discount</th>
+
+                                <th scope="col">Settings</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each productstable}}
+                            <tr>
+
+                                <td>{{this.name}}</td>
+                                <td>{{this.productDiscount}}%</td>
+
+                                <td style="padding-left: 4rem !important;">
+                                    <a data-bs-toggle="modal" data-bs-target="#editproduct{{@index}}" href="" <i
+                                        class="fa-solid fa-pen-to-square "></i></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#static{{@index}}" <i
+                                        class="fa-solid fa-trash-can"></i></a>
+                                </td>
+
+                            </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editproduct{{@index}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="color:green ;">
+                                                Edit Product Offer
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/addProductOffer" id="editProductOffer" method="post"
+                                                class="tm-edit-product-form">
+                                                <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">select Product
+                                                :</label>
+                                                    <select name="product" id="product">
+                                                        
+                                                    <option value="{{this._id}}">{{this.name}}</option>
+                                                    
+                                                    </select>    
+                                        </div>
+                                                <div class="for col-xl-12 col-lg-12 col-md-12 mb-3">
+                                                    <label for="name">Discount</label>
+                                                    <input name="productdiscount" type="text"
+                                                        class="form-control validate" required
+                                                        value="{{this.productDiscount}}" />
+                                                </div>
+                                                <div class="modal-footer">
+
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save
+                                                        Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!---Modal End- --->
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="static{{@index}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel" style="color:green;">
+                                                Delete
+                                                Product Offer</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you want to delete this Product Offer?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary"><a style="color: white;"
+                                                    href="/deleteProductOffer/{{this._id}}">Confirm</a> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+       </div>
+</div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#couponTable').DataTable();
+    });
+
+    $(document).ready(function () {
+        $('#productdTable').DataTable();
+    });
+</script>
+
+
+
+
+  <script>
+    $(document).ready(function(){
+    
+    $("#addCategoryOffer").validate({
+       rules: {
+        category:{
+            required:true,
+        },
+        discount:{
+            required:true,
+            minlength:1,
+            maxlength:2
+        },
+    },
+    messages: {
+        category:{
+            required:"Please select category name *",
+        },
+        discount: {
+            required:"Please enter discount price *",
+            maxlength:"enter between 10-99%",
+            minlength:'enter between 10-99% '
+        },
+
+    },
+});
+
+});
+   </script>
+
+
+  <script>
+    $(document).ready(function(){
+    
+    $("#editCategoryOffer").validate({
+       rules: {
+        category:{
+            required:true,
+        },
+        discount:{
+            required:true,
+            minlength:1,
+            maxlength:2
+        },
+    },
+    messages: {
+        category:{
+            required:"Please select category name *",
+        },
+        discount: {
+            required:"Please enter discount price *",
+            maxlength:"enter between 10-99%",
+            minlength:'enter between 10-99% '
+        },
+
+    },
+});
+
+});
+   </script>
+
+  <script>
+    $(document).ready(function(){
+    
+    $("#addProductOffer").validate({
+       rules: {
+        product:{
+            required:true,
+        },
+        productdiscount:{
+            required:true,
+            minlength:1,
+            maxlength:2
+        },
+    },
+    messages: {
+        product:{
+            required:"Please select product name *",
+        },
+        productdiscount: {
+            required:"Please enter discount price *",
+            maxlength:"enter between 10-99%",
+            minlength:'enter between 10-99% '
+        },
+
+    },
+});
+
+});
+   </script>
+  <script>
+    $(document).ready(function(){
+    
+    $("#editProductOffer").validate({
+       rules: {
+        product:{
+            required:true,
+        },
+        productdiscount:{
+            required:true,
+            minlength:1,
+            maxlength:2
+        },
+    },
+    messages: {
+        product:{
+            required:"Please select product name *",
+        },
+        productdiscount: {
+            required:"Please enter discount price *",
+            maxlength:"enter between 10-99%",
+            minlength:'enter between 10-99% '
+        },
+
+    },
+});
+
+});
+   </script>

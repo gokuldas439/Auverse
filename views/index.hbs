@@ -1,0 +1,582 @@
+{{!-- <div style="height:500px; background-color:black"></div> --}}
+
+    
+
+    <style>
+  #heart{
+     animation:move 3s infinite ease-in-out;
+ }
+
+@keyframes move{
+0%{
+ transform: scale(1) rotate(0deg);
+}
+  100%{
+   transform: scale(1.6) rotate(0.1deg);
+
+  }
+
+}
+</style>
+   
+
+
+
+    <!-- NAVBAR -->
+    
+
+    <!-- PROMO -->
+    <div class="py-3 bg-dark bg-pattern mb-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+    
+            <!-- Text -->
+            <div class="text-center text-white">
+              <span class="heading-xxs letter-spacing-xl">
+                ⚡️ You are Entering into AudioVerse ⚡️
+              </span>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+      class="active" in first one
+     -->
+    <!-- CATEGORIES -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        {{#each banners}}
+        <button type="button" id="carouselbutton{{@index}}" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{@index}}" aria-label="Slide {{inc @index}}"></button>
+        {{!-- <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button> --}}
+        {{/each}}
+      </div>
+      
+      <div class="carousel-inner">
+        {{!-- active here first one --}}
+        {{#each banners}}
+        <div class="carousel-item " id="carouselimage{{@index}}">
+          <img src="{{this.image}}" class="d-block w-100" style="height:550px; object-fit: cover;" alt="...">
+        </div>
+        {{/each}}
+      </div>
+
+      {{!-- script for making carousel active............ --}}
+      <script>
+        document.getElementById('carouselbutton0').classList.add("active");
+        document.getElementById('carouselimage0').classList.add("active")
+      </script>
+     
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+   
+
+    <!-- BEST PICKS -->
+    <section class="pt-12">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+
+            <!-- Preheading -->
+            <h6 class="heading-xxs mb-3 text-gray-400">
+              New Arrivals
+            </h6>
+
+            <!-- Heading -->
+            <h2 class="mb-4">Explore Auverse</h2>
+
+            <!-- Subheading -->
+            <p class="mb-10 text-gray-500">
+              Just Listen to the Waves of Auverse.....
+            </p>
+
+          </div>
+        </div>
+        <div class="row">
+        {{#with allCategories.[0]}}
+          <div class="col-12 col-md-5 col-lg-4 d-flex flex-column">
+
+            <!-- Card -->
+            <div class="card mb-7 text-white" style="min-height: 400px; ">
+
+              <!-- Background -->
+              <div class="card-bg">
+                <div class="card-bg-img bg-cover" style="background-image: url(/images/jonas-jacobsson-W6wKfTs5Rxc-unsplash.jpg);"></div>
+              </div>
+
+              <!-- Body -->
+              <div class="card-body my-auto text-center">
+
+                <!-- Heading -->
+                <h4 class="mb-0 ">{{this.category}}</h4>
+
+                <!-- Link -->
+                <a class="btn btn-link stretched-link text-reset" href="/products?categoryId={{this._id}}">
+                  Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+          {{/with}}
+
+        {{#with allCategories.[1]}}
+
+          <div class="col-12 col-md-7 col-lg-8 d-flex flex-column">
+
+            <!-- Card -->
+            <div class="card mb-7 text-body" style="min-height: 400px;">
+
+              <!-- Background -->
+              <div class="card-bg">
+                <div class="card-bg-img bg-cover" style="background-image: url(images/juja-han-HU-uL54pfQI-unsplash.jpg);"></div>
+              </div>
+
+              <!-- Body -->
+              <div class="card-body my-auto px-md-10 text-center text-md-start">
+
+                <!-- Circle in a circle sale will be written-->
+                <!-- <div class="card-circle card-circle-lg card-circle-end">
+                  <strong>save</strong>
+                  <span class="fs-4 fw-bold">30%</span>
+                </div> -->
+
+                <!-- Heading -->
+                <h4 class="mb-0 text-white">{{this.category}}</h4>
+
+                <!-- Link -->
+                <a class="btn btn-link stretched-link px-0 text-white " href="/products?categoryId={{this._id}}">
+                  Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+          {{/with}}
+          {{#with allCategories.[2]}}
+          <div class="col-12 col-md-7 col-lg-8 d-flex flex-column">
+
+            <!-- Card -->
+            <div class="card mb-7 mb-md-0 text-body" style="min-height: 400px;">
+
+              <!-- Background -->
+              <div class="card-bg">
+                <div class="card-bg-img bg-cover" style="background-image: url(images/callum-t-gJEF2xDGMLk-unsplash.jpg);"></div>
+              </div>
+
+              <!-- Body -->
+              <div class="card-body my-auto px-md-10 text-center text-md-start">
+
+                <!-- Heading -->
+                <h4 class="mb-0 text-white">{{this.category}}</h4>
+
+                <!-- Link -->
+                <a class="btn btn-link stretched-link px-0 text-white" href="/products?categoryId={{this._id}}">
+                  Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+          {{/with}}
+          {{#with allCategories.[3]}}
+
+          <div class="col-12 col-md-5 col-lg-4 d-flex flex-column">
+
+            <!-- Card -->
+            <div class="card text-white" style="min-height: 400px;">
+
+        
+              <!-- Background -->
+              <div class="card-bg">
+                <div class="card-bg-img bg-cover" style="background-image: url(/images/screen-post-jGpgpFsCECc-unsplash.jpg);"></div>
+              </div>
+
+              <!-- Body -->
+              <div class="card-body my-auto text-center">
+
+                <!-- Heading -->
+                <h4 class="mb-0">{{this.category}}</h4>
+
+                <!-- Link -->
+                <a class="btn btn-link stretched-link text-reset" href="/products?categoryId={{this._id}}">
+                  Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+          {{/with}}
+        </div>
+      </div>
+    </section>
+
+    <!--Products list -->
+    <section class="py-12">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+
+            <!-- Heading -->
+            <h2 class="mb-4 text-center">Products</h2>
+
+            <!-- Nav -->
+            <div class="nav justify-content-center mb-10">
+              <a class="nav-link active" href="#topSellersTab" data-bs-toggle="tab">All</a>
+              <!-- <a class="nav-link" href="#topSellersTab" data-bs-toggle="tab">Men</a>
+              <a class="nav-link" href="#topSellersTab" data-bs-toggle="tab">Kids</a> -->
+            </div>
+
+          </div>
+        </div>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="topSellersTab">
+            <div class="row">
+              {{#each products}}
+              <div class="col-6 col-md-4 col-lg-3">
+
+                <!-- Card -->
+               <div class="card mb-7">
+
+                  <!-- Badge -->
+                  
+
+                  <!-- Image -->
+                  <div class="card-img">
+
+                    <!-- Image -->
+                    <a class="card-img-hover" href="/products/view-product/{{this._id}}">
+                      <img class="card-img-top card-img-back" src="{{this.images.[1]}}" alt="...">
+                      <img class="card-img-top card-img-front" src="{{this.images.[2]}}" alt="...">
+                    </a>
+
+                    <!-- Actions -->
+                    <div class="card-actions">
+                      
+                      <span class="card-action" style="z-index: 2;">
+                        <a href="/addtoCart/{{this._id}}" ><button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                          <i class="fe fe-shopping-cart"></i>
+                        </button></a>
+                      </span>
+                      {{#if this.wishlist}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" id="heart" data-toggle="button">
+                          ❤️
+                        </a>
+                      </span>
+                      {{else}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" data-toggle="button">
+                          <i class="fe fe-heart"></i>
+                        </a>
+                      </span>
+                      {{/if}}
+                    </div>
+
+                  </div>
+
+                  <!-- Body -->
+                   <div class="card-body px-0">
+
+                    <!-- Category -->
+                    {{!-- <div class="fs-xs">
+                      <a class="text-muted" href="shop.html">{{this.category}}</a>
+                    </div> --}}
+
+                    <!-- Title -->
+                    <div class="fw-bold">
+                      <a class="text-body" href="/products/view-product/{{this._id}}">
+                        {{this.name}}
+                      </a>
+                    </div>
+
+                    <!-- Price -->
+                     {{#when this.price 'eq' this.offerprice}}
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                      Rs. {{toLocaleString this.price}}
+                    </div>
+                    <div class="fw text-muted" >
+                     ( Currently no offers available )
+                    </div>
+                    
+                    {{else}}
+                    <div class="fw-bold text-muted">
+                      <del>Rs. {{toLocaleString this.price}}</del>
+                      {{#when this.productDiscount 'gt' this.categoryDiscount}}
+                      <span style="color: green;"> ({{this.productDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'gt' this.productDiscount}}
+                      <span style="color: green;"> ({{this.categoryDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'eq' this.productDiscount}}
+                      <span style="color: green;font: size 10px;"> ({{this.categoryDiscount}}% off)</span>
+                      {{/when}}
+                      {{/when}}
+                      {{/when}}
+                    </div>
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                     Rs. {{toLocaleString this.offerprice}}
+                    </div>
+                   
+                    {{/when}}
+
+                  </div>
+
+                </div>
+
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Link  -->
+            <div class="mt-7 text-center">
+              <a class="link-underline" href="/products">Discover more</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- COUNTDOWN -->
+    {{!-- <section class="py-13 bg-cover" style="background-image: url(/images/offerimg.jpg)">
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- Heading -->
+            <h3 class="mb-7">
+              Get 40% Off from <br />Auverse Deals
+            </h3>
+
+            <!-- Counter -->
+            <div class="d-flex mb-9" data-countdown data-date="Dec 31, 2022 00:00:00">
+              <div class="text-center">
+                <div class="fs-1 fw-bolder text-primary" data-days>00</div>
+                <div class="heading-xxs text-muted">Days</div>
+              </div>
+              <div class="px-1 px-md-4">
+                <div class="fs-2 fw-bolder text-primary">:</div>
+              </div>
+              <div class="text-center">
+                <div class="fs-1 fw-bolder text-primary" data-hours>00</div>
+                <div class="heading-xxs text-muted">Hours</div>
+              </div>
+              <div class="px-1 px-md-4">
+                <div class="fs-2 fw-bolder text-primary">:</div>
+              </div>
+              <div class="text-center">
+                <div class="fs-1 fw-bolder text-primary" data-minutes>00</div>
+                <div class="heading-xxs text-muted">Minutes</div>
+              </div>
+              <div class="px-1 px-md-4">
+                <div class="fs-2 fw-bolder text-primary">:</div>
+              </div>
+              <div class="text-center">
+                <div class="fs-1 fw-bolder text-primary" data-seconds>00</div>
+                <div class="heading-xxs text-muted">Seconds</div>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <a class="btn btn-dark" href="/products">
+              Shop Now <i class="fe fe-arrow-right ms-2"></i>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section> --}}
+
+    
+
+    <!-- BRANDS -->
+    
+
+    <!-- FOOTER -->
+    <footer class="bg-dark bg-cover " style="background-image: url(/assets/img/patterns/pattern-2.svg)">
+      <div class="py-12 border-bottom border-gray-700">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-3">
+    
+              <!-- Heading -->
+              <h4 class="mb-6 text-white">Auverse</h4>
+    
+              <!-- Social -->
+              <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/gokuldas439/" class="text-gray-350">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.youtube.com/channel/UC-1feeFHbToQW1i_r0doJZA" class="text-gray-350">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/fanboy_offl" class="text-gray-350">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/_gokul._.das_/" class="text-gray-350">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://medium.com/@gokuldas439" class="text-gray-350">
+                    <i class="fab fa-medium"></i>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Support
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >Contact Us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >FAQs</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" data-bs-toggle="modal" >Auverse Finder</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">Shipping & Returns</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Shop
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >In-Ears</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Headphones</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Speakers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">offers</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm" >
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Company
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >about us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Careers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Terms & Conditions</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Privacy & Cookie policy</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Contact
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300">+91 7561876594</a>
+                </li>
+                
+                
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+    
+              <!-- Copyright -->
+              <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                © Auverse 2022 All rights reserved.
+              </p>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+
+    
+
+   
+

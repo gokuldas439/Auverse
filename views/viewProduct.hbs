@@ -1,0 +1,1221 @@
+<style>
+  #heart{
+     animation:move 3s infinite ease-in-out;
+ }
+
+@keyframes move{
+0%{
+ transform: scale(1) rotate(0deg);
+}
+  100%{
+   transform: scale(1.6) rotate(0.1deg);
+
+  }
+
+}
+
+.review-body{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+</style>
+
+<script src="/javascripts/imagezoom.js"></script>
+
+
+{{#each products}}
+
+    <!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb can be used to show :  products > category > brand > product name   -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/products">Products</a>
+              </li>
+              <li class="breadcrumb-item active">
+                {{this.name}}
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PRODUCT -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12 col-md-6">
+
+                <!-- Images -->
+                <div class="row gx-5 mb-10 mb-md-0">
+                  <div class="col-2">
+
+                    <!-- Slider -->
+                    <div class="thumbnail_images alignRow ">
+                                    <div class="imageColumn">
+                                        <img onmouseenter="changeImage('{{this.images.[1]}}')" src="{{this.images.[1]}}" style="width:100%;">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onmouseenter="changeImage('{{this.images.[2]}}')" src="{{this.images.[2]}}" style="width:100%">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onmouseenter="changeImage('{{this.images.[3]}}')" src="{{this.images.[3]}}" style="width:100%">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onmouseenter="changeImage('{{this.images.[1]}}')" src="{{this.images.[1]}}" style="width:100%">
+                                    </div>                       
+                        </div>
+
+                  </div>
+                  <div class="col-10">
+
+                    <!-- Card -->
+                    <div class="card">
+
+                      <div class="main_image" id="main_product_image" style="z-index: 2;"> 
+
+                      <!-- Badge -->
+                      {{#eq this.stocks 0}}
+                      <div class="badge bg-danger card-badge card-badge-end text-uppercase">
+                        Out of Stock
+                      </div>
+                      {{else}}
+                      <div class="badge bg-secondary card-badge card-badge-end text-uppercase">
+                        {{this.stocks}} stocks Left
+                      </div>
+                      {{/eq}}
+                      <img src="{{this.images.[1]}}" class="imagechanging" id="zoom" width="300">
+                    </div>
+                        
+                    </div>
+                </div>
+
+              </div>
+          </div>
+              
+           
+
+              <div class="col-12 col-md-6 ps-lg-10">
+
+                <!-- Header -->
+                <div class="row mb-1">
+                  <div class="col">
+
+                    <!-- Preheading -->
+                    <a class="text-muted">{{this.category.[0].category}}</a>
+
+                  </div>
+                    <!-- Rating -->
+                    {{#with allReview}}
+                    {{#eq this.totalRating 0}}
+                  <div class="col-auto">
+
+                    <div class="rating fs-xs text-dark" data-value="0">
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+
+                    <a class="fs-sm text-reset ms-2">
+                     No Reviews
+                    </a>
+
+                  </div>
+                  {{else}}
+                  <div class="col-auto">
+
+                    <div class="rating fs-xs text-dark" data-value="{{this.totalRating}}">
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <div class="rating-item">
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+
+                    <a class="fs-sm text-reset ms-2">
+                     Reviews ({{this.totalReviews}})
+                    </a>
+
+                  </div>
+                  {{/eq}}
+                  {{/with}}
+                </div>
+
+                <!-- Heading -->
+                <h3 class="mb-2">{{this.name}}</h3>
+
+                <!-- Price -->
+                <div class="mb-7 text-gray-400">
+                  {{#when this.price 'eq' this.offerprice}}
+                  <span class="ms-1 fs-5 fw-bold" style="color: red;">Rs. {{toLocaleString this.offerprice}}</span>
+
+                  {{else}}
+                  <span class="ms-1 fs-5 "><del>Rs. {{toLocaleString this.price}}</del></span>
+                  <span class="ms-1 fs-5 fw-bold" style="color: red;">Rs. {{toLocaleString this.offerprice}}</span>
+
+                  {{/when}}
+                 {{#eq this.stocks 0}}
+                  <span class="ms-1 fs-sm">( Out of stock )</span>
+                 {{else}}
+                  <span class="ms-1 fs-sm">({{this.stocks}} units left)</span>
+                {{/eq}}
+                </div>
+
+                <!-- Form -->
+                <form>
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <p class="mb-4">
+                      Color: <strong id="colorCaption">{{this.color}}</strong>
+                    </p>
+
+                    <!-- Radio -->
+                    <div class="mb-8 ms-n1" id="categoryAndBrand" style="display: flex; gap:10px;">
+                      <div class="form-check form-check-inline form-check-img">
+                        <p class="mb-4">
+                          Category: <strong id="colorCaption">{{this.category.[0].category}}</strong>
+                          </p>
+                        <!-- <input type="radio" class="form-check-input" id="imgRadioOne" name="imgRadio" data-toggle="form-caption" data-target="#colorCaption" value="White" style="background-image: url(assets/img/products/product-115.jpg);" checked> -->
+                      </div><br>
+                      <div class="form-check form-check-inline form-check-img">
+                        <p class="mb-4">
+                          Brand: <strong id="colorCaption">{{this.brand.[0].brand}}</strong>
+                        </p>                          
+                        <!-- <input type="radio" class="form-check-input" id="imgRadioOne" name="imgRadio" data-toggle="form-caption" data-target="#colorCaption" value="White" style="background-image: url(assets/img/products/product-115.jpg);" checked> -->
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    {{!-- <p class="mb-4">
+                      Size: <strong><span id="sizeCaption">Choose size</span></strong>
+                    </p> --}}
+
+                    <!-- Radio -->
+                    
+
+                    <!-- Size chart -->
+                    
+
+                    <div class="row gx-5 mb-7">
+                      <div class="col-12 col-lg-auto">
+
+                        <!-- Submit -->
+                        <a class="btn w-100 btn-dark mb-2" href="/addtoCart/{{this._id}}" >
+                          <i class="fe fe-shopping-cart me-2"></i>ADD TO CART
+                        </a>
+
+                      </div>
+                      <div class="col-12 col-lg-auto">
+
+                        <!-- Wishlist -->
+                        {{#if ../iswishlist}}
+                        <a class="btn btn-outline-dark w-100 mb-2" href="/addtoWishlist/{{this._id}}" data-toggle="button">
+                         Remove from Wishlist <i class="fe fe-heart ms-2"></i>
+                        </a>
+                        {{else}}
+                        <a class="btn btn-outline-dark w-100 mb-2" href="/addtoWishlist/{{this._id}}" data-toggle="button">
+                         Add to Wishlist <i class="fe fe-heart ms-2"></i>
+                        </a>
+                        {{/if}}
+
+                      </div>
+                    </div>
+
+                    <!-- Text -->
+                    <!-- <p>
+                      <span class="text-gray-500">Is your size/color sold out?</span>
+                      <a class="text-reset text-decoration-underline" data-bs-toggle="modal" href="#modalWaitList">Join the Wait List!</a>
+                    </p> -->
+
+                    <!-- Share -->
+                    <p class="mb-0">
+                      <span class="me-4">Share:</span>
+                      <a class="btn btn-xxs btn-circle btn-light fs-xxxs text-gray-350">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a class="btn btn-xxs btn-circle btn-light fs-xxxs text-gray-350">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                    </p>
+
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESCRIPTION -->
+    <section class="pt-11">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Nav -->
+            <div class="nav nav-tabs nav-overflow justify-content-start justify-content-md-center border-bottom">
+              <a class="nav-link active" data-bs-toggle="tab" href="#descriptionTab">
+                Description
+              </a>
+              
+              <a class="nav-link" data-bs-toggle="tab" href="#shippingTab">
+                Shipping & Return
+              </a>
+            </div>
+
+            <!-- Content -->
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="descriptionTab">
+                <div class="row justify-content-center py-9">
+                  <div class="col-12 col-lg-10 col-xl-8">
+                    <div class="row">
+                      <div class="col-12">
+
+                        <!-- Text -->
+                        <p class="text-gray-500">
+                         {{this.description}}
+                        </p>
+
+                      </div>
+                    
+                      <div class="col-12 col-md-6">
+
+                        <!-- List -->
+                        <ul class="list list-unstyled mb-md-0 text-gray-500">
+                          <li>
+                            <strong class="text-body">SKU</strong>: #61590437
+                          </li>
+                          <li>
+                            <strong class="text-body">Occasion</strong>: Daily use
+                          </li>
+                        </ul>
+
+                      </div>
+                      <div class="col-12 col-md-6">
+
+                        <!-- List -->
+                        <ul class="list list-unstyled mb-0">
+                          <li>
+                            <strong>Country</strong>: INDIA
+                          </li>
+                          <li>
+                            <strong>Item</strong>: Good
+                          </li>
+                        </ul>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane fade" id="shippingTab">
+                <div class="row justify-content-center py-9">
+                  <div class="col-12 col-lg-10 col-xl-8">
+
+                    <!-- Table -->
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                          <tr>
+                            <th>Shipping Options</th>
+                            <th>Delivery Time</th>
+                            <th>Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1 - 2 day Shipping</td>
+                            <td>Delivery in 1 - 2 working days</td>
+                            <td>Rs. 50</td>
+                          </tr>
+                          <tr>
+                            <td>Express Shipping</td>
+                            <td>Delivery in 3 - 5 working days</td>
+                            <td>Rs. 35</td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td>Standard Shipping</td>
+                            <td>Delivery in 5 - 7 working days</td>
+                            <td>Rs. 20</td>
+                          </tr>
+                            <td>Free Shipping</td>
+                            <td>
+                              Auverse also provides you Free Shipping...
+                            </td>
+                            <td>Rs. 0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Caption -->
+                    <p class="mb-0 text-gray-500">
+                      Terms & Conditions may apply *
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+  {{/each}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="pt-11">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Heading -->
+            <h4 class="mb-10 text-center">You might also like</h4>
+
+            <!-- Items -->
+            {{!-- <div class="row">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+
+                <!-- Card -->
+                <div class="card mb-7">
+
+                  <!-- Badge -->
+                  <div class="badge bg-white text-body card-badge card-badge-start text-uppercase">
+                    New
+                  </div>
+
+                  <!-- Image -->
+                  <div class="card-img">
+
+                    <!-- Image -->
+                    <a class="card-img-hover" href="product.html">
+                      <img class="card-img-top card-img-back" src="assets/img/products/product-120.jpg" alt="...">
+                      <img class="card-img-top card-img-front" src="assets/img/products/product-5.jpg" alt="...">
+                    </a>
+
+                    <!-- Actions -->
+                    <div class="card-actions">
+                      <span class="card-action">
+                        <button class="btn btn-xs btn-circle btn-white-primary" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                          <i class="fe fe-eye"></i>
+                        </button>
+                      </span>
+                      <span class="card-action">
+                        <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                          <i class="fe fe-shopping-cart"></i>
+                        </button>
+                      </span>
+                      <span class="card-action">
+                        <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                          <i class="fe fe-heart"></i>
+                        </button>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <!-- Body -->
+                  <div class="card-body px-0">
+
+                    <!-- Category -->
+                    <div class="fs-xs">
+                      <a class="text-muted" href="shop.html">Shoes</a>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="fw-bold">
+                      <a class="text-body" href="product.html">
+                        Leather mid-heel Sandals
+                      </a>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="fw-bold text-muted">
+                      $129.00
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              
+            </div> --}}
+
+            <div class="row">
+              {{#each productsAll}}
+              <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+
+                <!-- Card -->
+               <div class="card mb-7">
+
+                  <!-- Badge -->
+                  
+
+                  <!-- Image -->
+                  <div class="card-img">
+
+                    <!-- Image -->
+                    <a class="card-img-hover" href="/products/view-product/{{this._id}}">
+                      <img class="card-img-top card-img-back" src="{{this.images.[1]}}" alt="...">
+                      <img class="card-img-top card-img-front" src="{{this.images.[2]}}" alt="...">
+                    </a>
+
+                    <!-- Actions -->
+                    <div class="card-actions">
+                      
+                      <span class="card-action" style="z-index: 2;">
+                        <a href="/addtoCart/{{this._id}}" ><button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                          <i class="fe fe-shopping-cart"></i>
+                        </button></a>
+                      </span>
+                      {{#if this.wishlist}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" id="heart" data-toggle="button">
+                          ❤️
+                        </a>
+                      </span>
+                      {{else}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" data-toggle="button">
+                          <i class="fe fe-heart"></i>
+                        </a>
+                      </span>
+                      {{/if}}
+                    </div>
+
+                  </div>
+
+                  <!-- Body -->
+                   <div class="card-body px-0">
+
+                    <!-- Category -->
+                    {{!-- <div class="fs-xs">
+                      <a class="text-muted" href="shop.html">{{this.category}}</a>
+                    </div> --}}
+
+                    <!-- Title -->
+                    <div class="fw-bold">
+                      <a class="text-body" href="/products/view-product/{{this._id}}">
+                        {{this.name}}
+                      </a>
+                    </div>
+
+                    <!-- Price -->
+                     {{#when this.price 'eq' this.offerprice}}
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                      Rs. {{toLocaleString this.price}}
+                    </div>
+                    <div class="fw text-muted" >
+                     ( Currently no offers available )
+                    </div>
+                    <div class="fw-bold " >
+                     Only {{this.stocks}} units left.
+                    </div>
+                    {{else}}
+                    <div class="fw-bold text-muted">
+                      <del>Rs. {{toLocaleString this.price}}</del>
+                      {{#when this.productDiscount 'gt' this.categoryDiscount}}
+                      <span style="color: green;">  ({{this.productDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'gt' this.productDiscount}}
+                      <span style="color: green;">  ({{this.categoryDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'eq' this.productDiscount}}
+                      <span style="color: green;font: size 10px;">  ({{this.categoryDiscount}}% off)</span>
+                      {{/when}}
+                      {{/when}}
+                      {{/when}}
+                    </div>
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                     Rs. {{toLocaleString this.offerprice}}
+                    </div>
+                    {{#eq this.stocks 0}}
+                    <div class="fw-bold " style="color: red;" >
+                   ( Out of Stocks )                   
+                    </div>
+                     {{else}}
+                     
+                     <div class="fw-bold ">
+                     Only {{this.stocks}} units left.                   
+                    </div>
+                      {{/eq}}
+                    {{/when}}
+
+                  </div>
+
+                </div>
+
+              </div>
+              {{/each}}
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+ <!-- REVIEWS -->
+    <section class="py-11" id="reviews">
+      <div class="container">
+        <div class="row">
+
+          {{#if reviews}}
+          <div class="col-12">
+
+            <!-- Heading -->
+            <h4 class="mb-10 text-center">Customer Reviews</h4>
+              {{!-- ................................................................................. --}}
+            <!-- Header -->
+            <div class="row align-items-center">
+              <div class="col-12 col-md-auto">
+
+
+
+                {{!-- <!-- Dropdown -->
+                <div class="dropdown mb-4 mb-md-0">
+
+                  <!-- Toggle -->
+                  <a class="dropdown-toggle text-reset" data-bs-toggle="dropdown" href="#">
+                    <strong>Sort by: Newest</strong>
+                  </a>
+
+
+
+                  <!-- Menu -->
+                  <div class="dropdown-menu mt-3">
+                    <a class="dropdown-item" href="#!">Newest</a>
+                    <a class="dropdown-item" href="#!">Oldest</a>
+                  </div>
+
+                </div> --}}
+
+
+
+              </div>
+              {{#with allReview}}
+
+              <div class="col-12 col-md text-md-center">
+
+                <!-- Rating -->
+                {{#eq this.totalRating 0}}
+                <div class="rating text-dark h6 mb-4 mb-md-0">
+                {{else}}
+                <div class="rating text-dark h6 mb-4 mb-md-0" data-value="{{this.totalRating}}">
+                {{/eq}}
+                  <div class="rating-item">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="rating-item">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="rating-item">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="rating-item">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="rating-item">
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+
+                <!-- Count -->
+                <strong class="fs-sm ms-2">Reviews ({{this.totalReviews}})</strong>
+
+              </div>
+
+              {{#if eligible}}
+              <div class="col-12 col-md-auto">
+
+                <!-- Button -->
+                <a class="btn btn-sm btn-dark" data-bs-toggle="collapse" href="#reviewForm">
+                  Write Review
+                </a>
+
+              </div>
+              {{else}}
+              {{/if}}
+            </div>
+
+              {{#if eligible}}
+            <!-- New Review -->
+            <div class="collapse" id="reviewForm">
+
+              <!-- Divider -->
+              <hr class="my-8">
+              {{!-- {{#with product.[0]}} --}}
+              <!-- Form -->
+              <form action="/addReview/{{this.productId}}" method="post">
+                <div class="row">
+                  <div class="col-12 mb-6 text-center">
+
+                    <!-- Text -->
+                    <p class="mb-1 fs-xs">
+                      Score:
+                    </p>
+
+                    <!-- Rating form -->
+                    <div class="rating-form">
+
+                      <!-- Input -->
+                      <input class="rating-input" name="star" type="range" min="1" max="5" value="5">
+
+                      <!-- Rating -->
+                      <div class="rating h5 text-dark" data-value="5">
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-md-6">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewName">Your Name:</label>
+                      <input class="form-control form-control-sm" id="reviewName" name="name" type="text" placeholder="Your Name *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-md-6">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewEmail">Your Email:</label>
+                      <input class="form-control form-control-sm" id="reviewEmail" name="email" type="email" placeholder="Your Email *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewTitle">Review Title:</label>
+                      <input class="form-control form-control-sm" id="reviewTitle" name="title" type="text" placeholder="Review Title *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewText">Review:</label>
+                      <textarea class="form-control form-control-sm" id="reviewText" name="review" rows="5" placeholder="Review *" required></textarea>
+                    </div>
+
+                  </div>
+                  <div class="col-12 text-center">
+
+                    <!-- Button -->
+                    <button class="btn btn-outline-dark" type="submit">
+                      Post Review
+                    </button>
+
+                  </div>
+                </div>
+              </form>
+              {{!-- {{/with}} --}}
+            </div>
+
+            
+              {{else}}
+              {{/if}}
+            <!-- Reviews -->
+            <div class="mt-8">
+
+              <!-- Review -->
+              {{#each reviews}}
+              <div class="review">
+                <div class="review-body">
+                  <div class="row">
+                    <div class="col-12 col-md-auto">
+
+                      <!-- Avatar -->
+                      <div class="avatar avatar-xxl mb-6 mb-md-0">
+                        <span class="avatar-title rounded-circle">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </div>
+
+                    </div>
+                    <div class="col-12 col-md">
+
+                      <!-- Header -->
+                      <div class="row mb-6">
+                        <div class="col-12">
+
+                          <!-- Rating -->
+                          <div class="rating fs-sm text-dark" data-value="{{this.rating}}">
+                            <div class="rating-item">
+                              <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-item">
+                              <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-item">
+                              <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-item">
+                              <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-item">
+                              <i class="fas fa-star"></i>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="col-12">
+
+                          <!-- Time -->
+                          <span class="fs-xs text-muted">
+                            {{this.username}}, <span>{{this.createdOn}}</span>
+                          </span>
+
+                        </div>
+                      </div>
+
+                      <!-- Title -->
+                      <p class="mb-2 fs-lg fw-bold">
+                        {{this.reviewTitle}}
+                      </p>
+
+                      <!-- Text -->
+                      <p class="text-gray-500">
+                        {{this.reviewDescription}}
+                      </p>
+
+                      <!-- Footer -->
+                      {{!-- <div class="row align-items-center">
+                        <div class="col-auto d-none d-lg-block">
+
+                          <!-- Text -->
+                          <p class="mb-0 fs-sm">Was this review helpful?</p>
+
+                        </div>
+
+                        
+                        <div class="col-auto me-auto">
+
+                          <!-- Rate -->
+                          <div class="rate">
+                            <a class="rate-item" data-toggle="vote" data-count="3" href="#" role="button">
+                              <i class="fe fe-thumbs-up"></i>
+                            </a>
+                            <a class="rate-item" data-toggle="vote" data-count="0" href="#" role="button">
+                              <i class="fe fe-thumbs-down"></i>
+                            </a>
+                          </div>
+
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+
+                          <!-- Text -->
+                          <p class="mb-0 fs-sm">Comments (0)</p>
+
+                        </div>
+                        <div class="col-auto">
+
+                          <!-- Button -->
+                          <a class="btn btn-xs btn-outline-border" href="#!">
+                            Comment
+                          </a>
+
+                        </div>
+                      </div> --}}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+                {{/with}}
+             
+
+            </div>
+
+            <!-- Pagination -->
+            {{!-- <nav class="d-flex justify-content-center mt-9">
+              <ul class="pagination pagination-sm text-gray-400">
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-left"></i>
+                  </a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav> --}}
+
+          </div>
+          {{else}}
+
+          <div class="col-12">
+
+            <!-- Heading -->
+            <h4 class="mb-10 text-center">Customer Reviews</h4>
+
+            <!-- No reviews -->
+            <div class="text-center">
+
+              <!-- Icon -->
+              <div class="mb-6 fs-1">🙁</div>
+
+              <!-- Text -->
+              <p>
+                No reviews have been published.
+                Place an order to write a review After Delivered.
+              </p>
+
+              <!-- Button-->
+              {{#if eligible}}
+              <a class="btn btn-sm btn-dark" data-bs-toggle="collapse" href="#reviewForm">
+                Write Review
+              </a>
+                {{/if}}
+            </div>
+
+            <!-- New Review -->
+            {{#if eligible}}
+            <div class="collapse" id="reviewForm">
+
+              <!-- Divider -->
+              <hr class="my-8">
+              {{!-- {{#with product.[0]}} --}}
+              <!-- Form -->
+              <form action="/addReview/{{this.productId}}" method="post">
+                <div class="row">
+                  <div class="col-12 mb-6 text-center">
+
+                    <!-- Text -->
+                    <p class="mb-1 fs-xs">
+                      Score:
+                    </p>
+
+                    <!-- Rating form -->
+                    <div class="rating-form">
+
+                      <!-- Input -->
+                      <input class="rating-input" name="star" type="range" min="1" max="5" value="5">
+
+                      <!-- Rating -->
+                      <div class="rating h5 text-dark" data-value="5">
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-item">
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-md-6">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewName">Your Name:</label>
+                      <input class="form-control form-control-sm" id="reviewName" name="name" type="text" placeholder="Your Name *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-md-6">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewEmail">Your Email:</label>
+                      <input class="form-control form-control-sm" id="reviewEmail" name="email" type="email" placeholder="Your Email *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewTitle">Review Title:</label>
+                      <input class="form-control form-control-sm" id="reviewTitle" name="title" type="text" placeholder="Review Title *" required>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                      <label class="visually-hidden" for="reviewText">Review:</label>
+                      <textarea class="form-control form-control-sm" id="reviewText" name="review" rows="5" placeholder="Review *" required></textarea>
+                    </div>
+
+                  </div>
+                  <div class="col-12 text-center">
+
+                    <!-- Button -->
+                    <button class="btn btn-outline-dark" type="submit">
+                      Post Review
+                    </button>
+
+                  </div>
+                </div>
+              </form>
+              {{!-- {{/with}} --}}
+            </div>
+            {{/if}}
+          </div>
+
+          {{/if}}
+
+        </div>
+      </div>
+    </section>
+
+
+ <!-- FOOTER -->
+    <footer class="bg-dark bg-cover " style="background-image: url(/assets/img/patterns/pattern-2.svg)">
+      <div class="py-12 border-bottom border-gray-700">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-3">
+    
+              <!-- Heading -->
+              <h4 class="mb-6 text-white">Auverse</h4>
+    
+              <!-- Social -->
+              <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/gokuldas439/" class="text-gray-350">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.youtube.com/channel/UC-1feeFHbToQW1i_r0doJZA" class="text-gray-350">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/fanboy_offl" class="text-gray-350">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/_gokul._.das_/" class="text-gray-350">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://medium.com/@gokuldas439" class="text-gray-350">
+                    <i class="fab fa-medium"></i>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Support
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >Contact Us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >FAQs</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" data-bs-toggle="modal" >Auverse Finder</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">Shipping & Returns</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Shop
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >In-Ears</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Headphones</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Speakers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">offers</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm" >
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Company
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >about us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Careers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Terms & Conditions</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Privacy & Cookie policy</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Contact
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300">+91 7561876594</a>
+                </li>
+                
+                
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+    
+              <!-- Copyright -->
+              <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                © Auverse 2022 All rights reserved.
+              </p>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+{{!-- 
+<script>
+  var options2 = {
+    fillContainer: true,
+    offset: {vertical: 0, horizontal: 10}
+};
+new ImageZoom(document.getElementById("img-container"), options2);
+</script>
+<style>
+  .MagicZoom:hover{
+transform: scale(2);
+  }
+</style> --}}
+
+<script>
+    function changeImage(element) {
+        var main_product_image = document.getElementById('zoom');
+        main_product_image.src = element;
+    }
+    $('#zoom').imagezoomsl();
+</script>

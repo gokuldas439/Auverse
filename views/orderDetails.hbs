@@ -1,0 +1,490 @@
+ <style>
+      .card-body{
+        margin-left: 0px !important;
+      }
+    </style>
+
+ <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">Order Details</h3>
+
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          {{!-- <div class="col-12 col-md-3"> --}}
+
+            <!-- Nav -->
+             {{!-- <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav> --}}
+
+          {{!-- </div> --}}
+          {{#with orderDetails}}
+          <div class="col-12 col-md-9 col-lg-8" id="printDiv">
+
+            <!-- Order -->
+            <div class="card card-lg mb-5 border " style="background-color: #ededed;">
+              <div class="card-body pb-0">
+
+                <!-- Info -->
+                <div class="card card-sm">
+                  <div class="card-body bg-light">
+                    <div class="row">
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order No:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          {{this.tracking_id}}
+                        </p>
+              <input type="text" id="trackingid" value="{{this.tracking_id}}" hidden>
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Ordered date:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-lg-0 fs-sm fw-bold">
+                          <time datetime="2019-10-01">
+                            {{this.ordered_on}}
+                          </time>
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Status:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          {{this.orderstatus}}
+                        </p>
+
+                      </div>
+                      <div class="col-6 col-lg-3">
+
+                        <!-- Heading -->
+                        <h6 class="heading-xxxs text-muted">Order Amount:</h6>
+
+                        <!-- Text -->
+                        <p class="mb-0 fs-sm fw-bold">
+                          Rs. {{toLocaleString this.afterDicountTotal}}
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-footer">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Order Item</h6>
+
+                <!-- Divider -->
+                <hr class="my-5">
+                    {{#each product}}
+                <!-- List group -->
+                <ul class="list-group list-group-lg list-group-flush-y list-group-flush-x" style="margin-bottom: 15px;">
+                  <li class="list-group-item">
+                    <div class="row align-items-center">
+                      <div class="col-4 col-md-3 col-xl-2">
+
+                        <!-- Image -->
+                        <a href="/products/view-product/{{this.productDetails._id}}"><img src="{{this.productDetails.images.[0]}}" alt="..." class="img-fluid"></a>
+
+                      </div>
+                      <div class="col">
+
+                        <!-- Title -->
+                        <p class="mb-4 fs-sm fw-bold">
+                          <a class="text-body">{{this.productDetails.name}}</a> <br>
+                           {{#when this.productDetails.price 'eq' this.productDetails.offerprice}}
+                        <span class="text" style="color: red;">Rs. {{toLocaleString this.productDetails.offerprice}}</span><br>
+                        <span class="fw text-muted" >( No offers were available at the time of purchase )</span>
+                           {{else}}
+                          <span class="text-muted"><del>Rs. {{toLocaleString this.productDetails.price}}</del></span><br>
+                          <span class="text" style="color: red;">Rs. {{toLocaleString this.productDetails.offerprice}}</span>
+                           {{/when}}
+                        </p>
+
+                        <!-- Text -->
+                        <div class="fs-sm text-muted">
+                          
+                          Color: {{this.productDetails.color}} <br>
+                          Quantity: {{this.count}} 
+                        </div>
+
+                      </div>
+                      {{#if this.cancelled}}
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Cancelled
+                        </a>
+
+                      </div>
+                      {{else}}
+                      {{#if this.returned}}
+                      <div class="col-4">
+
+                        <!-- Button -->
+                        <a class="btn btn-sm w-100 btn-outline-dark" style="padding: 0px !important; justify-content: center; height: 48px; padding-top: 11px !important; border:none;  color:red;">
+                          Returned
+                        </a>
+
+                      </div>
+                      {{else}}
+                      {{#eq ../this.orderstatus "Delivered"}}
+                      <div class="col-4" style="cursor:pointer;">  
+                      <form action="/returnProduct/{{this.productDetails._id}}" method="post" >                                           
+                        {{!-- <div class="btn btn-sm w-100 btn-outline-dark"  style="padding: 0px !important; justify-content: center; border:none; cursor:pointer;"> --}}
+                         <button type="submit" style="height: 3rem; color: white; background-color: black; font-size: 14px;">Return order</button>
+                        <input type="text" name="trackid" value="{{../this.tracking_id}}" hidden>
+                        {{!-- </div> --}}
+                        </form>                    
+                      </div>
+                      {{else}}
+                      <div class="col-4" style="cursor:pointer;">  
+                      <form action="/userCancelSingleOrder/{{this.productDetails._id}}" method="post" >                                           
+                        {{!-- <div class="btn btn-sm w-100 btn-outline-dark"  style="padding: 0px !important; justify-content: center; border:none; cursor:pointer;"> --}}
+                         <button type="submit" style="height: 3rem; color: white; background-color: black; font-size: 14px;">Cancel order</button>
+                        <input type="text" name="trackid" value="{{../this.tracking_id}}" hidden>
+                        <input type="text" name="orderId" value="{{../this.tracking_id}}" hidden>
+                        {{!-- </div> --}}
+                        </form>                    
+                      </div>
+                      {{/eq}}
+                      {{/if}}
+                      {{/if}}
+                    </div>
+                  </li>
+                 
+                </ul>
+            {{/each}}
+
+              </div>
+            </div>
+
+            <!-- Total -->
+            <div class="card card-lg mb-5 border" style="background-color: #ededed;">
+              <div class="card-body">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Order Total</h6>
+
+                <!-- List group -->
+                <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x" >
+                  <li class="list-group-item d-flex">
+                    <span>Subtotal</span>
+                    <span class="ms-auto" style="color:red;"><b>Rs. {{toLocaleString this.total}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Other Discounts</span>
+                    
+                    <span class="ms-auto" style="color: green;"><b>- Rs. {{toLocaleString this.discountAmount}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Shipping</span>
+                    <span class="ms-auto">Free</span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Coupon Applied</span>
+                    <span class="ms-auto"><b>{{this.couponApplied}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex fs-lg fw-bold">
+                    <span>Total</span>
+                    <span class="ms-auto" style="color: green;"><b>Rs. {{toLocaleString this.afterDicountTotal}}</b></span>
+                  </li>
+                  {{/with}}
+                  {{#each cancelTotal}}
+                  {{#when this.sum 'gt' 0}}
+                  <li class="list-group-item d-flex fs-lg fw-bold">
+                    <span>Cancelled</span>
+                    <span class="ms-auto" style="color: red;"><b>- Rs. {{toLocaleString this.sum}}</b></span>
+                  </li>
+                  <li class="list-group-item d-flex fs-lg fw-bold">
+                    <span>Total after Cancellation</span>
+                    <span class="ms-auto" style="color: green;"><b>Rs. {{sub this._id this.sum}}</b></span>
+                  </li>
+                  {{else}}
+                  {{/when}}
+                  {{/each}}
+                </ul>
+
+              </div>
+            </div>
+      {{#with orderDetails}}
+            <!-- Details -->
+            <div class="card card-lg border"  style="background-color: #ededed;">
+              <div class="card-body">
+
+                <!-- Heading -->
+                <h6 class="mb-7">Billing & Shipping Details</h6>
+
+                <!-- Content -->
+                <div class="row">
+                  
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Shipping Address:
+                    </p>
+
+                    <p class="mb-7 mb-md-0 text-gray-500">
+                      {{this.address.firstname}} {{this.address.lastname}}, <br>
+                      {{this.address.address}}, <br>
+                      {{this.address.city}}, {{this.address.state}}, <br>
+                      {{this.address.pincode}}, <br>
+                     contact: {{this.address.number}}
+                    </p>
+
+                  </div>
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Order Status:
+                    </p>
+
+                    <p class="mb-7 text-gray-500">
+                      {{this.orderstatus}}
+                    </p>
+
+                    
+
+                  </div>
+                  <div class="col-12 col-md-4">
+
+                    <!-- Heading -->
+                    
+
+                    <!-- Heading -->
+                    <p class="mb-4 fw-bold">
+                      Payment Method:
+                    </p>
+
+                    <p class="mb-0 text-gray-500">
+                      {{this.payment.method}}
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            {{#eq this.orderstatus "Delivered"}}
+            {{#eq this.returned true}}
+            {{else}}
+         
+            <div class="col-4" id="editor" style="cursor:pointer;">  
+                      {{!-- <form action="/invoice/{{this.tracking_id}}" id="gform" method="post" >                                            --}}
+                        {{!-- <div class="btn btn-sm w-100 btn-outline-dark"  style="padding: 0px !important; justify-content: center; border:none; cursor:pointer;"> --}}
+                         <button type="button" id="pdfDownloader" onclick="print()" style="height: 3rem; width: 7rem; color: white; background-color: black; font-size: 14px; margin-top:1rem;">Invoice</button>
+                        {{!-- </div> --}}
+                        {{!-- </form> --}}
+                     
+             </div>
+             {{/eq}}
+             {{/eq}}
+          </div>
+          
+          {{/with}}
+        </div>
+      </div>
+    </section>
+{{!-- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  function divprint(){
+var element = document.getElementById('printdiv');
+html2pdf(element);
+  }
+</script> --}}
+
+        {{!-- <script src="https://code.jquery.com/jquery-git.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+
+<script type="text/javascript">
+        $(window).on('load', function () {
+            var doc = new jsPDF();
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+            $('#pdfview').click(function () {
+                doc.fromHTML($('#printdiv').html(), 50, 50, {
+                    'width': 100,
+                    'elementHandlers': specialElementHandlers
+                });
+                doc.save('file.pdf');
+            });
+        });
+    </script> --}}
+{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="https://mrrio.github.io/jsPDF/dist/jspdf.debug.js"></script>
+<script>
+  $(document).ready(function(){
+
+	 	
+	$("#pdfDownloader").click(function(){
+	
+        html2canvas(document.getElementById("printDiv"), {
+            onrendered: function(canvas) {
+
+                var imgData = canvas.toDataURL('image/png');
+                console.log('Report Image URL: '+imgData);
+                var doc = new jsPDF('p', 'mm', [297, 210]); 
+                
+                doc.addImage(imgData, 'PNG', 10, 10);
+                doc.save('sample.pdf');
+            }
+        });
+
+	});
+	
+	
+})
+</script> --}}
+
+
+
+
+
+{{!-- <script src="https://cdn.jsdelivr.net/npm/@grabzit/js@3.5.2/grabzit.min.js"></script>
+
+<script type="text/javascript">
+
+function CreatePDFfromHTML(){
+GrabzIt("ODg4NTMxZDQ5NDhjNGRkZjg2ZjU0MGE1ZDg2YTAxMDI=").ConvertPage({"target": "#features", "format": "pdf"}).Create();
+
+}
+</script> --}}
+{{!-- 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script> --}}
+   
+
+   {{!-- <script>
+
+      $(document).ready(function(){
+      submitHandler: function (form,e) { 
+      e.preventDefault()
+      const trackingid=document.getElementById('trackingid').value
+      console.log(trackingid)
+      $.ajax({
+      url: `/invoice/${trackingid}`,
+      method: 'post',
+      data: $('#gform').serialize(),
+
+
+      success: (response) => {
+        //console.log(response)
+         var data = {
+                      //"documentTitle": "RECEIPT", //Defaults to INVOICE
+                      "currency": "INR",
+                      "taxNotation": "vat",
+                      "marginTop": 25,
+                      "marginRight": 25,
+                      "marginLeft": 25,
+                      "marginBottom": 25,
+                      "logo": "https://www.awesomescreenshot.com/image/33142980?key=448f51d61290f41165acec88e9174cf3", //or base64
+                      //"logoExtension": "png", //only when logo is base64
+                      "sender": {
+                          "company": "Auverse",
+                          "address": "INFOPARK KOCHI",
+                          "zip": "679531",
+                          "city": "KERALA",
+                          "state": "INDIA"
+                          //"custom1": "custom value 1",
+                          //"custom2": "custom value 2",
+                          //"custom3": "custom value 3"
+                      },
+                      "client": {
+                          "company":`${response.orders.address.firstname} ${response.orders.address.lastname}` ,
+                          "address":response.orders.address.address,
+                          "zip": response.orders.address.pincode,
+                          "city":response.orders.address.city,
+                          "country":response.orders.address.state
+                          //"custom1": "custom value 1",
+                          //"custom2": "custom value 2",
+                          //"custom3": "custom value 3"
+                      },
+                      "invoiceNumber":response.orders.tracking_id.toString(),
+                     // "invoiceDate":response.orders.ordered_on,
+                      "products":response.result,
+                     // "bottomNotice": "Auverse   Copyright @2022"
+                  };
+                   
+      }
+    })
+                  //Create your invoice! Easy!
+                  easyinvoice.createInvoice(data, async function (result) {
+                      //The response will contain a base64 encoded PDF file
+                      easyinvoice.download('Invoice.pdf', result.pdf);
+                  });
+
+      }
+      })
+   </script> --}}
+{{!-- <script>
+  function CreatePDFfromHTML() {
+    var HTML_Width = $("#html-content").width();
+    var HTML_Height = $("#html-content").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas($("#html-content")[0]).then(function (canvas) {
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        pdf.save("invoice.pdf");
+        $("#html-content").hide();
+    });
+}
+</script> --}}

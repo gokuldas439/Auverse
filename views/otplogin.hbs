@@ -1,0 +1,35 @@
+<div class="container {{this.panel}}" id="container" style="margin-top:140px">
+	
+	
+		<form action="/otploginpage" method="post" class="form" >
+			<h1>Sign in</h1>
+			<span style="color: red;" class="otpsendspan">{{this.error}}</span>
+			<input type="text" placeholder="Mobile Number" name="number" id="number"/>
+            <div class="buttonsInlogin">
+                <button class="sendotp" type="submit" onclick="myfunction()">send otp</button>
+            </div>
+		</form>
+			<span style="color: red;" class="otpsubmitspan">{{this.otpmessage}}</span>
+
+		<form action="/submitOtp" method="post" class="submitform">
+			<input type="text" placeholder="OTP" name="otp" id="otp"/><br>
+			<div class="otpdivall">
+            <div class="otpdiv">
+                <button class="signbutton signfade" type="submit" disabled>Sign In</button>
+            </div>
+		</form>
+		<form action="/resendOtp" method="post" class="resendform">
+			<div class="buttonsInResend">
+                <button class="otpResendbutton resenddisabled" type="submit" disabled>Resend</button>
+            </div>
+		</form>
+		
+			</div>
+			<span class="otpexpire none" >otp expires in : </span>
+			<p id="countdown" class="countdown none">2:00</p>
+			
+			
+            
+	
+
+</div>

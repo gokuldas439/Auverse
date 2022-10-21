@@ -1,0 +1,106 @@
+
+
+
+
+<style>
+.container{
+	width: 500px;
+
+	}
+	body{
+	margin: -35px 0 2px;
+	}
+	form{
+		padding: 0px 90px !important;
+	}
+</style>
+
+
+
+
+<div class="container {{this.panel}}" id="container" style="margin-top:80px">
+		{{!-- <form id="#basic-form" action="/signup" method="post">
+			<h1>Create Account</h1><br>
+		
+			<span>Use your email for registration</span><br>
+			<span style="color: red;">{{this.signuperror}}</span>
+			<input type="text" placeholder="Name" name="name" />
+			<input type="email" placeholder="Email" name="email"/>
+			<input type="text" placeholder="MobileNo." name="number" />
+			<input type="password" placeholder="Password" name="password"/>
+			<input type="password" placeholder="Confirm Password" name="confirmPassword"/>
+			<input type="text" placeholder="Referral code here..(Optional)" name="referralcode"/><br>
+
+			<button class="signbutton">Sign Up</button>
+		</form> --}}
+		<form action="/login" method="post" style="padding-top: 39px !important;">
+			<h1>LOGIN</h1><br>
+			
+			<span style="color: red;margin-top: 2rem;">{{this.loginerror}}</span>
+			<input type="email" placeholder="Email" name="email"/>
+			<input type="password" placeholder="Password" name="password"/><br>			
+			<button class="signbutton" style="margin-top: 10px;">Sign In</button>
+			<span class="orSpan" style="margin-top: 10px;">or</span>
+			<a href="/otplogin" style="margin-top: 10px;"><div class="otpbutton">signIn with OTP</div></a>
+		<span style="margin-top: 10px;"><a href="/forgotpassword" style="text-decoration: underline;">Forgot Your Password ?</a></span>
+				<br>
+				<a href="/signup"><span><b>Click here to Signup  <i class="fa fa-user"></i></b></span></a><br>
+				{{#with referral}}
+				<span style="color: red;"><b>Nb: Use the Referral Code to get the Signup bonus of Rs. {{this.bonus}}</b></span>
+				{{/with}}
+		</form>
+</div>
+
+
+
+
+<script src="/javascripts/send.js"></script>
+
+
+
+
+
+
+
+
+
+{{!-- </div> --}}
+	{{!-- <div class="form-container sign-in-container">
+		<form action="/login" method="post" >
+			<h1>Sign in</h1><br>
+			
+			<span style="color: red;">{{this.loginerror}}</span>
+			<input type="email" placeholder="Email" name="email"/>
+			<input type="password" placeholder="Password" name="password"/><br>			
+			<button class="signbutton">Sign In</button>
+			<span class="orSpan">or</span>
+			<a href="/otplogin"><div class="otpbutton">signIn with OTP</div></a>
+		<span><a href="/forgotpassword" style="text-decoration: underline;">forgot Your Password ?</a></span>
+		</form>
+	</div> --}}
+	{{!-- <div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Auverse</h1>
+				{{#with referral}}
+				<p>SignUp now using referralcode in Auverse and get <b>Rs. </b> in wallet ❤</p>
+				{{/with}}
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div> --}}
+
+
+
+
+
+	{{!-- <div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div> --}}

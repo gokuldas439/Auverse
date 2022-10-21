@@ -1,0 +1,428 @@
+/* @import url(magiczoom.css); */
+
+
+  figure.zoom {
+  background-position: 50% 50%;
+  position: relative;
+  margin: 150px auto;
+  border: 5px solid white;
+  /* box-shadow: -1px 5px 15px black; */
+  /* height: 300px;
+  width: 500px; */
+  overflow: hidden;
+  cursor: zoom-in;
+}
+figure.zoom img:hover {
+  opacity: 0;
+}
+figure.zoom img {
+  transition: opacity 0.5s;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    color: #f2f5f7;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+nav{
+    margin-top: -50px;
+  }
+.usersidelogo{
+    height: 40px !important;
+   
+}
+
+body{
+    overflow-x: hidden;
+}
+nav{
+    height: 4.1rem;
+    width: 100vw;
+    background-color: #000000;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    position: fixed;
+    z-index: 10;
+}
+.navtext{
+    color: white;
+}
+
+/*Styling logo*/
+.logo{
+    margin-left: 10px;
+    margin-top: 10px;
+    padding:1vh 1vw;
+    text-align: center;
+}
+
+
+/*Styling Links*/
+.nav-links{
+    display: flex;
+    list-style: none; 
+    /* width: 88vw; */
+    /* padding: 0 0.7vw; */
+    margin-top: 21px;
+    /* justify-content: space-evenly; */
+    align-items: center;
+    /* text-transform: uppercase; */
+}
+.nav-links li a{
+    text-decoration: none;
+    margin: 0 0.7vw;
+}
+.nav-links li a:hover {
+    color: #c1a7ff;
+}
+.nav-links li {
+    position: relative;
+}
+.nav-links li a::before {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0%;
+    background-color: #ffffff;
+    position: absolute;
+    transition: all ease-in-out 250ms;
+    margin: 40px 0 0 10%;
+  
+}
+.nav-links li a:hover::before{
+    width: 80%;
+}
+
+/*Styling Buttons*/
+.login-button{
+    background-color: transparent;
+    border: 1.5px solid #f2f5f7;
+    border-radius: 2em;
+    padding: 0.6rem 0.8rem;
+    margin-left: 2vw;
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+.login-button:hover {
+    color: #131418;
+    background-color: #f2f5f7;
+    border:1.5px solid #f2f5f7;
+    transition: all ease-in-out 350ms;
+}
+.join-button{
+    color: #131418;
+    background-color: #61DAFB;
+    border: 1.5px solid #61DAFB;
+    border-radius: 2em;
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.join-button:hover {
+    color: #f2f5f7;
+    background-color: transparent;
+    border:1.5px solid #f2f5f7;
+    transition: all ease-in-out 350ms;
+}
+
+/*Styling Hamburger Icon*/
+.hamburger div{
+    width: 30px;
+    height:3px;
+    background: #f2f5f7;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+.hamburger{
+    display: none;
+}
+
+/*Stying for small screens*/
+@media screen and (max-width: 928px){
+    nav{
+        position: fixed;
+        z-index: 3;
+    }
+    .hamburger{
+        display:block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+    }
+    .nav-links{
+        position: fixed;
+        background: #000000;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+    }
+    .nav-links.open{
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+        margin-top: 65px;
+        background-color: #000000;
+        
+    }
+    .nav-links.open li{
+        margin-top: 15px !important;
+        
+    }
+    .nav-links li{
+        opacity: 1 !important;
+        color: #61DAFB;
+
+    }
+    .nav-links li:nth-child(1){
+        transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2){
+        transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3){
+        transition: all 0.5s ease 0.6s;
+    }
+    .nav-links li:nth-child(4){
+        transition: all 0.5s ease 0.7s;
+    }
+    .nav-links li:nth-child(5){
+        transition: all 0.5s ease 0.8s;
+    }
+    .nav-links li:nth-child(6){
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+    }
+    .nav-links li:nth-child(7){
+        transition: all 0.5s ease 1s;
+        margin: 0;
+    } */
+     .fade{
+        opacity: 0 ;
+        color: #61DAFB;
+    }
+}
+/*Animating Hamburger Icon on Click*/
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+    transition: all 0.7s ease;
+    width:0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+.dropdown-menu li a{
+    color: white;
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+.navbar{
+background-color: black;
+}
+.navbar-nav{
+    padding-left: 17px !important;
+    margin-top: 3px;
+    font-size: 16px;
+
+}
+.dropdown-menu{
+    background-color: black !important;
+    opacity: 0.8 !important;
+    margin-top: 12px !important;
+}
+
+@media (max-width:992px){
+.navbar-nav{
+    background-color: black !important;
+    opacity: 0.8 !important;
+    margin-top: 18px !important;
+}
+}
+
+
+
+/* body {
+  background-color: #ecedee;
+} */
+.card {
+    border: none;
+    overflow: hidden;
+  }
+  .thumbnail_images ul {
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .thumbnail_images ul li {
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid #eee;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  .thumbnail_images ul li:hover {
+    border: 2px solid #000;
+  }
+  #main_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-bottom: 1px solid #eee; */
+    height: 400px;
+    width: 100%;
+    /* overflow: hidden; */
+  }
+  .heart {
+    height: 29px;
+    width: 29px;
+    background-color: #eaeaea;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content p {
+    font-size: 12px;
+  }
+  .ratings span {
+    font-size: 14px;
+    margin-left: 12px;
+  }
+  .colors {
+    margin-top: 5px;
+  }
+  .colors ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0px;
+  }
+  .colors ul li {
+    height: 20px;
+    width: 20px;
+    display: flex;
+    border-radius: 100%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  /* .colors ul li:nth-child(1) {
+    background-color: #6c704d;
+  }
+  .colors ul li:nth-child(2) {
+    background-color: #96918b;
+  }
+  .colors ul li:nth-child(3) {
+    background-color: #68778e;
+  }
+  .colors ul li:nth-child(4) {
+    background-color: #263f55;
+  }
+  .colors ul li:nth-child(5) {
+    background-color: black;
+  } */
+  .right-side {
+    position: relative;
+  }
+  .search-option {
+    position: absolute;
+    background-color: #000;
+    overflow: hidden;
+    align-items: center;
+    color: #fff;
+    width: 200px;
+    height: 200px;
+    border-radius: 49% 51% 50% 50% / 68% 69% 31% 32%;
+    left: 30%;
+    bottom: -250px;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  .search-option .first-search {
+    position: absolute;
+    top: 20px;
+    left: 90px;
+    font-size: 20px;
+    opacity: 1000;
+  }
+  .search-option .inputs {
+    opacity: 0;
+    transition: all 0.5s ease;
+    transition-delay: 0.5s;
+    position: relative;
+  }
+  .search-option .inputs input {
+    position: absolute;
+    top: 200px;
+    left: 30px;
+    padding-left: 20px;
+    background-color: transparent;
+    width: 300px;
+    border: none;
+    color: #fff;
+    border-bottom: 1px solid #eee;
+    transition: all 0.5s;
+    z-index: 10;
+  }
+  .search-option .inputs input:focus {
+    box-shadow: none;
+    outline: none;
+    z-index: 10;
+  }
+  .search-option:hover {
+    border-radius: 0px;
+    width: 100%;
+    left: 0px;
+  }
+  .search-option:hover .inputs {
+    opacity: 1;
+  }
+  .search-option:hover .first-search {
+    left: 27px;
+    top: 25px;
+    font-size: 15px;
+  }
+  .search-option:hover .inputs input {
+    top: 20px;
+  }
+  .search-option .share {
+    position: absolute;
+    right: 20px;
+    top: 22px;
+  }
+  .buttons .btn {
+    height: 50px;
+    width: 150px;
+    border-radius: 0px !important;
+  }
+  .disc{
+    font-size: 15px;
+  }
+  
+  
+  
+  .js-image-zoom__zoomed-image{
+    z-index: 300;
+  }
+  .container{
+    padding-top: 6rem;
+  }

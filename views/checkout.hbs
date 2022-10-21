@@ -1,0 +1,797 @@
+<style>
+  #address-error{
+    
+  
+    color: red;
+  }
+
+  #payment-error{
+    position: absolute;
+    margin-bottom: 6rem;
+    color: red;
+  }
+  .error{
+    color: red;
+    font-weight: 600;
+  }
+</style>
+ <!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/products">Auverse Cart</a>
+              </li>
+              <li class="breadcrumb-item active">
+                Checkout
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-4">Checkout</h3>
+
+            <!-- Subheading -->
+            <!-- <p class="mb-10">
+              Already have an account? <a class="fw-bold text-reset" href="#!">Click here to login</a>
+            </p> -->
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-7"    style="margin-bottom: 26px;">
+              <div class="col-12 col-md-7">
+
+                <!-- Coupon -->
+                <form id="coupon" class="mb-7 mb-md-0">
+                  <h5 class="mb-7">Coupon Code:</h5>
+                  <div class="row row gx-5">
+                    <div class="col">
+
+                      <!-- Input -->
+                      <input class="form-control form-control-sm" name="coupon" id="cartCouponCode" type="text" placeholder="Enter coupon code*">
+
+                    </div>
+                    <div class="col-auto">
+
+                      <!-- Button -->
+                      <button class="btn btn-sm btn-dark" type="submit">
+                        Apply
+                      </button>
+
+                    </div>
+                  </div>
+                </form>
+               
+                  <span id="removeCoupon" style="width: 13rem; height: 25px; margin: 10px;  padding: 3px; background-color: #e1e1e1;" hidden>
+                    <span id="couponShow"></span>
+                    <a  href="/checkout" style="background-color: #e1e1e1;" >
+                      <i class='bx bx-x'></i>
+                      </a>
+                      </span><br>
+                  
+          <span style="color: green;" ><b id="couponSuccess"></b></span>
+          <span style="color: red;" ><b id="couponErr"></b></span>
+              </div>
+              
+            </div>
+
+
+          <div class="col-12 col-md-7">
+
+            <!-- Form -->
+            {{!-- <form> --}}
+
+              <!-- Heading -->
+              <h5 class="mb-7">Billing Details</h5>
+
+              <!-- Billing details -->
+             
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="background-color: black; border: none; margin-top:20px;padding:11px !important;height: 3rem; width: 9rem;">Add new Address</button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+              <form action="/saveAddress" method="post" id="checkoutAddress">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-6">
+                     <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">First Name *</label>
+                        <input class="form-control form-control-sm" id="firstname" name="firstname" type="text" placeholder="First Name">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressZIP">Last Name *</label>
+                        <input class="form-control form-control-sm" id="lastname" name="lastname" type="text" placeholder="Last Name">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+                      <!-- Country -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressCountry">State *</label>
+                        <input class="form-control form-control-sm" id="state" name="state" type="text" placeholder="State">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+
+                      <!-- Address Line 1 -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressLineOne">Address *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressLineOne" name="address" type="text" placeholder="Address">
+                      </div>
+
+                    </div>
+                    
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">Town / City *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressTown" name="city" type="text" placeholder="Town / City">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingPincode">Pincode *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingPincode" name="pincode" type="text" placeholder="ZIP / Postcode">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingEmail">Email *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingEmail" name="email" type="email" placeholder="Email here ">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingnumber">Mobile No. *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingnumber" name="number" type="text" placeholder="Number here ">
+                      </div>
+
+                    </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" style="background-color: black; border:none;">Save Address</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
+
+            
+          <form id="gform" method="post">
+              <h6 class="mb-7" style="margin-top: 3rem;">or Choose an Address</h6>
+
+         <label id="address-error" class="error" for="address" style="display: none;">Please select your Delivery Address *</label>
+              <div style="background-color: #f7f7f7;">
+                {{#each addresses}}
+                <label class="rad-label">
+                  <input type="radio" class="rad-input" name="address" value="{{this.address_id}}">
+                  <div class="rad-design"></div>
+                  <div class="rad-text">{{this.firstname}}{{lastname}},{{this.address}},{{this.state}},{{this.pincode}}</div>
+                </label>
+                 {{/each}}         
+              
+              </div>                          
+              <!-- Address -->
+              <div class="mb-9">
+
+                <div class="collapse" id="checkoutShippingAddressCollapse">
+                  <div class="row mt-6">
+                     
+                  </div>
+                </div>
+               
+
+              </div>
+
+
+              <!-- Heading -->
+              <h6 class="mb-7">Payment Method</h6>
+
+              <!-- List group -->
+              <div class="list-group list-group-sm mb-7">
+                <div class="list-group-item">
+
+                  <!-- Radio -->
+                  <div class="form-check custom-radio">
+
+                    <!-- Input -->
+                    <input class="form-check-input" id="checkoutPaymentCard" name="payment" type="radio" value="COD">
+
+                    <!-- Label -->
+                    <label class="form-check-label fs-sm text-body text-nowrap" for="checkoutPaymentCard">
+                        <b>Cash on Delivery</b>
+                      <img class="ms-2" src="/images/cash-on-delivery.png" style="height: 27px;" alt="...">
+                    </label>
+
+                  </div>
+
+                </div>
+                
+                <div class="list-group-item">
+
+                  <!-- Radio -->
+                  <div class="form-check custom-radio">
+
+                    <!-- Input -->
+                    <input class="form-check-input" id="checkoutPaymentPaypal" name="payment" type="radio" value="paypal" data-collapse="hide" data-target="#checkoutPaymentCardCollapse">
+
+                    <!-- Label -->
+                    <label class="form-check-label fs-sm text-body text-nowrap" for="checkoutPaymentPaypal">
+                      <img src="/assets/img/brands/color/paypal.svg" alt="...">
+                    </label>
+
+                  </div>
+
+                </div>
+                <div class="list-group-item">
+
+                  <!-- Radio -->
+                  <div class="form-check custom-radio">
+
+                    <!-- Input -->
+                    <input class="form-check-input" id="checkoutPaymentRazorpay" name="payment" type="radio" value="razorpay" data-collapse="hide" data-target="#checkoutPaymentCardCollapse">
+
+                    <!-- Label -->
+                    <label class="form-check-label fs-sm text-body text-nowrap" for="checkoutPaymentRazorpay">
+                      <img src="/images/razorpay.png" style="width: 100px; margin-bottom: 5px;" alt="...">
+                    </label>
+
+                  </div>
+
+                </div>
+                {{#if this.final}}
+                <div class="list-group-item">
+                  <!-- Radio -->
+                  <div class="form-check custom-radio">
+
+                    <!-- Input -->
+                    <input class="form-check-input" id="checkoutPaymentWallet" name="payment" type="radio" value="wallet" data-collapse="hide" data-target="#checkoutPaymentCardCollapse">
+
+                    <!-- Label -->
+                    <label class="form-check-label fs-sm text-body text-nowrap" for="checkoutPaymentwallet">
+                     <b> Pay with Wallet </b>
+                      <img src="/images/wallet.png" style="width: 29px; height: 23px; margin-bottom: 5px;" alt="...">
+                    </label>
+
+                  </div>
+                </div>
+                  {{else}}
+                  <div class="list-group-item">
+                    <span style="color: red;"><b>Topup wallet to use Wallet Payment</b></span><span style="margin-left: 17px;"><i class='bx bx-chevrons-right'></i><a href="userWallet">Topup Wallet</a></span>
+                  </div>
+
+                  {{/if}}
+              </div>
+
+              <!-- Notes -->
+
+
+           </div>
+           <div class="col-12 col-md-5 col-lg-4 offset-lg-1">
+            <!-- Card -->
+            <div class="card mb-9 bg-light" style="padding: 19px; padding-right: 31px;">
+              <div class="card-body">
+                <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
+                  <li class="list-group-item d-flex">
+                    {{#with carttotal}} 
+                    <span>Subtotal</span> <span class="ms-auto fs-sm" id="subtotalSpan">Rs. {{toLocaleString this.total}}</span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Other Discounts</span> <span class="ms-auto fs-sm" style="color: green;" id="discountSpan">Rs. 0</span>
+                  </li>
+                  <li class="list-group-item d-flex">
+                    <span>Shipping</span> <span class="ms-auto fs-sm" style="color: green;"><del>Rs. 40</del> Free</span>
+                  </li>
+                  <li class="list-group-item d-flex fs-lg fw-bold">
+                    <span>Total</span>
+                    
+                    <span class="ms-auto" id="totalSpan">Rs. {{toLocaleString this.total}}</span>
+                    {{/with}}
+                  </li>
+                </ul>
+                <span id="errormsg" style="color: red;"></span>
+              </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <p class="mb-7 fs-xs text-gray-500">
+              Your personal data will be used to process your order in Auverse.
+
+            </p>
+          <input type="text" id="couponInput" name="coupon" hidden>
+            <!-- Button -->
+            <button type="submit" class="btn w-100 btn-dark">
+              Place Order
+            </button>
+
+          </div>
+    </form>
+        </div>
+      </div>
+
+
+
+
+
+    </section>
+
+   <!-- FOOTER -->
+    <footer class="bg-dark bg-cover " style="background-image: url(/assets/img/patterns/pattern-2.svg)">
+      <div class="py-12 border-bottom border-gray-700">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-3">
+    
+              <!-- Heading -->
+              <h4 class="mb-6 text-white">Auverse</h4>
+    
+              <!-- Social -->
+              <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/gokuldas439/" class="text-gray-350">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.youtube.com/channel/UC-1feeFHbToQW1i_r0doJZA" class="text-gray-350">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/fanboy_offl" class="text-gray-350">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/_gokul._.das_/" class="text-gray-350">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://medium.com/@gokuldas439" class="text-gray-350">
+                    <i class="fab fa-medium"></i>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Support
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >Contact Us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >FAQs</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" data-bs-toggle="modal" >Auverse Finder</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">Shipping & Returns</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Shop
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >In-Ears</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Headphones</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Speakers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">offers</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm" >
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Company
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >about us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Careers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Terms & Conditions</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Privacy & Cookie policy</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Contact
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300">+91 7561876594</a>
+                </li>
+                
+                
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+    
+              <!-- Copyright -->
+              <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                © Auverse 2022 All rights reserved.
+              </p>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+ $(document).ready(function(){
+    $("#checkoutAddress").validate({
+       rules: {
+        firstname:{
+            required:true,
+        },
+        lastname:{
+            required:true,
+            
+        },
+        state:{
+            required:true,
+            
+            
+        },
+        address:{
+            required:true,
+        },
+        city:{
+            required:true,
+            
+        },
+        pincode:{
+            required:true,
+           
+        },
+        email:{
+            required:true,
+        },
+        number:{
+            required:true,
+            digits: true,
+            
+        },
+    },
+messages: {
+        firstname:{
+            required:"Please enter your firstname *",
+        },
+        lastname: {
+            required:"Please enter your lastname *",
+           
+        },
+        state:{
+            required:"Please enter your state *",        
+        },
+        address:{
+            required:"Please Enter your address *",
+        },
+        city:{
+            required:"Please Enter your City *",
+        },
+        pincode:{
+            required:"Please Enter your pincode *",
+        },
+        email:{
+            required:"Please Enter your Email *",
+        },
+        number:{
+            required:"Please Enter your number *",
+            digits:"Please enter number *"
+        },
+        
+
+    },
+});
+
+});
+    </script>
+
+
+
+
+
+
+
+
+
+<script>
+     $(document).ready(function(){
+    $("#gform").validate({
+       rules: {
+        address:{
+            required:true,
+        },
+        payment:{
+            required:true,
+        },
+    },
+    messages: {
+        address:{
+            required:"Please select your Delivery Address *",
+        },
+        payment: {
+            required:"Please select your Payment Method *",
+        },
+
+    },
+
+ submitHandler: function (form,e) {
+  console.log('entered jax')
+    e.preventDefault();
+    $.ajax({
+      url: "/placeOrder",
+      method: 'post',
+      data: $('#gform').serialize(),
+
+
+      success: (response) => {
+        console.log(response)
+        if (response.err) {
+          document.getElementById('errormsg').innerHTML = response.err
+        }
+       else if (response.status=="codconfirmed") {
+        location.href='/orderStatus'
+        }
+       else if (response.status=="wallet") {
+        location.href='/orderStatus'
+        }
+       else if (response.paypal) {
+          location.href = response.link
+        }
+        else {
+          console.log("hii")
+          console.log(response.Order)
+
+          razorpayPayment(response);
+          console.log("after function")
+        }
+
+      }
+    
+  })
+
+  function razorpayPayment(order) {
+  //  console.log(order)
+    let amount = order.Order.amount
+
+    var options = {
+      "key": "rzp_test_u4PWgGUt0TF205", // Enter the Key ID generated from the Dashboard
+      "amount": amount.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Auverse",
+      "description": "Test Transaction",
+      "order_id": order.Order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+      "handler": function (response) {
+
+
+
+
+        verifyPayment(response, order);
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    console.log("err 1")
+    var rzp1 = new Razorpay(options);
+    console.log("err 2")
+    rzp1.open();
+    console.log("err 3")
+
+  };
+
+  function verifyPayment(payment, order) {
+    console.log("hi")
+    console.log(payment, order)
+    $.ajax({
+      url: '/verifyPayment',
+      data: {
+        payment,
+        order
+      },
+      method: 'post',
+      success: (response) => {
+        console.log(response)
+        if (response.status) {
+          location.href='/orderStatus'
+        } else {
+          alert("payment is failed");
+        }
+      }
+    });
+  };
+ }
+});
+
+
+});
+</script>
+
+
+
+<script>
+     $(document).ready(function(){
+    $("#coupon").validate({
+       rules: {
+        coupon:{
+            required:true,
+        },
+    },
+    messages: {
+        coupon:{
+            required:"Please Enter the Coupon code if you have one *",
+        },
+
+    },
+
+ submitHandler: function (form,e) {
+
+    e.preventDefault()
+  console.log('entered jax')
+    $.ajax({
+      url: "/applyCoupon",
+      method: 'post',
+      data: $('#coupon').serialize(),
+
+
+      success: (response) => {
+        console.log(response)
+        if (response.status=="success") {
+          const removeCoupon=document.getElementById('removeCoupon')
+        document.getElementById('couponSuccess').innerHTML=response.message
+        document.getElementById('couponInput').value=response.coupon
+        document.getElementById('couponShow').textContent=response.coupon
+        removeCoupon.hidden=false;
+       let subtotal=document.getElementById('subtotalSpan').textContent;
+       const total=parseInt(subtotal.slice(4).replace(',',''))
+       console.log(total)
+       const discount=response.discount
+       console.log(discount)
+      const final=Math.floor(total-total*discount/100);
+       console.log(final)
+        document.getElementById('discountSpan').innerHTML=`Rs. ${Math.floor(total*discount/100)}`
+        document.getElementById('totalSpan').innerHTML=`Rs. ${final}`
+ 
+        }
+        else if(response.status == "Invalid"){
+        document.getElementById('couponErr').innerHTML=response.message
+        setTimeout(()=>{
+        document.getElementById('couponErr').innerHTML=null
+
+        },3000)
+
+        }
+        else if(response.status =="Expired"){
+        document.getElementById('couponErr').innerHTML=response.message
+        setTimeout(()=>{
+        document.getElementById('couponErr').innerHTML=null
+
+        },3000)
+
+        }
+        else if(response.status =="used"){
+        document.getElementById('couponErr').innerHTML=response.message
+        setTimeout(()=>{
+        document.getElementById('couponErr').innerHTML=null
+
+        },3000)
+
+        }
+      
+
+      }
+    
+  })
+ }
+ })
+
+});
+     
+
+
+
+</script>
+
+ 

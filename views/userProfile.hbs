@@ -1,0 +1,289 @@
+<style>
+  .error{
+    color: red;
+  }
+</style>
+
+<nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+<!-- CONTENT -->
+    <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+             <!-- Nav -->
+            <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+
+
+          </div>
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+            {{#if edit}}
+            {{#with user}}
+            <form action="/editUserDetails" id="gform" method="post">
+              <div class="row">
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="form-label" for="accountFirstName">
+                      Name *
+                    </label>
+                    <input class="form-control form-control-sm" id="accountFirstName" type="text" name="name" placeholder="First Name *" value="{{this.name}}">
+                  </div>
+
+                </div>
+               
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="form-label" for="accountEmail">
+                      Email Address *
+                    </label>
+                    <input class="form-control form-control-sm" id="accountEmail" type="email" name="email" placeholder="Email Address *" value="{{this.email}}">
+                  </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- number -->
+                  <div class="form-group">
+
+                    <div class="row gx-5">
+                      <div class="form-group">
+                        <label class="form-label" for="accountmobilenumber">
+                          Mobile number *
+                        </label>
+                        <input class="form-control form-control-sm" id="accountFirstName" type="number" name="number" placeholder="Mobile number *" value="{{this.number}}" >
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+                
+                
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-dark" type="submit">Save Changes</button>
+
+                </div>
+              </div>
+            </form>
+            {{/with}}
+            {{else}}
+            {{#if password}}
+            <form action="/changePassword" id="sform" method="post">
+                 <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label" for="accountPassword">
+                      Current Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="accountPassword" type="text" name="oldpassword" placeholder="Current Password *" required>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                 
+                  <div class="form-group">
+                    <label class="form-label" for="AccountNewPassword">
+                      New Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="AccountNewPassword" type="text" name="password" placeholder="New Password *" required>
+                  </div>
+                    <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-dark" type="submit">Save Password</button>
+
+                </div>
+                </div>
+                </form>
+            {{else}}
+            {{#with user}}
+            
+              <div class="row">
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="form-label" for="accountFirstName">
+                      Name *
+                    </label>
+                    <input class="form-control form-control-sm" id="accountFirstName" type="text" name="name" placeholder="First Name *" value="{{this.name}}" disabled>
+                  </div>
+
+                </div>
+               
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="form-label" for="accountEmail">
+                      Email Address *
+                    </label>
+                    <input class="form-control form-control-sm" id="accountEmail" type="email" name="email" placeholder="Email Address *" value="{{this.email}}" disabled>
+                  </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- number -->
+                  <div class="form-group">
+
+                    <div class="row gx-5">
+                      <div class="form-group">
+                        <label class="form-label" for="accountmobilenumber">
+                          Mobile number *
+                        </label>
+                        <input class="form-control form-control-sm" id="accountFirstName" type="number" name="number" placeholder="Mobile number *" value="{{this.number}}" disabled>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+                
+               
+                
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <a class="btn btn-dark" href="/editUserDetails">Edit Details</a>
+                  <a class="btn btn-dark" href="/changePassword">Change Password</a>
+
+                </div>
+              </div>
+           
+            {{/with}}
+            {{/if}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+ <script>
+        $(document).ready(function(){
+
+    $("#gform").validate({
+       rules: {
+        name:{
+            required:true,
+        },
+        email:{
+            required:true,
+            
+        },
+        number:{
+            required:true,
+            digits:true
+            
+        },
+        
+    },
+messages: {
+        name:{
+            required:"Please enter your name *",
+        },
+        email: {
+            required:"Please enter your Email *",
+            
+           
+        },
+        number:{
+            required:"Please Enter your number *",
+            digits:"Please enter valid number *"
+        },
+        
+
+    },
+});
+
+});
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+    $("#sform").validate({
+       rules: {
+        oldpassword:{
+            required:true,
+        },
+        password:{
+            required:true,
+            
+        },
+        
+    },
+messages: {
+        oldpassword:{
+            required:"Please enter your current Password *",
+        },
+        password: {
+            required:"Please enter your new Password *",          
+        },
+        
+
+    },
+});
+
+});
+    </script>

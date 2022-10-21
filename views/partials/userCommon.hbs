@@ -1,0 +1,405 @@
+<link rel="stylesheet" href="/stylesheets/libs.bundle.css" />
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="/stylesheets/theme.bundle.css" />
+
+{{!-- <style>
+  .search-container{ margin-top: 7px; margin-right: 14px; } .search-input{
+  width: 0; border: none; outline: none; } .bi-search { color: rgb(235, 235,
+  235); font-size: 1.3rem; padding: 10px 5px; } .bi-search:hover { cursor:
+  pointer; color: rgb(201, 201, 199); } .search-input.active-search { width:
+  80px; border-radius: 12px; border: 1px solid #eee; transition: 0.3s width
+  ease-in; font-size: 16px; } .search-input.active-search:focus { width: 210px;
+  transition: 0.6s width ease-in; }
+
+</style> --}}
+
+<style>
+  .navbar{ padding: 10px 0 !important; } .mb-4{ margin-bottom: 0 !important; }
+  .py-3{ padding-bottom: 1.2rem!important; padding-top: 1rem!important; }
+  .card-actions{ padding-top: 13px; position: relative !important; } .card-body{
+  margin-left: 35px; } .card-lg .card-body, .card-lg .card-footer { padding:
+  10px !important; }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      Auverse
+    </a>
+
+    <!-- Toggler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+      <!-- Nav -->
+      <ul class="navbar-nav mx-auto">
+        {{!-- <li class="nav-item dropdown">
+
+          <!-- Toggle -->
+          <a class="nav-link" href="/">Home</a>
+
+        </li> --}}
+        {{!-- <li class="nav-item dropdown position-static">
+
+          
+          <a class="nav-link" data-bs-toggle="dropdown" href="#">Categories</a>
+
+          
+          <div class="dropdown-menu w-100">
+
+          
+            <div class="mb-2 mb-lg-0 border-bottom-lg">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+
+             
+                    <nav
+                      class="nav nav-tabs nav-overflow fs-xs border-bottom border-bottom-lg-0">
+                     {{#each allCategories}}
+                      <a
+                        class="nav-link text-uppercase"
+                        data-bs-toggle="tab"
+                        href="#navTab"
+                      >
+                        {{this.category}}
+                      </a>
+                     {{/each}}
+                    </nav>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      
+      
+
+          </div>
+
+    
+        </li> --}}
+
+         <li class="nav-item ">
+
+          <!-- Toggle -->
+          <a class="nav-link" href="/products">Products</a>
+
+        </li>
+
+<li class="nav-item dropdown">
+
+          <!-- Toggle -->
+          <a class="nav-link" data-bs-toggle="dropdown" style="cursor:pointer;">Categories</a>
+
+          <!-- Menu -->
+          <div class="dropdown-menu">
+            <div class="card card-lg">
+              <div class="card-body">
+                <ul class="list-styled fs-sm">
+                  {{#each allCategories}}
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="/products?categoryId={{this._id}}">{{this.category}}</a>
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </li>
+
+
+<li class="nav-item dropdown">
+
+          <!-- Toggle -->
+          <a class="nav-link" data-bs-toggle="dropdown" style="cursor:pointer;">Brands</a>
+
+          <!-- Menu -->
+          <div class="dropdown-menu">
+            <div class="card card-lg">
+              <div class="card-body">
+                <ul class="list-styled fs-sm">
+                  {{#each localBrands}}
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="/products?brandId={{this._id}}">{{this.brand}}</a>
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </li>
+
+
+       
+
+
+
+        {{!-- <li class="nav-item dropdown">
+
+          <!-- Toggle -->
+          <a class="nav-link" data-bs-toggle="dropdown" href="#">Pages</a>
+
+          
+          <div class="dropdown-menu">
+            <div class="card card-lg">
+              <div class="card-body">
+                <ul class="list-styled fs-sm">
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="about.html">About</a>
+                  </li>
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="contact-us.html">Contact
+                      Us</a>
+                  </li>
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="store-locator.html">Store
+                      Locator</a>
+                  </li>
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="faq.html">FAQ</a>
+                  </li>
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="coming-soon.html">Coming
+                      Soon</a>
+                  </li>
+                  <li class="list-styled-item">
+                    <a class="list-styled-link" href="404.html">404</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </li> --}}
+
+        {{!-- <li class="nav-item">
+
+          <!-- Toggle -->
+          <a class="nav-link" data-bs-toggle="dropdown" href="#">Auverse Finder</a>
+
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="">Docs</a>
+        </li> --}}
+      </ul>
+
+      <!-- Nav -->
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item">
+          {{!-- <div class="search-container">
+            <input type="text" placeholder="Search" />
+            <i class="fe fe-search" id="search-btn"></i>
+          </div> --}}
+          <a class="nav-link" data-bs-toggle="offcanvas" href="#modalSearch">
+          <i class="fe fe-search"></i>
+           </a>
+        </li>
+        <li class="nav-item ms-lg-n4">
+          <a class="nav-link" href="/userAccount">
+            <i class="fe fe-user"></i>
+          </a>
+        </li>
+        <li class="nav-item ms-lg-n4">
+          <a class="nav-link" href="/wishlist">
+            <i class="fe fe-heart"></i>
+          </a>
+        </li>
+        <li class="nav-item ms-lg-n4">
+          <a class="nav-link" href="/cart">
+            {{#if user}}
+              <span id="cartnumber" data-cart-items="">
+                <i class="fe fe-shopping-cart"></i>
+              </span>
+            {{else}}
+              <span data-cart-items="0">
+                <i class="fe fe-shopping-cart"></i>
+              </span>
+            {{/if}}
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+ 
+  </div>
+  
+</nav>
+
+<div class="offcanvas offcanvas-end" id="modalSearch" tabindex="-1" style="visibility: hidden;" aria-hidden="true">
+    
+      <!-- Close -->
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fe fe-x" aria-hidden="true"></i>
+      </button>
+    
+      <!-- Header-->
+      <div class="offcanvas-header lh-fixed fs-lg">
+        <strong class="mx-auto">Search Products</strong>
+      </div>
+    
+      <!-- Body: Form -->
+      <div class="offcanvas-body">
+        <form action="/products" method="get">
+          <div class="input-group input-group-merge">
+            <input class="form-control" name="search" type="text" id="search-box" >
+            <div class="input-group-append">
+              <button class="btn btn-outline-border" type="submit">
+                <i class="fe fe-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    
+      <!-- Body: Results (add `.d-none` to disable it) -->
+        <p>Search Results:</p>
+      <div class="offcanvas-body border-top fs-sm" id="searchDiv">
+    
+        <!-- Heading -->
+    
+        <!-- Items -->
+        
+    
+        <!-- Button -->
+        {{!-- <a class="btn btn-link px-0 text-reset" href="/products">
+          View All <i class="fe fe-arrow-right ms-2"></i>
+        </a> --}}
+    
+      </div>
+      <p id="startfirst" style='color:red;margin-left: 10px;' class="">Search for Products...</p>
+    
+      <!-- Body: Empty (remove `.d-none` to enable it) -->
+      <div id="nothing" class="offcanvas-body d-none">
+    
+        <!-- Text -->
+        <p class="mb-3 fs-sm text-center">
+          Nothing matches your search
+        </p>
+    
+        <!-- Smiley -->
+        <p class="mb-0 fs-sm text-center">
+          😞
+        </p>
+    
+      </div>
+    
+    </div>
+
+
+
+{{!-- <script>
+  const searchBtn = document.getElementById("search-btn"); const searchInput =
+  document.querySelector(".search-input"); searchBtn.addEventListener("click",
+  function () { // searchInput.classList.add('active-search');
+  searchInput.classList.toggle("active-search"); console.log(searchInput); });
+  document.querySelector("main").addEventListener("click", () => {
+  searchInput.classList.remove("active-search"); }); console.log(searchBtn,
+  searchInput);
+
+</script> --}}
+
+<script src="/javascripts/cartcount.js"></script>
+
+
+<script>
+function debounce(fn, delay) {
+      let timeOutId;
+      return function (...args) {
+        if (timeOutId) {
+          clearTimeout(timeOutId)
+        }
+        timeOutId = setTimeout(() => {
+          fn(...args);
+        }, delay)
+      }
+    }
+
+const searchData=document.getElementById('search-box')
+    searchData.addEventListener('keyup', debounce(async ()=>{
+    document.getElementById('startfirst').classList.add('d-none');
+    document.getElementById('nothing').classList.add('d-none');
+
+    const div=document.getElementById('searchDiv')
+    const e=document.getElementById('search-box').value
+    if(!e){
+      div.innerHTML='';
+         document.getElementById('startfirst').classList.remove('d-none');
+
+    }else{
+
+    console.log(e);
+    const result = await axios({
+        method: 'POST',
+         url: '/search',
+         data:{e}
+    });
+       console.log(result.data.search);
+       const res=result.data.search
+       div.innerHTML='';
+       if(res.length<1){
+         document.getElementById('nothing').classList.remove('d-none');
+          return;
+       }else{
+        res.forEach((item)=>{
+          
+
+          div.innerHTML+=`<div class="row align-items-center position-relative mb-5">
+          <div class="col-4 col-md-3">
+            <img class="img-fluid" src=${item.images[0]} alt="...">
+          </div>
+          <div class="col position-static">
+              <p class="mb-0 fw-bold">
+              <a class="stretched-link text-body" href="/products/view-product/${item._id}">${item.name}</a> <br>
+              <span class="text" style="color:red;">Rs. ${item.offerprice}</span>
+               </p>
+                </div>
+            </div>`
+          
+        });
+        return;
+
+       }
+    }
+
+  },500))
+</script>
+
+
+ {{!-- <div class="row align-items-center position-relative mb-5">
+          <div class="col-4 col-md-3">
+    
+            
+            <img class="img-fluid" src="./assets/img/products/product-5.jpg" alt="...">
+    
+          </div>
+          <div class="col position-static">
+    
+            
+            <p class="mb-0 fw-bold">
+              <a class="stretched-link text-body" href="">Leather mid-heel Sandals</a> <br>
+              <span class="text-muted">$129.00</span>
+            </p>
+    
+          </div>
+        </div>  --}}

@@ -1,0 +1,219 @@
+<style>
+  body{
+  background-color: #ffffff !important;
+
+  }
+  .chart{
+   
+  }
+
+  body{
+    margin-top:50px;
+    background:#FAFAFA;
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+.SalesReport{
+    background-color: #4099ff;
+    height: 3rem;
+    width: 101px;
+    padding: 6px;
+    padding-top: 11px;
+    margin-left: 53px;
+
+}
+</style>
+
+
+
+<div class="container" style="padding-top: 4rem;">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{this.orderTotal}}</span></h2>
+                    <p class="m-b-0">delivered Orders<span class="f-right">{{this.deliveredTotal}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Users</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{this.userTotal}}</span></h2>
+                    <p class="m-b-0">Active Users<span class="f-right">{{this.activeUsersTotal}}</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Admins</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>{{this.AdminTotal}}</span></h2>
+                    <p class="m-b-0">Active Admins<span class="f-right">1</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Revenue</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{toLocaleString this.totalRevenue}}</span></h2>
+                    <p class="m-b-0">Calculated using User Orders<span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+  
+<div class="row" >
+  {{#each orderStatus}}
+  <input type="text" id="{{this._id}}" name="" value="{{this.status}}" hidden>
+  {{/each}}
+<div class="col-xl-6 col-lg-6 col-md-12" style="padding-left: 3rem; padding-top: 8rem;">
+   <h2><u> Bar representing Sales Status</u></h2>
+
+<canvas id="myPieChart" width="700" height="500" ></canvas>
+</div>
+<div class="col-xl-6 col-lg-6 col-md-12" style="padding: 3rem 4rem;"><br>
+ <h2><u> Chart representing Order Status</u></h2>
+<canvas id="myAreaChart"  width="700"  height="500" style="padding-top: 10px;" ></canvas>
+</div>
+
+</div>
+
+{{!-- </div> --}}
+
+<script>
+    const Dispatched = document.getElementById('Dispatched')?document.getElementById('Dispatched').value:'0';
+    const Cancelled = document.getElementById('Cancelled')?document.getElementById('Cancelled').value:'0';
+    const CancelledAdmin = document.getElementById('Cancelled by Admin')?document.getElementById('Cancelled by Admin').value:'0';
+    const Delivered = document.getElementById('Delivered')?document.getElementById('Delivered').value:'0';
+    const OutDelivery = document.getElementById('Out of Delivery')?document.getElementById('Out of Delivery').value:'0';
+    const Confirmed = document.getElementById('Confirmed')?document.getElementById('Confirmed').value:'0';
+    const Pending = document.getElementById('Pending')?document.getElementById('Pending').value:'0';
+    const Shipped = document.getElementById('Shipped')?document.getElementById('Shipped').value:'0';
+  
+    const ctx = document.getElementById('myAreaChart').getContext('2d');
+    
+
+    const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Shipped', 'Pending','Out of delivery','Cancelled','CancelledAdmin','Dispatched','Confirmed','Delivered'],
+            datasets: [{
+               // label: '# of Votes',
+              //  data: [shipped, Pending, ood],
+                data: [Shipped,Pending,OutDelivery,Cancelled,CancelledAdmin,Dispatched,Confirmed,Delivered],
+                backgroundColor: [
+                    'rgba(255, 99, 132)',
+                    'rgba(54, 162, 235)',
+                    'rgba(255, 206, 86)',
+                    'rgba(75, 192, 192)',
+                    'rgba(153, 102, 255)',
+                    'rgba(232, 223, 215)',
+                    'rgba(82, 123, 215)',
+                    
+                    'rgba(255, 159, 64)'
+                ],
+                
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+    const ctm = document.getElementById('myPieChart').getContext('2d');
+    const myChart2 = new Chart(ctm, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Aprl', 'May', 'Jun','July','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Monthly sales',
+                data: [0,0,0,0,0,0,0,0,0,5,0,0],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+

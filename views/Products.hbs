@@ -1,0 +1,675 @@
+<style>
+  
+  #rangeValue {
+     
+    display: block;
+    text-align: center;
+    font-size: 25px;
+
+}
+.range {
+  width: 400px;
+  height: 7px;
+  background: #111;
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+}
+input[type=range] {
+  height: 23px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000;
+  background: #000000;
+  border-radius: 6px;
+  border: 0px solid #000000;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 37px;
+  background: #FFFFFF;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #000000;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000;
+  background: #000000;
+  border-radius: 6px;
+  border: 0px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 37px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #000000;
+  border: 0px solid #000000;
+  border-radius: 12px;
+  box-shadow: 1px 1px 1px #000000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #000000;
+  border: 0px solid #000000;
+  border-radius: 12px;
+  box-shadow: 1px 1px 1px #000000;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 37px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #000000;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #000000;
+}
+.applyPrice{
+  height: 34px;
+    margin-top: 40px;
+    padding-left: 19px;
+    padding-right: 21px;
+    background-color: black;
+    color: white;
+}
+
+
+</style>
+
+
+
+
+{{!-- 
+
+
+<div class="container mt-5">
+<div></div>    
+<div></div>    
+<div></div>    
+<div class="row  prod" id="productrow">
+    
+    {{#each products}}
+    <div class="gridclass">
+        <div class="product-grid">
+            <div class="product-image">
+                <a href="#" class="image">
+                   
+                    <img class="pic-1" src="{{this.images.[1]}}">
+                    <img class="pic-2" src="{{this.images.[2]}}">
+                </a>
+                <ul class="product-links">
+                    <li><a href="/add-to-cart/{{this._id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                    <li><a href="#"><i class="far fa-heart"></i></a></li>
+                    
+                </ul>
+            </div>
+            <div class="product-content">
+                <ul class="rating">
+                    <li class="fa fa-star " style="color: yellow;"></li>
+                    <li class="fa fa-star"></li>
+                    <li class="fa fa-star"></li>
+                    <li class="fa fa-star"></li>
+                    <li class="far fa-star"></li>
+                </ul>
+                <h3 class="title"><a href="/products/view-product/{{this._id}}">{{this.name}}</a></h3>
+                <div class="price1"> <del> Rs.{{this.price}} </del></div>
+                <div class="price">Rs.{{this.offerprice}}</div>
+            </div>
+        </div>
+    </div>
+     {{/each}}
+    
+</div>
+</div> --}}
+
+<style>
+  #heart{
+     animation:move 3s infinite ease-in-out;
+ }
+
+@keyframes move{
+0%{
+ transform: scale(1) rotate(0deg);
+}
+  100%{
+   transform: scale(1.6) rotate(0.1deg);
+
+  }
+
+}
+</style>
+
+
+
+ <!-- CONTENT -->
+    <section class="py-11">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3">
+
+            <!-- Filters -->
+            {{!-- <form class="mb-10 mb-md-0"> --}}
+              <ul class="nav nav-vertical" id="filterNav">
+                <li class="nav-item">
+
+                  <!-- Toggle -->
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#categoryCollapse" arial-expanded="false" >
+                    Category
+                  </a>
+
+                  <!-- Collapse -->
+                  <div class="collapse" id="categoryCollapse">
+                    <div class="form-group">
+                      <ul class="list-styled mb-0" id="productsNav">
+                        <li class="list-styled-item">
+                          <a class="list-styled-link" href="/products">
+                            <b>All Products</b>
+                          </a>
+                        </li>
+                        {{#each allCategories}}
+                        <li class="list-styled-item">                       
+                          <a class="list-styled-link" href="/products?categoryId={{this._id}}">
+                            {{this.category}}
+                          </a>
+                        </li>
+                        {{/each}}
+                      </ul>
+                    </div>
+                  </div>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                  <!-- Toggle -->
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#categoryCollapse1" arial-expanded="false" >
+                    Brand
+                  </a>
+
+                  <!-- Collapse -->
+                  <div class="collapse" id="categoryCollapse1">
+                    <div class="form-group">
+                      <ul class="list-styled mb-0" id="productsNav">
+                        <li class="list-styled-item">
+                          <a class="list-styled-link" href="/products">
+                            <b>All Products</b>
+                          </a>
+                        </li>
+                        {{#each localBrands}}
+                        <li class="list-styled-item">                       
+                          <a class="list-styled-link" href="/products?brandId={{this._id}}">
+                            {{this.brand}}
+                          </a>
+                        </li>
+                        {{/each}}
+                      </ul>
+                    </div>
+                  </div>
+
+                </li>
+                
+                <li class="nav-item">
+
+                  <!-- Toggle -->
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6" data-bs-toggle="collapse" href="#priceCollapse">
+                    Price
+                  </a>
+
+                  <!-- Collapse -->
+                  <div class="collapse" id="priceCollapse" data-simplebar-collapse="#priceGroup">
+
+                    <!-- Form group-->
+                     <div class="rangediv">
+                    <span id="rangeValue">Rs. 0</span>
+                    <Input type="range" name="" id="rangeValue" value="0" min="0" max="100000" onChange="rangeSlide(this.value)" 
+            onmousemove="rangeSlide(this.value)" style="width: 100%; height: 7px;"></Input>
+                </div>
+
+                    <!-- Range -->
+                    <div class=" align-items-center">
+
+                      <!-- Input -->
+                     <button type="button" class="applyPrice" onclick="price()">Apply</button>
+
+                    </div>
+
+                  </div>
+
+                </li>
+              </ul>
+            {{!-- </form> --}}
+
+          </div>
+          <div class="col-12 col-md-8 col-lg-9">
+
+            <!-- Slider -->
+            
+
+            <!-- Header -->
+            <div class="row align-items-center mb-7">
+              <div class="col-12 col-md">
+
+                <!-- Heading -->
+                <h3 class="mb-1">Products</h3>
+
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb mb-md-0 fs-xs text-gray-400">
+                  <li class="breadcrumb-item">
+                    <a class="text-gray-400" href="/">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active">
+                    Products
+                  </li>
+                </ol>
+
+              </div>
+              <div class="col-12 col-md-auto">
+
+                <!-- Select -->
+                sort:
+                <select id="selectBox" onchange="sort()" class="form-select form-select-xs">
+
+                  {{#if isSort1}}
+                  <option value="1">Low to High</option>
+                  <option value="-1">High to Low</option>
+                  {{else}}
+                  <option value="-1">High to Low</option>
+                  <option value="1">Low to High</option>
+                  {{/if}}
+                </select>
+
+              </div>
+            </div>
+
+            <!-- Tags qury selected things show here -->
+            {{!-- <div class="row mb-7">
+              <div class="col-12">
+
+                <span class="btn btn-xs btn-light fw-normal text-muted me-3 mb-3">
+                  text here <a class="text-reset ms-2" href="#!" role="button">
+                    <i class="fe fe-x"></i>
+                  </a>
+                </span>
+              </div>
+            </div> --}}
+
+            <!-- Products -->
+            {{#if emptyProducts}}
+            <div class="row">
+              <div class="col-6 col-md-4">
+              <span style="color: red;"><b>No Products are Available.........</b></span>
+            </div>
+            </div>
+            {{else}}
+
+
+            <div class="row">
+              {{#each products}}
+              <div class="col-6 col-md-4">
+
+                <!-- Card -->
+                <div class="card mb-7">
+
+                  <!-- Badge -->
+                  
+
+                  <!-- Image -->
+                  <div class="card-img">
+
+                    <!-- Image -->
+                    <a class="card-img-hover" href="/products/view-product/{{this._id}}">
+                      <img class="card-img-top card-img-back" src="{{this.images.[1]}}" alt="...">
+                      <img class="card-img-top card-img-front" src="{{this.images.[2]}}" alt="...">
+                    </a>
+
+                    <!-- Actions -->
+                    <div class="card-actions">
+                      
+                      <span class="card-action" style="z-index: 2;">
+                        <a href="/addtoCart/{{this._id}}" ><button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                          <i class="fe fe-shopping-cart"></i>
+                        </button></a>
+                      </span>
+                      {{#if this.wishlist}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" id="heart" data-toggle="button">
+                          ❤️
+                        </a>
+                      </span>
+                      {{else}}
+                      <span class="card-action">
+                        <a class="btn btn-xs btn-circle btn-white-primary" href="/addtoWishlist/{{this._id}}" data-toggle="button">
+                          <i class="fe fe-heart"></i>
+                        </a>
+                      </span>
+                      {{/if}}
+                    </div>
+
+                  </div>
+
+                  <!-- Body -->
+                   <div class="card-body px-0">
+
+                    <!-- Category -->
+                    {{!-- <div class="fs-xs">
+                      <a class="text-muted" href="shop.html">{{this.category}}</a>
+                    </div> --}}
+
+                    <!-- Title -->
+                    <div class="fw-bold">
+                      <a class="text-body" href="/products/view-product/{{this._id}}">
+                        {{this.name}}
+                      </a>
+                    </div>
+
+                    <!-- Price -->
+                     {{#when this.price 'eq' this.offerprice}}
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                      Rs. {{toLocaleString this.price}}
+                    </div>
+                    <div class="fw text-muted" >
+                     ( Currently no offers available )
+                    </div>
+                    
+                    {{else}}
+                    <div class="fw-bold text-muted">
+                      <del>Rs. {{toLocaleString this.price}}</del>
+                      {{#when this.productDiscount 'gt' this.categoryDiscount}}
+                      <span style="color: green;">  ({{this.productDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'gt' this.productDiscount}}
+                      <span style="color: green;">  ({{this.categoryDiscount}}% off)</span>
+                      {{else}}
+                      {{#when this.categoryDiscount 'eq' this.productDiscount}}
+                      <span style="color: green;font: size 10px;">  ({{this.categoryDiscount}}% off)</span>
+                      {{/when}}
+                      {{/when}}
+                      {{/when}}
+                    </div>
+                    <div class="fw-bold " style="color: red; margin-left: 14px; font-size: 20px;">
+                     Rs. {{toLocaleString this.offerprice}}
+                    </div>
+          
+                    {{/when}}
+
+                  </div>
+
+                </div>
+
+              </div>
+              {{/each}}
+            </div>
+            <nav class="d-flex justify-content-center justify-content-md-end">
+              <ul class="pagination pagination-sm text-gray-400">
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-left"></i>
+                  </a>
+                </li>
+            {{#each page}}
+                <li class="page-item" style="cursor: pointer;">
+                  <a class="page-link" onclick="page({{this}})" >{{this}}</a>
+                </li>
+            {{/each}}
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            {{/if}}
+            <!-- Pagination -->
+
+          </div>
+        </div>
+      </div>
+    </section>
+   
+   <!-- FOOTER -->
+    <footer class="bg-dark bg-cover " style="background-image: url(/assets/img/patterns/pattern-2.svg)">
+      <div class="py-12 border-bottom border-gray-700">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-3">
+    
+              <!-- Heading -->
+              <h4 class="mb-6 text-white">Auverse</h4>
+    
+              <!-- Social -->
+              <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/gokuldas439/" class="text-gray-350">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.youtube.com/channel/UC-1feeFHbToQW1i_r0doJZA" class="text-gray-350">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/fanboy_offl" class="text-gray-350">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/_gokul._.das_/" class="text-gray-350">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://medium.com/@gokuldas439" class="text-gray-350">
+                    <i class="fab fa-medium"></i>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Support
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >Contact Us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >FAQs</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" data-bs-toggle="modal" >Auverse Finder</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">Shipping & Returns</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Shop
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >In-Ears</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Headphones</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Speakers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">offers</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm" >
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Company
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300" >about us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Careers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Terms & Conditions</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Privacy & Cookie policy</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white" style="cursor: pointer;">
+                Contact
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0" style="cursor: pointer;">
+                <li>
+                  <a class="text-gray-300">+91 7561876594</a>
+                </li>
+                
+                
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+    
+              <!-- Copyright -->
+              <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                © Auverse 2022 All rights reserved.
+              </p>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+<script>
+
+  function sort() {
+    
+    var selectBox = document.getElementById("selectBox");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+    console.log(selectedValue)
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set('sort', selectedValue);
+    let newParams = params.toString();
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+    console.log(newParams)
+   location.href = window.location.protocol + "//" + window.location.host + '/products?' + newParams;
+  }
+</script>
+
+
+<script>
+
+  function page(value) {
+    
+
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set('p', value);
+    let newParams = params.toString();
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+    console.log(newParams)
+   location.href = window.location.protocol + "//" + window.location.host + '/products?' + newParams;
+  }
+</script>
+
+
+<script>
+  function rangeSlide(value) {
+  document.getElementById("rangeValue").innerHTML = `Rs. ${value}`;
+}
+</script>
+
+<script>
+  function price(){
+    const value=document.getElementById('rangeValue').textContent;
+    console.log(value,typeof(value))
+    const price=value.slice(4)
+
+     let url = new URL(window.location.href);
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+   window.location.href=`${window.location.protocol}//${window.location.host}/products?price=${price}`
+
+  }
+</script>

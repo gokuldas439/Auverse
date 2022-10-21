@@ -1,0 +1,164 @@
+
+ 
+ 
+ <div class="container" style="margin-top: 12rem;">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <h2><b>Customers Management</b></h2>
+                        </div>
+                        <div class="col-xs-7">
+                            {{!-- <a href="#" class="btn btn-primary"><i class="fa-solid fa-pen"></i> <span>Add New
+                                    User</span></a> --}}
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover mydatatable" id="">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Number</th>
+                            <th>Status</th>
+                            <th>Status Changer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each usertable}}
+                        <tr>
+                            <td class="indexNo">{{inc @index}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.number}}</td>
+                            <td>{{this.status}}</td>
+                           
+
+                            {{!-- <td><span class="status text-success">&bull;</span> Active</td> --}}
+                            <td>
+                        {{#eq this.status "Active"}}
+                                
+                            
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" id="statusbutton"
+                                    data-bs-target="#exampleModal{{@index}}"
+                                    style="padding-left:16px; ">
+                                    {{!-- <i class="material-icons" style="margin-top: 5px;">block_flipped</i> --}}
+                                    Block
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{@index}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{@index}}">Block User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Action Will Block the User.<br>
+                                                Are You Sure You Want to continue ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a href="/statusUser/{{this._id}}"><button type="button"
+                                                        class="btn btn-danger">Confirm</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{else}}
+                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" id="statusbutton"
+                                    data-bs-target="#exampleModal{{@index}}"
+                                    style="padding-left:5px; ">
+                                    UnBlock
+                                    {{!-- <i class="material-icons" style="margin-top: 5px;">check_circle</i> --}}
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{@index}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{@index}}">UnBlock User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Action Will UnBlock the User.<br>
+                                                Are You Sure You Want to continue ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a href="/statusUser/{{this._id}}"><button type="button"
+                                                        class="btn btn-success">Confirm</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {{/eq}}
+                            
+                            
+
+                                {{!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal1{{}}"
+                                    style="padding:0px;">
+                                    <i class="material-icons" style="margin-top: 5px;">&#xE5C9;</i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal1{{}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel1{{}}">Block User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Action Will Block data of the User.<br>
+                                                Are You Sure You Want to Block ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a href="/blockuser/{{this._id}}"><button type="button"
+                                                        class="btn btn-danger">Block User</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                            </td>
+
+                        </tr>
+                        {{/each}}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function(){
+     const status=document.querySelectorAll(".statuses").value
+     const button=document.querySelector("#statusbutton")
+     if(value=="Blocked"){
+     button.classList+="btn-success";
+    }else{
+       button.classList+="btn-danger";
+    }
+    }
+ </script>

@@ -1,0 +1,226 @@
+<label style="margin-top: 6rem; padding-left: 4rem;">Select Date Range :</label>
+<div style=" padding-left: 4rem;">
+    <div style="display: flex; gap:20px;">
+<div id="reportrange" style="right:0;background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%" >
+    <i class="fa fa-calendar"></i>&nbsp;
+    <span></span> <i class="fa fa-caret-down"></i>
+</div>
+<form action="/salesReport" method="post">
+    <input type="text" name="startdate" id="startdate" hidden>
+    <input type="text" name="enddate" id="enddate" hidden>
+    <div><button style="background-color: black; color: white; height: 36px; width: 75px;" type="submit">Filter</button></div>
+</form>
+</div>
+
+{{!-- <form> --}}
+
+    {{!-- <input type="text" name="startdate" id="start" > --}}
+    {{!-- <input type="text" name="enddate" id="end" > --}}
+    <div style="display: flex; gap:20px; padding-top: 20px;">
+    <span style="color: green;"><b>Download to :</b></span>
+    <div><button style="background-color: black; color: white; height: 36px; width: 85px;" id="downloadCSV">CSV</button></div>
+    <div><button style="background-color: black; color: white; height: 36px; width: 85px;" id="downloadExcel">Excel</button></div>
+    <div><button style="background-color: black; color: white; height: 36px; width: 85px;" id="downloadPDF">PDF</button></div>
+{{!-- </form> --}}
+</div>
+    </div>
+    
+ <div class="container" >
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <h2><b>Sales Report</b></h2>
+                        </div>
+                      
+                    </div>
+                </div>
+                <table class="table table-striped table-hover mydatatable" id="table">
+                    <thead>
+                        <tr>
+                           <th>#</th>
+            {{!-- <th>Image</th> --}}
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Ordered On</th>
+            <th>subTotal</th>
+            {{!-- <th>Shipping Address</th> --}}
+            {{!-- <th>Status Changer</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each sales}}
+                        <tr>
+
+              <td class="indexNo">{{inc @index}}</td>
+              {{!-- <td>
+                {{#each product}}
+                <img src="{{this.productDetails.images.[0]}}" style="width: 82px; height: 70px;">
+               {{/each}}
+                </td> --}}
+              <td>{{this.productName}}</td>
+              <td>{{this.Quantity}}</td>
+              {{!-- {{/each}} --}}
+            
+              <td>{{this.Ordered_On}}</td>
+              <td>Rs. {{this.SubTotal}}</td>
+            
+            
+            
+              
+
+              {{!-- {{#each productstable}} --}}
+             
+
+                        </tr>
+                        {{/each}}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+
+     const date=new Date();
+      var month = date.getUTCMonth() + 1; //months from 1-12
+      var day = date.getUTCDate();
+      var year = date.getUTCFullYear();
+      var newdate = month + "/" + day + "/" + year;
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));  
+        $('#startdate').val(start.format('YYYY-MM-DD'));
+        $('#enddate').val(end.format('YYYY-MM-DD'));
+        $('#start').val(start.format('YYYY-MM-DD'));
+        $('#end').val(end.format('YYYY-MM-DD'));
+
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        maxDate: newdate,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+});
+</script>
+
+
+<script type="text/javascript" src="/libs/FileSaver/FileSaver.min.js"></script>
+<script type="text/javascript" src="/libs/js-xlsx/xlsx.core.min.js"></script>
+<script type="text/javascript" src="/libs/jsPDF/polyfills.umd.js"></script>
+<script type="text/javascript" src="/libs/jsPDF/jspdf.umd.min.js"></script>
+
+<script type="text/javascript" src="/libs/pdfmake/pdfmake.min.js"></script>
+<script type="text/javascript" src="/libs/pdfmake/vfs_fonts.js"></script>
+
+<script type="text/javascript" src="/libs/tableExport.min.js"></script>
+
+<!-- To export arabic characters include mirza_fonts.js _instead_ of vfs_fonts.js
+<script type="text/javascript" src="libs/pdfmake/mirza_fonts.js"></script>
+-->
+
+<!-- For a chinese font include either gbsn00lp_fonts.js or ZCOOLXiaoWei_fonts.js _instead_ of vfs_fonts.js 
+<script type="text/javascript" src="libs/pdfmake/gbsn00lp_fonts.js"></script>
+-->
+
+<script>
+document.getElementById('downloadCSV').addEventListener('click',function(){
+// CSV format
+$('#table').tableExport({type:'csv'});
+});
+</script>
+<script>
+document.getElementById('downloadExcel').addEventListener('click',function(){
+   // Excel 2000 html format
+// XML Spreadsheet 2003 file format with multiple worksheet support
+
+// XML Spreadsheet 2003 file format with multiple worksheet support
+
+$('table').tableExport({type:'excel',
+                        mso: {fileFormat:'xmlss',
+                              worksheetName: ['Table 1','Table 2', 'Table 3']}});
+
+});
+</script>
+
+
+<script>
+document.getElementById('downloadPDF').addEventListener('click',function(){
+// PDF format using jsPDF and jsPDF Autotable 
+
+$('#table').tableExport({type:'pdf',
+                           jspdf: {orientation: 'l',
+                                   format: 'a3',
+                                   margins: {left:10, right:10, top:20, bottom:20},
+                                   autotable: {styles: {fillColor: 'inherit', 
+                                                        textColor: 'inherit'},
+                                               tableWidth: 'auto'}
+                                  }
+                          });
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>

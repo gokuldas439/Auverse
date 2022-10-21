@@ -1,0 +1,458 @@
+<style>
+  .error{
+    color: red;
+  }
+</style>
+
+<!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+            <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+            {{#if editaddress}}
+            <form action="/editAddress/{{this.address.address_id}}" id="gform" method="post">
+           <div class="row mt-6">
+                     <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">First Name *</label>
+                        <input class="form-control form-control-sm" id="firstname" name="firstname" type="text" value="{{this.address.firstname}}">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressZIP">Last Name *</label>
+                        <input class="form-control form-control-sm" id="lastname" name="lastname" type="text" value="{{this.address.lastname}}">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+                      <!-- Country -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressCountry">State *</label>
+                        <input class="form-control form-control-sm" id="state" name="state" type="text" value="{{this.address.state}}">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+
+                      <!-- Address Line 1 -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressLineOne">Address *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressLineOne" name="address" type="text" value="{{this.address.address}}">
+                      </div>
+
+                    </div>
+                    
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">Town / City *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressTown" name="city" type="text" value="{{this.address.city}}">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressZIP">Pincode *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressZIP" name="pincode" type="text" value="{{this.address.pincode}}">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutemail">Email *</label>
+                        <input class="form-control form-control-sm" id="checkoutemail" name="email" type="email" value="{{this.address.email}}">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutnumber">Mobile No. *</label>
+                        <input class="form-control form-control-sm" id="checkoutnumber" name="number" type="text" value="{{this.address.number}}">
+                      </div>
+
+                    </div>
+
+          </div>
+               <button type="submit" class="btn btn-primary" style="background-color: black; border:none;">Save Address</button>
+            </form>
+            {{else}}
+            <form action="/addUserAddress" id="gform" method="post">
+           <div class="row mt-6">
+                     <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">First Name *</label>
+                        <input class="form-control form-control-sm" id="firstname" name="firstname" type="text" placeholder="First Name">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressZIP">Last Name *</label>
+                        <input class="form-control form-control-sm" id="lastname" name="lastname" type="text" placeholder="Last Name">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+                      <!-- Country -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressCountry">State *</label>
+                        <input class="form-control form-control-sm" id="state" name="state" type="text" placeholder="State">
+                      </div>
+
+                    </div>
+                    <div class="col-12">
+
+                      <!-- Address Line 1 -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressLineOne">Address *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressLineOne" name="address" type="text" placeholder="Address">
+                      </div>
+
+                    </div>
+                    
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressTown">Town / City *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressTown" name="city" type="text" placeholder="Town / City">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressZIP">Pincode *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressZIP" name="pincode" type="text" placeholder="ZIP / Postcode">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressemail">Email *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressemail" name="email" type="email" placeholder="Email here ">
+                      </div>
+
+                    </div>
+                    <div class="col-6">
+
+                      <!-- Town / City -->
+                      <div class="form-group">
+                        <label class="form-label" for="checkoutShippingAddressnumber">Mobile No. *</label>
+                        <input class="form-control form-control-sm" id="checkoutShippingAddressnumber" name="number" type="text" placeholder="Number here ">
+                      </div>
+
+                    </div>
+
+          </div>
+               <button type="submit" class="btn btn-primary" style="background-color: black; border:none;">Save Address</button>
+            </form>
+            {{/if}}
+           
+
+            <!-- Pagination -->
+            
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+ <!-- FOOTER -->
+    {{!-- <footer class="bg-dark bg-cover " style="background-image: url(/assets/img/patterns/pattern-2.svg)">
+      <div class="py-12 border-bottom border-gray-700">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-3">
+    
+              <!-- Heading -->
+              <h4 class="mb-6 text-white">Auverse</h4>
+    
+              <!-- Social -->
+              <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/gokuldas439/" class="text-gray-350">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.youtube.com/channel/UC-1feeFHbToQW1i_r0doJZA" class="text-gray-350">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/fanboy_offl" class="text-gray-350">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/_gokul._.das_/" class="text-gray-350">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://medium.com/@gokuldas439" class="text-gray-350">
+                    <i class="fab fa-medium"></i>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white">
+                Support
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0">
+                <li>
+                  <a class="text-gray-300" >Contact Us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >FAQs</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" data-bs-toggle="modal" >Auverse Finder</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">Shipping & Returns</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white">
+                Shop
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-7 mb-sm-0">
+                <li>
+                  <a class="text-gray-300" >In-Ears</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Headphones</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Speakers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300">offers</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white">
+                Company
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a class="text-gray-300" >about us</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Careers</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Terms & Conditions</a>
+                </li>
+                <li>
+                  <a class="text-gray-300" >Privacy & Cookie policy</a>
+                </li>
+              </ul>
+    
+            </div>
+            <div class="col-6 col-sm">
+    
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-4 text-white">
+                Contact
+              </h6>
+    
+              <!-- Links -->
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a class="text-gray-300" href="#!">+91 7561876594</a>
+                </li>
+                
+                
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="py-6">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+    
+              <!-- Copyright -->
+              <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                © 2022 All rights reserved.
+              </p>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer> --}}
+
+
+    <script>
+        $(document).ready(function(){
+
+    $("#gform").validate({
+       rules: {
+        firstname:{
+            required:true,
+        },
+        lastname:{
+            required:true,
+            
+        },
+        state:{
+            required:true,
+            
+            
+        },
+        address:{
+            required:true,
+        },
+        city:{
+            required:true,
+            
+        },
+        pincode:{
+            required:true,
+           
+        },
+        email:{
+            required:true,
+        },
+        number:{
+            required:true,
+            digits: true,
+            
+        },
+    },
+messages: {
+        firstname:{
+            required:"Please enter your firstname *",
+        },
+        lastname: {
+            required:"Please enter your lastname *",
+           
+        },
+        state:{
+            required:"Please enter your state *",        
+        },
+        address:{
+            required:"Please Enter your address *",
+        },
+        city:{
+            required:"Please Enter your City *",
+        },
+        pincode:{
+            required:"Please Enter your pincode *",
+        },
+        email:{
+            required:"Please Enter your Email *",
+        },
+        number:{
+            required:"Please Enter your number *",
+            digits:"Please enter number *"
+        },
+        
+
+    },
+});
+
+});
+    </script>

@@ -1,0 +1,159 @@
+  <!-- BREADCRUMB -->
+    <nav class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+              <li class="breadcrumb-item">
+                <a class="text-gray-400" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                My Account
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+<section class="pt-7 pb-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+
+            <!-- Heading -->
+            <h3 class="mb-10">My Account</h3>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+
+            <!-- Nav -->
+             <nav class="mb-10 mb-md-0">
+              <div class="list-group list-group-sm list-group-strong list-group-flush-x">
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userAccount">
+                  Orders
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle active" href="/wishlist">
+                  Wishlist
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/personalDetails">
+                  Personal Details
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/userWallet">
+                  Wallet
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/addresses">
+                  Addresses
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle " href="/ReferAndEarn">
+                  Refer & Earn
+                </a>
+                <a class="list-group-item list-group-item-action dropend-toggle" href="/userLogout">
+                  Logout
+                </a>
+              </div>
+            </nav>
+
+          </div>
+        {{#if empty}}
+                  <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+        <div class="empty-cart">
+
+ 
+
+  <h3>Your Wishlist is Empty 🎁</h3>
+<a class="btn btn-link btn-sm px-0 text-body" href="/products">
+              <i class="fe fe-arrow-left me-2"></i> Continue Auverse Shopping
+            </a></div>
+            </div>
+        {{else}}
+
+          <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+            <!-- Products -->
+            <div class="row">
+            {{#each wishlist.[0].products}}
+
+              <!-- Item -->
+              <div class="col-6 col-md-4">
+                <div class="card mb-7">
+
+                  <!-- Image -->
+                  <div class="card-img">
+
+                    <!-- Action -->
+                    <a href="/addtoWishlist/{{this.productDetails._id}}"><button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end">
+                      <i class="fe fe-x"></i>
+                    </button></a>
+
+                    <!-- Button -->
+                   <a href="/wishlistToCart/{{this.productDetails._id}}"> <button class="btn btn-xs w-100 btn-dark card-btn"  data-bs-toggle="modal" data-bs-target="#modalProduct">
+                      <i class="fe fe-cart me-2 mb-1"></i>Move to Cart
+                    </button></a>
+
+                    <!-- Image -->
+                    <img class="card-img-top" src="{{this.productDetails.images.[0]}}" alt="...">
+
+                  </div>
+
+                  <!-- Body -->
+                  <div class="card-body fw-bold text-center" style="margin-left: 0px !important;">
+                    <a class="text-body" href="/products/view-product/{{this.productDetails._id}}">{{this.productDetails.name}}</a> <br>
+                    <span class="text-muted"><del>Rs. {{toLocaleString this.productDetails.price}}</del></span><br>
+                    <span class="text" style="color: red;">Rs. {{toLocaleString this.productDetails.offerprice}}</span>
+                  </div>
+
+                </div>
+              </div>
+
+            {{/each}}
+            </div>
+            <!-- Pagination -->
+             <nav class="d-flex justify-content-center justify-content-md-end">
+              <ul class="pagination pagination-sm text-gray-400">
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-left"></i>
+                  </a>
+                </li>
+            {{#each page}}
+                <li class="page-item" style="cursor: pointer;">
+                  <a class="page-link" onclick="page({{this}})">{{this}}</a>
+                </li>
+            {{/each}}
+                <li class="page-item">
+                  <a class="page-link page-link-arrow" href="#">
+                    <i class="fa fa-caret-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+        {{/if}}
+        </div>
+      </div>
+    </section>
+
+
+         <script>
+
+  function page(value) {
+    
+
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set('p', value);
+    let newParams = params.toString();
+    console.log(window.location.protocol)
+    console.log(window.location.host)
+    console.log(newParams)
+   location.href = window.location.protocol + "//" + window.location.host + '/wishlist?' + newParams;
+  }
+</script>

@@ -1,0 +1,25 @@
+
+<style>
+.container{
+	width: 500px;
+	padding: 35px 20px !important;
+	}
+</style>
+
+<div class="container {{this.panel}}" id="container" style="margin-top:80px">
+		<form id="#basic-form" action="/signup" method="post">
+			<h1>Create Account</h1><br>
+		
+			<span>Use your email for registration</span><br>
+			<span style="color: red;">{{this.signuperror}}</span>
+			<input type="text" placeholder="Name" name="name" />
+			<input type="email" placeholder="Email" name="email"/>
+			<input type="text" placeholder="MobileNo." name="number" />
+			<input type="password" placeholder="Password" name="password"/>
+			<input type="password" placeholder="Confirm Password" name="confirmPassword"/>
+			<input type="text" placeholder="Referral code here..(Optional)" name="referralcode"/><br>
+
+			<button class="signbutton">Sign Up</button>
+		</form>
+	
+</div>
