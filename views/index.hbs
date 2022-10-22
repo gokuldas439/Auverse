@@ -60,7 +60,7 @@
         {{!-- active here first one --}}
         {{#each banners}}
         <div class="carousel-item " id="carouselimage{{@index}}">
-          <img src="{{this.image}}" class="d-block w-100" style="height:550px; object-fit: cover;" alt="...">
+          <img src="{{this.image}}" class="img-fluid d-block w-100" style="object-fit: contain;" alt="...">
         </div>
         {{/each}}
       </div>
