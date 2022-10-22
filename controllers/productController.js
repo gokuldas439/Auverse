@@ -641,6 +641,12 @@ console.log(err);
 
       const userId = req.session.userId;
       const address = await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
+      let addresslist;
+      if(address.addresses.length<1){
+        addresslist=true;
+      }else{
+        addresslist=false;
+      }
       // console.log(address.addresses)
       // console.log(address.addresses[0])
       const cartItems = await db
@@ -719,10 +725,10 @@ console.log(err);
         const wallet=await db.getdb().collection('wallet').findOne({userId:mongodb.ObjectId(userId)})
         const final=parseInt(wallet.walletBalance)-parseInt(cartItems[0].total);
         if(final>=0){
-          res.render('checkout', { stylesheet: "checkout.css", user: true, productsjs: "a", carttotal: cartItems[0], addresses: address.addresses,final:true });
+          res.render('checkout', { stylesheet: "checkout.css", user: true, productsjs: "a", carttotal: cartItems[0], addresses: address.addresses,final:true,addresslist});
           
         }else{
-          res.render('checkout', { stylesheet: "checkout.css", user: true, productsjs: "a", carttotal: cartItems[0], addresses: address.addresses});
+          res.render('checkout', { stylesheet: "checkout.css", user: true, productsjs: "a", carttotal: cartItems[0], addresses: address.addresses,addresslist});
 
         }
       }

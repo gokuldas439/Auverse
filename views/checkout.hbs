@@ -200,7 +200,10 @@
 </div>
 
 
-            
+            {{#if addresslist}}
+            <span style="color: red;"><b>Please Add an address to proceed Checkout..</b></span>
+            {{else}}
+            {{/if}}
           <form id="gform" method="post">
               <h6 class="mb-7" style="margin-top: 3rem;">or Choose an Address</h6>
 
