@@ -2960,7 +2960,7 @@ deleteCoupon:async(req,res)=>{
 
       const userslist = await db.getdb().collection("users").find({}).toArray()
 
-      res.render('adminusers', { stylesheet: 'adminusers.css', admin: true, customers: "active", usertable: userslist })
+      res.render('adminusers', { stylesheet: 'adminUsers.css', admin: true, customers: "active", usertable: userslist })
     } catch (err) {
 
     }
@@ -2999,7 +2999,7 @@ deleteCoupon:async(req,res)=>{
         console.log({sales})
         // req.session.end=null;
         // req.session.start=null;
-        res.render('adminSales', { stylesheet: 'adminusers.css', admin: true, sales: "active",sales,start,end})
+        res.render('adminSales', { stylesheet: 'adminUsers.css', admin: true, sales: "active",sales,start,end})
         
       }else{
         const agg = [
@@ -3074,7 +3074,7 @@ res.redirect('/adminSales')
       const products = await db.getdb().collection('products').find({}).toArray()
       const productstable = await db.getdb().collection('products').find({ productDiscount: { $gt: 0 } }).toArray()
 
-      res.render('adminOffers', { stylesheet: 'adminusers.css', admin: true, offers: "active", categories, categoriestable, products, productstable })
+      res.render('adminOffers', { stylesheet: 'adminUsers.css', admin: true, offers: "active", categories, categoriestable, products, productstable })
     } catch (err) {
       console.log(err)
     }
