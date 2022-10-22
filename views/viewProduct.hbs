@@ -18,6 +18,19 @@
   padding-top:10px;
   padding-bottom:10px;
 }
+
+
+@media screen and (max-width:1024px){
+#thumbnaillist{
+  display:none !important;
+}
+.slider{
+  display:flex !important;
+}
+.imagechanging{
+  display: none !important;
+}
+}
 </style>
 
 <script src="/javascripts/imagezoom.js"></script>
@@ -59,7 +72,7 @@
 
                 <!-- Images -->
                 <div class="row gx-5 mb-10 mb-md-0">
-                  <div class="col-2">
+                  <div class="col-2" id="thumbnaillist">
 
                     <!-- Slider -->
                     <div class="thumbnail_images alignRow ">
@@ -83,7 +96,7 @@
                     <!-- Card -->
                     <div class="card">
 
-                      <div class="main_image" id="main_product_image" style="z-index: 2;"> 
+                      <div class="main_image" id="main_product_image" style="z-index: 2; padding-left: 35px;"> 
 
                       <!-- Badge -->
                       {{#eq this.stocks 0}}
@@ -95,7 +108,17 @@
                         {{this.stocks}} stocks Left
                       </div>
                       {{/eq}}
-                      <img src="{{this.images.[1]}}" class="imagechanging" id="zoom" width="300">
+                      <img src="{{this.images.[1]}}" class="imagechanging" id="zoom" width="350">
+                      {{!-- <img src="{{this.images.[1]}}" class="mobileview" width="250" style="display: none;"> --}}
+
+
+
+                      <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}' style="display: none;">
+                         <div><img src="{{this.images.[1]}}" style="width:100%;"></div>
+                         <div><img src="{{this.images.[2]}}" style="width:100%;"></div>
+                         <div><img src="{{this.images.[3]}}" style="width:100%;"></div>
+                         <div><img src="{{this.images.[1]}}" style="width:100%;"></div>
+                      </div>
                     </div>
                         
                     </div>
@@ -1218,4 +1241,27 @@ transform: scale(2);
         main_product_image.src = element;
     }
     $('#zoom').imagezoomsl();
+</script>
+
+
+<script>
+  $(document).ready(function(){
+    console.log( $(".slider"))
+  $(".slider").slick({
+
+  // normal options...
+  infinite: false,
+
+  // the magic
+  responsive: [{
+
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        dots: true
+      }
+
+    }]
+});
+  });
 </script>
