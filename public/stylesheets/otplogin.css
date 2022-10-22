@@ -7,7 +7,7 @@
 body {
 	background: #f6f5f7;
 	background-image: url('../images/bgimagelogin.jpg');
-	background-repeat: no-repeat;
+	/* background-repeat: no-repeat; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
