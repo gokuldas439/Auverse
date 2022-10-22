@@ -137,13 +137,13 @@ console.log(err);
 // logout.........................................
 
 
-router.get('/userLogout',sessionControllers.userSessionCheck,async(req,res)=> {
+router.get('/userLogout',async(req,res)=> {
   res.session.login=null;
   req.session.userId=null;
   res.redirect('/login')
 
 });
-router.get('/adminLogout',sessionControllers.adminSessionCheck,async(req,res)=> {
+router.get('/adminLogout',async(req,res)=> {
   req.session.adminlogin = null;
   // req.session.email = null;
   res.redirect('/adminlogin')
@@ -255,9 +255,9 @@ router.get('/products',sessionControllers.userSessionCheck,async(req,res)=>{
     }
     if(allProducts.length == 0){
 
-      res.render('products',  {user:true,products:allProducts,productsjs:"a",emptyProducts:true});
+      res.render('Products',  {user:true,products:allProducts,productsjs:"a",emptyProducts:true});
     }else{
-      res.render('products',  {user:true,products:allProducts,productsjs:"a",page,isSort1});
+      res.render('Products',  {user:true,products:allProducts,productsjs:"a",page,isSort1});
       
     }
 
