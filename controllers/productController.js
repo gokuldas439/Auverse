@@ -1032,9 +1032,11 @@ console.log(err);
   userWallet: async (req, res) => {
     try {
       const deleted=await db.getdb().collection('wallet').find({'transactions.status':"pending"}).toArray();
+      console.log("passed");
       if (deleted.length>0){
         await db.getdb().collection('wallet').updateMany({},{$pull:{transactions:{status:"pending"}}});
       }
+      console.log("passed2");
       const userId = req.session.userId;
       const wallet = await db.getdb().collection('wallet').findOne({ userId: mongodb.ObjectId(userId) })
       let pageNo;
@@ -1043,6 +1045,7 @@ console.log(err);
       }else{
         pageNo=0
       }
+      console.log("passed3");
       const limit = 6;
       const finalskip=pageNo*limit
       const agg = [
@@ -1071,8 +1074,9 @@ console.log(err);
           }
         }
       ];
+      console.log(agg)
       const transact=await db.getdb().collection('wallet').aggregate(agg).toArray()
-
+console.log("error4")
       const aggr = [
         {
           '$match': {
@@ -1099,8 +1103,17 @@ console.log(err);
       const finaltransact=await db.getdb().collection('wallet').aggregate(aggr).toArray()
 
                       // to get number of page
-
-    let max = finaltransact[0].transactions.length / 6;
+console.log(finaltransact);
+let pagination;
+if(finaltransact.length>0){
+  if(finaltransact[0].transactions){
+pagination=finaltransact[0].transactions.length / 6
+  }else{
+    pagination=0;
+  }
+}
+console.log("err 6");
+    let max = pagination;
     let m = Math.ceil(max);
     let page = [];
     for (let i = 1; i <= m; i++) {
