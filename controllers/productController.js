@@ -1025,7 +1025,10 @@ console.log(err);
 
   userWallet: async (req, res) => {
     try {
-      await db.getdb().collection('wallet').updateMany({},{$pull:{transactions:{status:"pending"}}});
+      const deleted=await db.getdb().collection('wallet').find({'transactions.status':"pending"}).toArray();
+      if (deleted.length>0){
+        await db.getdb().collection('wallet').updateMany({},{$pull:{transactions:{status:"pending"}}});
+      }
       const userId = req.session.userId;
       const wallet = await db.getdb().collection('wallet').findOne({ userId: mongodb.ObjectId(userId) })
       let pageNo;
@@ -2847,8 +2850,6 @@ deleteCoupon:async(req,res)=>{
             req.session.err = "passwords doesn't match *";
             res.redirect('/signup');
           }
-
-          res.redirect('/');
         }
       } catch (err) {
         console.log(err.message);
