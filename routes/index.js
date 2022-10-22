@@ -138,9 +138,14 @@ console.log(err);
 
 
 router.get('/userLogout',async(req,res)=> {
-  res.session.login=null;
+  try{
+
+    req.session.login=null;
   req.session.userId=null;
   res.redirect('/login')
+}catch(err){
+  console.log(err);
+}
 
 });
 router.get('/adminLogout',async(req,res)=> {
