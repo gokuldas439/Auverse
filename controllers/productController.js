@@ -3040,7 +3040,7 @@ deleteCoupon:async(req,res)=>{
         console.log({sales})
 
 
-        res.render('adminSales', { stylesheet: 'adminusers.css', admin: true, sales: "active",sales})
+        res.render('adminSales', { stylesheet: 'adminUsers.css', admin: true, sales: "active",sales})
         // req.session.sales=null;
       }
     } catch (err) {
