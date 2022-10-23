@@ -2734,7 +2734,9 @@ deleteCoupon:async(req,res)=>{
 
         if (proExist.length === 0) {
           const product = await db.getdb().collection('cart').updateOne({ userId: mongodb.ObjectId(userId) }, { $push: { products: proObj } });
-
+          res.json({
+            status:"addedtoCart"
+          })
 
 
         }
@@ -2749,6 +2751,9 @@ deleteCoupon:async(req,res)=>{
           };
 
           await db.getdb().collection('cart').updateOne(filter, update)
+          res.json({
+            status:"addedtoCart"
+          })
 
         }
 
@@ -2759,11 +2764,15 @@ deleteCoupon:async(req,res)=>{
           products: [{ productId: mongodb.ObjectId(productId), quantity: 1 }]
         };
         const upProd = await db.getdb().collection('cart').insertOne(proObj)
+        res.json({
+          status:"addedtoCart"
+        })
       }
-
-      res.redirect('back')
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      res.json({
+        status:"error"
+      })
     }
   },
 

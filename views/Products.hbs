@@ -367,10 +367,10 @@ input[type=range]:focus::-ms-fill-upper {
                     <!-- Actions -->
                     <div class="card-actions">
                       
-                      <span class="card-action" style="z-index: 2;">
-                        <a href="/addtoCart/{{this._id}}" ><button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                      <span class="card-action" style="z-index: 2;" onclick="addtoCart('{{this._id}}')">
+                      <button  class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
                           <i class="fe fe-shopping-cart"></i>
-                        </button></a>
+                        </button>
                       </span>
                       {{#if this.wishlist}}
                       <span class="card-action">
@@ -616,6 +616,8 @@ input[type=range]:focus::-ms-fill-upper {
       </div>
     </footer>
 
+<script src="/javascripts/addtoCart.js"></script>
+
 
 <script>
 
@@ -673,3 +675,5 @@ input[type=range]:focus::-ms-fill-upper {
 
   }
 </script>
+
+

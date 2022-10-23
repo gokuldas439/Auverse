@@ -27,6 +27,45 @@
 }
 
 
+.modal-body .field{
+    margin: 15px 0px -5px 0px;
+    height: 45px;
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.modal-body .field.active{
+    border-color: #7d2ae8;
+}
+
+.field span{
+    width: 50px;
+    font-size: 1.1rem;
+}
+
+.field.active span{
+    color: #7d2ae8;
+}
+
+.field input{
+    border: none;
+    outline: none;
+    font-size: 0.89rem;
+    width: 100%;
+    height: 100%;
+}
+
+.field button{
+    padding: 5px 16px;
+    color: #fff;
+    background: #7d2ae8;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+
 @media screen and (max-width:1024px){
 #thumbnaillist{
   display:none !important;
@@ -280,12 +319,12 @@
                     
 
                     <div class="row gx-5 mb-7">
-                      <div class="col-12 col-lg-auto">
+                      <div class="col-12 col-lg-auto" style="cursor: pointer;" onclick="addtoCart('{{this._id}}')">
 
                         <!-- Submit -->
-                        <a class="btn w-100 btn-dark mb-2" href="/addtoCart/{{this._id}}" >
+                        <span class="btn w-100 btn-dark mb-2">
                           <i class="fe fe-shopping-cart me-2"></i>ADD TO CART
-                        </a>
+                        </span>
 
                       </div>
                       <div class="col-12 col-lg-auto">
@@ -312,14 +351,30 @@
 
                     <!-- Share -->
                     <p class="mb-0">
-                      <span class="me-4">Share:</span>
-                      <a class="btn btn-xxs btn-circle btn-light fs-xxxs text-gray-350">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                      <a class="btn btn-xxs btn-circle btn-light fs-xxxs text-gray-350">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
+                      {{!-- <span class="me-4"><b>Share:</b></span> --}}
+                      <button type="button" class="btn btn-outline-dark me-4" style="padding: 6px; height: 35px;" data-bs-toggle="modal" data-bs-target="#myModel" id="shareBtn" data-bs-placement="top" title="Click Me!">
+                        Share <i class="fa-solid fa-share-nodes"></i> 
+                    </button>
+                     
                     </p>
+                     <div class="modal fade" id="myModel" tabindex="-1" aria-labelledby="myModelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModelLabel">Share Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>copy link from below :</p>
+                    <div class="field d-flex align-items-center justify-content-between">
+                        <span class="fas fa-link text-center"></span>
+                        <input type="text" id="shareLink" value="">
+                        <button type="button" >Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
                   </div>
                 </form>
@@ -551,10 +606,10 @@
                     <!-- Actions -->
                     <div class="card-actions">
                       
-                      <span class="card-action" style="z-index: 2;">
-                        <a href="/addtoCart/{{this._id}}" ><button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                      <span class="card-action" style="z-index: 2;" onclick="addtoCart('{{this._id}}')">
+                      <button  class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
                           <i class="fe fe-shopping-cart"></i>
-                        </button></a>
+                        </button>
                       </span>
                       {{#if this.wishlist}}
                       <span class="card-action">
@@ -1243,6 +1298,30 @@
       </div>
     </footer>
 
+<script>
+  document.getElementById('shareLink').value=window.location.href;
+  let copyText = document.getElementById("shareLink");
+  document.addEventListener('DOMContentLoaded',function(e){
+             
+            let field = document.querySelector('.field');
+            let input = document.querySelector('input');
+            let copyBtn = document.querySelector('.field button');
+
+            copyBtn.onclick = () =>{
+                copyText.select();
+               copyText.setSelectionRange(0, 99999);
+               navigator.clipboard.writeText(copyText.value);
+                if(document.execCommand("copy")){
+                    field.classList.add('active');
+                    copyBtn.innerText = 'Copied';
+                    setTimeout(()=>{
+                        field.classList.remove('active');
+                        copyBtn.innerText = 'Copy';
+                    },3500)
+                }
+            }
+        })
+</script>
     
 {{!-- 
 <script>
@@ -1319,3 +1398,7 @@ transform: scale(2);
 
   });
 </script>
+
+
+
+<script src="/javascripts/addtoCart.js"></script>
