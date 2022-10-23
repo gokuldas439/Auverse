@@ -642,10 +642,14 @@ console.log(err);
       const userId = req.session.userId;
       const address = await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
       let addresslist;
-      if(address.addresses.length<1){
-        addresslist=true;
+      if(address.addresses){
+        if(address.addresses.length<1){
+          addresslist=true;
+        }else{
+          addresslist=false; 
+        }
       }else{
-        addresslist=false;
+        addresslist=true;
       }
       // console.log(address.addresses)
       // console.log(address.addresses[0])
@@ -823,8 +827,12 @@ console.log(err);
   // user account page.............................
   userAccount: async (req, res) => {
     try {
-      await db.getdb().collection('orders').deleteMany({orderstatus:'Pending'});
       const userId = req.session.userId;
+      await db.getdb().collection('orders').deleteMany({orderstatus:'Pending'});
+      const finalOrder = await db.getdb().collection('orders').find({ userId: mongodb.ObjectId(userId) }).toArray()
+      if(finalOrder.length>0){
+
+      
       let pageNo;
       if (req.query?.p) {
         pageNo = req.query.p - 1 || 0;
@@ -832,7 +840,6 @@ console.log(err);
         pageNo=0
       }
       const limit = 6;
-      const finalOrder = await db.getdb().collection('orders').find({ userId: mongodb.ObjectId(userId) }).toArray()
       const order = await db.getdb().collection('orders').find({ userId: mongodb.ObjectId(userId) }).skip(pageNo * limit).limit(limit).sort({ "_id": -1 }).toArray()
       let max = finalOrder.length / 6;
       let m = Math.ceil(max);
@@ -840,10 +847,14 @@ console.log(err);
       for (let i = 1; i <= m; i++) {
         page.push(i);
       }
-   
+      res.render('userAccount', { user: true, orders: order ,page})
+    }else{
+      let emptyOrder=true
+      res.render('userAccount', { user: true, emptyOrder})
+
+    }
    
       // console.log({order});
-      res.render('userAccount', { user: true, orders: order ,page})
     } catch (err) {
       console.log(err);
     }

@@ -25,7 +25,7 @@
     height: 22px;
     border-radius: 100px;
   
-    background: linear-gradient(to right bottom,rgb(75, 75, 75), hsl(0deg 58% 42%));
+    background: linear-gradient(to right bottom,rgb(0, 0, 0), rgb(255, 255, 255));
     position: relative;
   }
   
@@ -54,7 +54,7 @@
   }
   
   .rad-input:checked~.rad-text {
-    color: red;
+    color: rgb(12, 12, 12);
   }
   .form-check{
     padding-left: 8px !important;

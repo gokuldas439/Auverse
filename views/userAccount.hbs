@@ -26,7 +26,7 @@
           <div class="col-12 text-center">
 
             <!-- Heading -->
-            <h3 class="mb-10">My Account</h3>
+            <h3 class="mb-10">My Orders</h3>
 
           </div>
         </div>
@@ -60,6 +60,20 @@
               </div>
             </nav>
           </div>
+
+          {{#if emptyOrder}}
+                  <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
+
+        <div class="empty-cart">
+
+ 
+
+  <h3>Your Orders is Empty 📦</h3>
+<a class="btn btn-link btn-sm px-0 text-body" href="/products">
+              <i class="fe fe-arrow-left me-2"></i> Continue Auverse Shopping
+            </a></div>
+            </div>
+        {{else}}
 
           <div class="col-12 col-md-9 col-lg-8 offset-lg-1">
 
@@ -333,7 +347,7 @@
             </nav>
 
           </div>
-
+        {{/if}}
         </div>
       </div>
     </section>

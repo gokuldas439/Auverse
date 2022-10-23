@@ -18,13 +18,20 @@
   padding-top:10px;
   padding-bottom:10px;
 }
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+.swiper-pagination-bullet-active{
+  background: black !important;
+}
 
 
 @media screen and (max-width:1024px){
 #thumbnaillist{
   display:none !important;
 }
-.slider{
+.swiper{
   display:flex !important;
 }
 .imagechanging{
@@ -113,12 +120,28 @@
 
 
 
-                      <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}' style="display: none;">
+                      {{!-- <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}' style="display: none;">
                          <div><img src="{{this.images.[1]}}" style="width:100%;"></div>
                          <div><img src="{{this.images.[2]}}" style="width:100%;"></div>
                          <div><img src="{{this.images.[3]}}" style="width:100%;"></div>
                          <div><img src="{{this.images.[1]}}" style="width:100%;"></div>
-                      </div>
+                      </div> --}}
+                 
+
+
+              <div class="swiper" style="display: none;">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    <div class="swiper-slide"><img src="{{this.images.[1]}}" style="width:100%;"></div>
+    <div class="swiper-slide"><img src="{{this.images.[1]}}" style="width:100%;"></div>
+    <div class="swiper-slide"><img src="{{this.images.[1]}}" style="width:100%;"></div>
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+</div>
                     </div>
                         
                     </div>
@@ -1243,7 +1266,8 @@ transform: scale(2);
     $('#zoom').imagezoomsl();
 </script>
 
-
+ {{!-- jquery slicker --}}
+{{!-- 
 <script>
   $(document).ready(function(){
     console.log( $(".slider"))
@@ -1251,17 +1275,47 @@ transform: scale(2);
 
   // normal options...
   infinite: false,
-
+  
   // the magic
   responsive: [{
 
       breakpoint: 1024,
       settings: {
         slidesToShow: 1,
+        slidesPerRow: 1,
         dots: true
       }
 
     }]
 });
+  });
+</script> --}}
+
+
+<script>
+  $(document).ready(function(){
+    const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+
+
   });
 </script>

@@ -201,7 +201,7 @@
 
 
             {{#if addresslist}}
-            <span style="color: red;"><b>Please Add an address to proceed Checkout..</b></span>
+            <div style="padding-top: 13px;"><span style="color: red;"><b>Please Add an address to proceed Checkout.. *</b></span></div>
             {{else}}
             {{/if}}
           <form id="gform" method="post">
@@ -213,7 +213,7 @@
                 <label class="rad-label">
                   <input type="radio" class="rad-input" name="address" value="{{this.address_id}}">
                   <div class="rad-design"></div>
-                  <div class="rad-text">{{this.firstname}}{{lastname}},{{this.address}},{{this.state}},{{this.pincode}}</div>
+                  <div class="rad-text"><b>{{this.firstname}} {{lastname}}, {{this.address}}, {{this.state}}, {{this.pincode}}</b></div>
                 </label>
                  {{/each}}         
               
