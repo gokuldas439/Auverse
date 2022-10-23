@@ -16,7 +16,7 @@ const helpers=require('handlebars-helpers')();
 const Handlebars = require('handlebars');
 const Razorpay = require('razorpay');
 const XLSX = require('xlsx');
-
+var nodemailer = require('nodemailer');
 
 
 // view engine setup

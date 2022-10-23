@@ -9,6 +9,7 @@ const crypto = require("crypto");
 var fs = require('fs');
 const { nanoid } = require('nanoid');
 const XLSX = require('xlsx');
+const nodemailer = require('nodemailer');
 // const { render } = require('../app');
 // const { ObjectID } = require('bson')
 
@@ -1482,6 +1483,7 @@ console.log("err 6");
     console.log(req.body);
     const addressId = req.body.address;
     const userId = req.session.userId;
+    const userDetail=await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
     try {
       //----------to get shipping address----------
       const agg = [
@@ -1673,6 +1675,7 @@ console.log("err 6");
           .collection('users')
           .findOne({ _id:mongodb.ObjectId(userId) });
 
+
         const obj1 = {
           userId: user._id,
           email: user.email,
@@ -1839,6 +1842,31 @@ console.log("err 6");
           .collection('cart')
           .deleteMany({ userId: mongodb.ObjectId(userId) });
 
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD
+            }
+          });
+          
+          var mailOptions = {
+            from: process.env.EMAIL,
+            to: userDetail.email,
+            subject: 'Thanks for Purchasing from Auverse',
+            text: `Hi ${userDetail.name}, thank you for purchasing from Auverse.
+                    Your order ${trackingId.tracking_id} have been confirmed and will be delivered soon...`
+            // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+
           req.session.order = true;
             res.json({
               status:"wallet"
@@ -1855,6 +1883,30 @@ console.log("err 6");
         const orderid = order.insertedId.toString();
         req.session.orderId = orderid;
       
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
+          }
+        });
+        
+        var mailOptions = {
+          from: process.env.EMAIL,
+          to: userDetail.email,
+          subject: 'Thanks for Purchasing from Auverse',
+          text: `Hi ${userDetail.name}, thank you for purchasing from Auverse.
+                  Your order ${orderid} have been confirmed and will be delivered soon...`
+          // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
 
         
         const deleteCart = await db
@@ -1983,7 +2035,8 @@ console.log("err 6");
 
   paypalsuccess: async (req, res) => {
     try {
-      const userId = req.session.userId
+      const userId = req.session.userId;
+      const userDetail=await db.getdb().collection('users').findOne({_id:mongodb.ObjectId(userId)})
       const payerId = req.query.PayerID;
       const paymentId = req.query.paymentId;
       const orderId = req.session.orderId;
@@ -2023,6 +2076,31 @@ console.log("err 6");
               }
             );
 
+            var transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+              }
+            });
+            
+            var mailOptions = {
+              from: process.env.EMAIL,
+              to: userDetail.email,
+              subject: 'Thanks for Purchasing from Auverse',
+              text: `Hi ${userDetail.name}, thank you for purchasing from Auverse.
+                      Your order ${orderId} have been confirmed and will be delivered soon...`
+              // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('Email sent: ' + info.response);
+              }
+            });
+
 
           req.session.orderId = null;
           const deleteCart = await db
@@ -2055,6 +2133,7 @@ console.log("err 6");
 
   verifyPayment: async (req, res) => {
     try {
+      const userId = req.session.userId
       console.log(req.body);
       const details = req.body;
       const objId = req.body["order[Order][receipt]"];
@@ -2078,8 +2157,36 @@ console.log("err 6");
             }
           );
 
+          const userDetail=await db.getdb().collection('users').findOne({_id:mongodb.ObjectId(userId)})
+
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD
+            }
+          });
+          
+          var mailOptions = {
+            from: process.env.EMAIL,
+            to: userDetail.email,
+            subject: 'Thanks for Purchasing from Auverse',
+            text: `Hi ${userDetail.name}, thank you for purchasing from Auverse.
+                    Your order ${objId} have been confirmed and will be delivered soon...`
+            // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+
+
         // ----------------------Deleting Cart Items-------------------
-        const userId = req.session.userId
+       
         const deleteCart = await db
           .getdb()
           .collection('cart')
