@@ -61,7 +61,7 @@ module.exports = {
       ];
       const Revenue = await db.getdb().collection('orders').aggregate(agg).toArray()
       const totalRevenue = Revenue[0].total ?? "0"
-      console.log(totalRevenue);
+      
       const orderStatus = await db.getdb().collection('orders').aggregate([
         {
           $group: {
@@ -72,10 +72,10 @@ module.exports = {
           }
         }
       ]).toArray()
-      console.log({ orderStatus })
+      
       res.render('adminhome', { stylesheet: 'adminhome.css', admin: true, dashboard: "active", orderStatus, userTotal, AdminTotal, activeUsersTotal, orderTotal, productsTotal, deliveredTotal, totalRevenue });
     } catch (err) {
-      console.log(err)
+      
     }
   },
   // products page for admin........................................................................
@@ -102,7 +102,7 @@ module.exports = {
 
       ];
       const allProducts = await db.getdb().collection("products").aggregate(agg).toArray()
-      console.log({'hi':allProducts[0].category})
+      
 
       // const allcategories= await db.getdb().collection("products").find({},{categoryId:1}).toArray()
 
@@ -110,7 +110,7 @@ module.exports = {
       // const allbrands= await db.getdb().collection("brands").find({}).toArray()
       res.render('adminProducts', { stylesheet: 'adminProducts.css', admin: true, products: "active", productstable: allProducts });
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -127,7 +127,7 @@ module.exports = {
 
 
   }catch(err){
-    console.log(err);
+    
   }
   },
 
@@ -142,7 +142,7 @@ res.render('resetPassword',{ stylesheet: "otplogin.css", login: "a"})
       }
 
   }catch(err){
-      console.log(err);
+      
   }
 },
 
@@ -150,8 +150,8 @@ res.render('resetPassword',{ stylesheet: "otplogin.css", login: "a"})
 // reset password post...........
 resetUserPassword:async(req,res)=>{
   try {
-    console.log(req.body.password);
-    console.log(req.body.confirmpassword);
+    
+    
     if(req.body.password === req.body.confirmpassword){
       // req.session.error="Passsword Doesn't match *"
       const password = req.body.password;
@@ -191,7 +191,7 @@ resetUserPassword:async(req,res)=>{
    
   }
   } catch (err) {
-    console.log(err);
+    
   }
 },
 
@@ -200,11 +200,11 @@ resetUserPassword:async(req,res)=>{
 // search..............
 search:async(req,res)=>{
   try{
-    // console.log(req.body);
+    // 
     let payload=req.body.e.trim()
-    console.log(payload)
+    
     let search=await db.getdb().collection('products').find({name:{$regex:`.*${payload}.*`,$options:'i'}}).toArray()
-console.log({search});
+
 
     res.json({
   status:'success',
@@ -212,7 +212,7 @@ console.log({search});
 })
 
   }catch(err){
-console.log(err);
+
   }
 },
 
@@ -265,13 +265,13 @@ console.log(err);
 
         // check if order is delivered in user order- only delivered can review product
         const order=await db.getdb().collection('orders').aggregate(agg).toArray();
-        console.log({order})
-        // console.log(order.length)
+        
+        // 
          
         //  chek if exists order....
         if(order.length>0){
           const userReview=await db.getdb().collection('reviews').findOne({productId:mongodb.ObjectId(productId),'reviews.userId':mongodb.ObjectId(userId)})
-         console.log({userReview});
+         
           // check if user already reviewed product..if so he cannot review again...
           if(userReview){
             eligible=false;
@@ -287,7 +287,7 @@ console.log(err);
       }
 
       const allReview=await db.getdb().collection('reviews').findOne({productId:mongodb.ObjectId(productId)})
-      console.log({allReview})
+      
       let reviews;
       let page = [];
       if(allReview){
@@ -328,7 +328,7 @@ console.log(err);
 
       ];
       const product = await db.getdb().collection("products").aggregate(agg).toArray()
-      console.log({product})
+      
       const allProducts = await db.getdb().collection("products").find({}).limit(4).toArray();
 
 
@@ -342,7 +342,7 @@ console.log(err);
         }
       ];
       const singlewishlist=await db.getdb().collection('wishlist').aggregate(aggr).toArray()
-     console.log(singlewishlist)
+     
       let iswishlist;
       //if singleWishlist
    if (singlewishlist.length>0) {
@@ -352,7 +352,7 @@ console.log(err);
     iswishlist=false;
   }
 
-  console.log(iswishlist)
+  
 
 
      //to get wishlist products
@@ -369,10 +369,10 @@ console.log(err);
          const index = allProducts.findIndex(
            (product) => product._id.toString() === item.productId.toString()
          );
-         console.log(index);
+         
          if (index !== -1) {
           allProducts[index].wishlist = true;
-           console.log(allProducts[index]);
+           
          }
        });
      }
@@ -384,7 +384,7 @@ console.log(err);
       res.render('viewProduct', { user: true, productsAll: allProducts, products: product,eligible,productId:product[0]._id,allReview,reviews,page,iswishlist});
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -393,7 +393,7 @@ console.log(err);
     try{
       const productId=req.params.id;
      const userId=req.session.userId;
-      console.log(req.body);
+      
       const {
         star,
         name,
@@ -425,7 +425,7 @@ console.log(err);
         
       }
       const newReviewlist=await db.getdb().collection('reviews').findOne({productId:mongodb.ObjectId(productId)});
-    console.log(newReviewlist.reviews.length)
+    
       const count=newReviewlist.totalReviews
       
       const agg = [
@@ -453,7 +453,7 @@ console.log(err);
 
       res.redirect('back')
     }catch(err){
-      console.log(err)
+      
     }
   },
 
@@ -463,10 +463,10 @@ console.log(err);
     try {
 
       const userId = req.session.userId;
-      // console.log(userId)
+      // 
       // const length=await db.getdb().collection('cart').findOne({userId:mongodb.ObjectId(userId)})
-      // console.log(length)
-      // console.log(length.products)
+      // 
+      // 
 
       // const total=length.products.length
 
@@ -529,7 +529,7 @@ console.log(err);
         ])
         .toArray();
 
-      // console.log({resultofcart:cartItems[0].total});
+      // 
 
 
       // const cart=await db.getdb().collection('cart').findOne({},{userid:mongodb.ObjectId(userId)})
@@ -549,7 +549,7 @@ console.log(err);
       }
 
     } catch (err) {
-      console.log(err);
+      
     }
 
   },
@@ -558,9 +558,9 @@ console.log(err);
   cartnumber: async (req, res) => {
     try {
       const userId = req.session.userId;
-      // console.log(userId);
+      // 
       const length = await db.getdb().collection('cart').findOne({ userId: mongodb.ObjectId(userId) })
-      // console.log(length);
+      // 
       if (length) {
         const total = length.products.length
         if (total) {
@@ -581,14 +581,14 @@ console.log(err);
 
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
   // cart count...................................................................
 
   changeQuantity: async (req, res, next) => {
-    console.log(req.body);
+    
     const user = req.session.userId;
     const product = req.body.productId;
     const count = parseInt(req.body.count);
@@ -631,7 +631,7 @@ console.log(err);
       }
       // next();
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -652,8 +652,8 @@ console.log(err);
       }else{
         addresslist=true;
       }
-      // console.log(address.addresses)
-      // console.log(address.addresses[0])
+      // 
+      // 
       const cartItems = await db
         .getdb()
         .collection('cart')
@@ -719,8 +719,8 @@ console.log(err);
           if(product.productDetails.stocks-product.count<0)
           return a++;
         })
-        console.log({stockfinal});
-        console.log(a);
+        
+        
         if(a>0){
           req.session.stockErr="The product or Product Quantity in your cart is Out of Stock..Please remove the Product to proceed.."
           res.redirect('/cart')
@@ -739,7 +739,7 @@ console.log(err);
       }
       }
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -749,11 +749,11 @@ console.log(err);
     try{
       const userId=req.session.userId
       const coupon=req.body.coupon;
-      console.log({coupon});
+      
       const couponDetails=await db.getdb().collection('coupons').findOne({coupon:coupon})
       if(couponDetails){
         const user=await db.getdb().collection('coupons').findOne({coupon:coupon,'users.userId':mongodb.ObjectId(userId)})
-       console.log({user});
+       
         if(user){
           res.json({
             status:'used',
@@ -765,8 +765,8 @@ console.log(err);
 
         
         const date=new Date();
-        console.log({date});
-        console.log({datee:new Date(couponDetails.expiresOn)});
+        
+        
         if(date<new Date(couponDetails.expiresOn)){
           const discount=couponDetails.discount;
           res.json({
@@ -778,7 +778,7 @@ console.log(err);
           })
          
         }else{
-          console.log('else')
+          
           res.json({
             status:'Expired',
             message:'Coupon you have entered is Expired *'
@@ -787,7 +787,7 @@ console.log(err);
       }
         // const discount=couponDetails.discount
       }else{
-        console.log('else 2')
+        
         res.json({
           status:'Invalid',
           message:'Coupon you have entered is Invalid *'
@@ -795,14 +795,14 @@ console.log(err);
       }
 
     }catch(err){
-      console.log(err)
+      
     }
   },
 
   // user save address..................................................................
 
   saveAddress: async (req, res) => {
-    console.log(req.body)
+    
     try {
       const obj = {
         address_id: mongodb.ObjectId(),
@@ -816,12 +816,12 @@ console.log(err);
         email: req.body.email,
         number: req.body.number
       }
-      console.log(obj)
+      
       const user = req.session.userId;
       await db.getdb().collection('users').updateOne({ _id: mongodb.ObjectId(user) }, { $push: { addresses: obj } }, { upsert: true })
       res.redirect('back')
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -855,9 +855,9 @@ console.log(err);
 
     }
    
-      // console.log({order});
+      // 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -867,7 +867,7 @@ console.log(err);
       const userId = req.session.userId;
       const trackingId = req.params.id;
       const orderDetails = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId) })
-      console.log(orderDetails);
+      
 
       const agg = [
         {
@@ -903,7 +903,7 @@ console.log(err);
 
       res.render('orderDetails', { user: true, orderDetails: orderDetails,cancelTotal:cancelled })
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -912,12 +912,12 @@ console.log(err);
   userAddresses: async (req, res) => {
     try {
       const userId = req.session.userId;
-      // console.log(userId);
+      // 
       const addresslist = await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
-      // console.log(addresslist.addresses);
+      // 
       res.render('userAddresses', { user: true, addresslist: addresslist.addresses })
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -928,7 +928,7 @@ console.log(err);
       res.render('userAddAddress', { user: true })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -947,14 +947,14 @@ console.log(err);
         email: req.body.email,
         number: req.body.number
       }
-      console.log(obj)
+      
       const user = req.session.userId;
       await db.getdb().collection('users').updateOne({ _id: mongodb.ObjectId(user) }, { $push: { addresses: obj } }, { upsert: true })
       res.redirect('/addresses')
 
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -989,7 +989,7 @@ console.log(err);
       res.render('userAddAddress', { user: true, address: address[0].addresses, editaddress: true })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1018,7 +1018,7 @@ console.log(err);
 
     }
     catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1027,14 +1027,14 @@ console.log(err);
   removeUserAddress: async (req, res) => {
     try {
 
-      // console.log(req.params.id);
+      // 
       const user = req.session.userId;
       const addressId = req.params.id;
-      // console.log(addressId);
+      // 
       await db.getdb().collection('users').updateOne({ _id: mongodb.ObjectId(user) }, { $pull: { addresses: { address_id: mongodb.ObjectId(addressId) } } });
       res.redirect('/addresses')
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1044,11 +1044,11 @@ console.log(err);
   userWallet: async (req, res) => {
     try {
       const deleted=await db.getdb().collection('wallet').find({'transactions.status':"pending"}).toArray();
-      console.log("passed");
+      
       if (deleted.length>0){
         await db.getdb().collection('wallet').updateMany({},{$pull:{transactions:{status:"pending"}}});
       }
-      console.log("passed2");
+      
       const userId = req.session.userId;
       const wallet = await db.getdb().collection('wallet').findOne({ userId: mongodb.ObjectId(userId) })
       let pageNo;
@@ -1057,7 +1057,7 @@ console.log(err);
       }else{
         pageNo=0
       }
-      console.log("passed3");
+      
       const limit = 6;
       const finalskip=pageNo*limit
       const agg = [
@@ -1086,9 +1086,9 @@ console.log(err);
           }
         }
       ];
-      console.log(agg)
+      
       const transact=await db.getdb().collection('wallet').aggregate(agg).toArray()
-console.log("error4")
+
       const aggr = [
         {
           '$match': {
@@ -1115,7 +1115,7 @@ console.log("error4")
       const finaltransact=await db.getdb().collection('wallet').aggregate(aggr).toArray()
 
                       // to get number of page
-console.log(finaltransact);
+
 let pagination;
 if(finaltransact.length>0){
   if(finaltransact[0].transactions){
@@ -1124,7 +1124,7 @@ pagination=finaltransact[0].transactions.length / 6
     pagination=0;
   }
 }
-console.log("err 6");
+
     let max = pagination;
     let m = Math.ceil(max);
     let page = [];
@@ -1132,7 +1132,7 @@ console.log("err 6");
       page.push(i);
     }
 
-      console.log(transact);
+      
       if (req.session.transferError) {
         res.render('userWallet', { user: true, wallet, transferError: req.session.transferError,transact,page });
         req.session.transferError = null;
@@ -1144,7 +1144,7 @@ console.log("err 6");
       res.render('userWallet', { user: true, wallet,transact,page });
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1166,11 +1166,11 @@ console.log("err 6");
       if (wallet) {
         const transactionId = new mongodb.ObjectId();
         const result = await db.getdb().collection('wallet').updateOne({ userId: mongodb.ObjectId(userId) }, { $push: { transactions: { transactionId: transactionId, amount: amount,date:newdate,reason: reason, type: 'credited', status: "pending" } } })
-        console.log(result);
+        
 
 
         const orderid = transactionId.toString();
-        console.log(orderid);
+        
         req.session.transactionId = orderid;
 
 
@@ -1180,7 +1180,7 @@ console.log("err 6");
             currency: "INR",
             receipt: transactionId.toString(),
           });
-          console.log(Order);
+          
 
           res.json({
             Order,
@@ -1209,11 +1209,11 @@ console.log("err 6");
   verifyWalletPayment: async (req, res) => {
     try {
       const userId = req.session.userId
-      console.log(req.body);
+      
       const details = req.body;
       const objId = req.body["order[Order][receipt]"];
       const amount = parseInt(req.body["order[Order][amount]"]) / 100;
-      console.log(objId);
+      
 
       let hmac = crypto.createHmac("sha256", process.env.YOUR_KEY_SECRET);
       hmac.update(
@@ -1221,7 +1221,7 @@ console.log("err 6");
         "|" +
         details["payment[razorpay_payment_id]"]
       );
-      console.log((hmac = hmac.digest("hex")));
+      
       if (hmac == details["payment[razorpay_signature]"]) {
         const result = await db
           .getdb()
@@ -1241,17 +1241,17 @@ console.log("err 6");
         }
 
 
-        console.log("wallet transaction placed");
+        
 
         res.json({ status: true });
       } else {
-        console.log("payment failed");
+        
         res.json({ status: false });
       }
 
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1263,9 +1263,9 @@ console.log("err 6");
       const amount = parseInt(req.body.amount);
       const user = await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
       const transferUser = await db.getdb().collection('users').findOne({ email: trasfermail })
-      // console.log({amount});
-      // console.log({user});
-      // console.log({transferUser});
+      // 
+      // 
+      // 
     
       var dateObj = new Date();
       var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -1275,7 +1275,7 @@ console.log("err 6");
       var newdate = day + "/" + month + "/" + year;
       if (transferUser) {
         const userwallet=await db.getdb().collection('wallet').findOne({userId:mongodb.ObjectId(user._id)});
-        // console.log({userwallet});
+        // 
 
         if(userwallet.walletBalance>=amount){
 
@@ -1300,7 +1300,7 @@ console.log("err 6");
 
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -1313,16 +1313,16 @@ console.log("err 6");
       const trackingId=req.body.trackid;
       
       const orderlist = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId) })
-      console.log({orderlist});
+      
       const productCount = orderlist.product.length;
 
       await db.getdb().collection('orders').updateOne({ tracking_id: mongodb.ObjectId(trackingId), 'product.productDetails._id': mongodb.ObjectId(productId) }, { $set: { 'product.$.returned': true }})
       const order = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId), 'product.productDetails._id': mongodb.ObjectId(productId) });
-      console.log({ order })
-      console.log({ orderproduct:order.product[0] })
-      console.log({ productDetails:order.product[0].productDetails })
+      
+      
+      
       const amount = order.product[0].afterDiscountSubTotal
-      console.log({amount});
+      
       if (orderlist.payment.method != "COD") {
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -1337,7 +1337,7 @@ console.log("err 6");
         await db.getdb().collection('orders').updateOne({ tracking_id: mongodb.ObjectId(trackingId), 'product.productDetails._id': mongodb.ObjectId(productId) }, { $set: { 'product.$.refunded': true } })
 
       }else{
-        console.log("cod");
+        
       }
 
       const agg = [
@@ -1361,7 +1361,7 @@ console.log("err 6");
         .collection('orders')
         .aggregate(agg).toArray();
       const returnedProduct = returned.length;
-      // console.log(cancel.length);
+      // 
 
 
       if (productCount === returnedProduct) {
@@ -1374,7 +1374,7 @@ console.log("err 6");
       }
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -1388,7 +1388,7 @@ console.log("err 6");
       res.render('ReferAndEarn', { user: true, userdetail,referral })
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -1402,7 +1402,7 @@ console.log("err 6");
       res.render('userProfile', { user: true, user: userdetail })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1415,7 +1415,7 @@ console.log("err 6");
       res.render('userProfile', { user: true, user: userdetail, edit: true })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1434,7 +1434,7 @@ console.log("err 6");
       res.redirect('/personalDetails')
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
   // user password change in user account...............................................
@@ -1443,7 +1443,7 @@ console.log("err 6");
     try {
       res.render('userProfile', { user: true, password: true })
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -1473,14 +1473,14 @@ console.log("err 6");
 
       }
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
   // place order..................................................
 
   placeOrder: async (req, res) => {
-    console.log(req.body);
+    
     const addressId = req.body.address;
     const userId = req.session.userId;
     const userDetail=await db.getdb().collection('users').findOne({ _id: mongodb.ObjectId(userId) })
@@ -1509,7 +1509,7 @@ console.log("err 6");
         .aggregate(agg)
         .toArray();
 
-      console.log(address[0].addresses);
+      
       // got the address of user..........................
 
       var dateObj = new Date();
@@ -1637,8 +1637,8 @@ console.log("err 6");
       //   }
       // ])
 
-      console.log({ cartItems });
-      console.log({all: cartItems[0].products });
+      
+      
       let discAmount;
       let afterDisc;
       let discount;
@@ -1649,8 +1649,8 @@ console.log("err 6");
           .findOne({ coupon: req.body.coupon });
 
          discount = result.discount;
-        console.log({discount});
-        console.log({carttotal:cartItems[0].total});
+        
+        
         // the price discount we get.....
 
         // const discountingPrice=Math.round(cartItems[0].total-(cartItems[0].total * discount / 100));
@@ -1720,7 +1720,7 @@ console.log("err 6");
         var paymentStatus = "Pending";
       }
 
-      // console.log(cartItems[0].products);
+      // 
       // if (cartItems[0].products.length > 1) {
       //   await Promise.all(
       //     cartItems[0].products.map(async (cartItem) => {
@@ -1746,7 +1746,7 @@ console.log("err 6");
       // } 
       // else {
       //   // -----------creating order Single item-------------
-      //   console.log({name:cartItems[0].products[0].productDetails.name});
+      //   
       //   const obj = {
       //     userId: mongodb.ObjectId(req.session.userId),
       //     tracking_id:new mongodb.ObjectId(),
@@ -1769,7 +1769,7 @@ console.log("err 6");
       //     .insertOne(obj);
       // }
       let couponcode=req.body.coupon?req.body.coupon:null;
-      console.log({couponcode});
+      
 
       
 
@@ -1861,9 +1861,9 @@ console.log("err 6");
           
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-              console.log(error);
+              
             } else {
-              console.log('Email sent: ' + info.response);
+              
             }
           });
 
@@ -1902,9 +1902,9 @@ console.log("err 6");
         
         transporter.sendMail(mailOptions, function(error, info){
           if (error) {
-            console.log(error);
+            
           } else {
-            console.log('Email sent: ' + info.response);
+            
           }
         });
 
@@ -1924,9 +1924,9 @@ console.log("err 6");
         // const orderid = order.insertedId.toString();
         // req.session.orderId = orderid;
         const orderid = order.insertedId.toString();
-        console.log(orderid);
+        
         req.session.orderId = orderid;
-        console.log({ session: req.session.orderId });
+        
         let final;
         if(afterDisc <= cartItems[0].total){
           final=afterDisc;
@@ -1940,12 +1940,12 @@ console.log("err 6");
             currency: "INR",
             receipt: order.insertedId.toString(),
           });
-          console.log(Order);
+          
           res.json({
             Order
           });
         } catch (err) {
-          console.log(err);
+          
         }
 
       } else if (req.body.payment === "paypal") {
@@ -2002,12 +2002,12 @@ console.log("err 6");
 
           paypal.payment.create(create_payment_json, function (error, payment) {
             if (error) {
-              console.log(error.message);
+              
 
             } else {
-              console.log("payment response");
-              console.log(payment);
-              console.log(payment.links);
+              
+              
+              
 
               for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === "approval_url") {
@@ -2019,16 +2019,16 @@ console.log("err 6");
 
 
         } catch (err) {
-          console.log(err)
+          
         }
 
       }else{
-        console.log(err)
+        
       }
 
 
     } catch (err) {
-      console.log(err)
+      
     }
 
   },
@@ -2040,12 +2040,12 @@ console.log("err 6");
       const payerId = req.query.PayerID;
       const paymentId = req.query.paymentId;
       const orderId = req.session.orderId;
-      console.log({ orderId })
+      
       const orderDetails = await db
         .getdb()
         .collection('orders')
         .findOne({ _id: mongodb.ObjectId(orderId) });
-      console.log(orderDetails);
+      
       let amount = Math.ceil(orderDetails.afterDicountTotal / 80);
 
       const execute_payment_json = {
@@ -2060,11 +2060,11 @@ console.log("err 6");
 
       paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
         if (error) {
-          console.log(error.response);
+          
 
         } else {
-          console.log(JSON.stringify(payment));
-          console.log({ payment });
+          
+          
 
           const result = await db
             .getdb()
@@ -2095,9 +2095,9 @@ console.log("err 6");
             
             transporter.sendMail(mailOptions, function(error, info){
               if (error) {
-                console.log(error);
+                
               } else {
-                console.log('Email sent: ' + info.response);
+                
               }
             });
 
@@ -2115,7 +2115,7 @@ console.log("err 6");
         }
       });
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2134,10 +2134,10 @@ console.log("err 6");
   verifyPayment: async (req, res) => {
     try {
       const userId = req.session.userId
-      console.log(req.body);
+      
       const details = req.body;
       const objId = req.body["order[Order][receipt]"];
-      console.log(objId);
+      
 
       let hmac = crypto.createHmac("sha256", process.env.YOUR_KEY_SECRET);
       hmac.update(
@@ -2145,7 +2145,7 @@ console.log("err 6");
         "|" +
         details["payment[razorpay_payment_id]"]
       );
-      console.log((hmac = hmac.digest("hex")));
+      
       if (hmac == details["payment[razorpay_signature]"]) {
         const result = await db
           .getdb()
@@ -2178,9 +2178,9 @@ console.log("err 6");
           
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-              console.log(error);
+              
             } else {
-              console.log('Email sent: ' + info.response);
+              
             }
           });
 
@@ -2192,18 +2192,18 @@ console.log("err 6");
           .collection('cart')
           .deleteMany({ userId: mongodb.ObjectId(userId) });
 
-        console.log("order placed");
+        
         req.session.order = true;
         res.json({ status: true });
       } else {
         await db.getdb().collection('orders').deleteOne({_id:mongodb.ObjectId(objId)});
 
-        console.log("payment failed");
+        
         res.json({ status: false });
       }
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2221,9 +2221,9 @@ console.log("err 6");
   invoice: async (req, res) => {
     try {
       const trackingId = req.params.id;
-      console.log(trackingId);
+      
       const orders = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId) })
-      console.log(orders);
+      
       const result = orders.product.filter(product => !product.cancelled).map(product => {
         const data = {
           quantity: product.count,
@@ -2233,7 +2233,7 @@ console.log("err 6");
         }
         return data;
       });
-      console.log(result);
+      
 
       res.json({
         status: 'success',
@@ -2242,7 +2242,7 @@ console.log("err 6");
       })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2286,9 +2286,9 @@ console.log("err 6");
       var newdate = day + "/" + month + "/" + year;
 
       const result=await db.getdb().collection('orders').aggregate(agg).toArray();
-      console.log({result})
+      
       const amount=result[0].sum;
-      console.log({sum:result[0].sum})
+      
       const orderlist = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId) })
       if (orderlist.payment.method != "COD") {
         await db.getdb().collection('wallet').updateOne({ userId: mongodb.ObjectId(userId) }, { $inc: { walletBalance: amount } })
@@ -2303,7 +2303,7 @@ console.log("err 6");
         res.redirect('/userAccount')
       }
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2317,8 +2317,8 @@ console.log("err 6");
       var year = dateObj.getUTCFullYear();
 
       var newdate = day + "/" + month + "/" + year;
-      console.log({ reqparams: req.params.id })
-      console.log({ reqbody: req.body })
+      
+      
       // const userId=req.session.userId
       const productId = req.params.id;
       const trackingId = req.body.trackid;
@@ -2363,7 +2363,7 @@ console.log("err 6");
         await db.getdb().collection('orders').updateOne({ tracking_id: mongodb.ObjectId(trackingId), 'product.productDetails._id': mongodb.ObjectId(productId) }, { $set: {'product.$.cancelled':true,'product.$.refunded': true } })
         
       }else{
-        console.log("cod");
+        
         await db.getdb().collection('orders').updateOne({ tracking_id: mongodb.ObjectId(trackingId), 'product.productDetails._id': mongodb.ObjectId(productId) }, { $set: {'product.$.cancelled':true } })
       }
 
@@ -2388,7 +2388,7 @@ console.log("err 6");
         .collection('orders')
         .aggregate(agg).toArray();
       const cancelledProduct = cancel.length;
-      // console.log(cancel.length);
+      // 
       const count=await db.getdb().collection('orders').findOne({tracking_id: mongodb.ObjectId(trackingId)})
       const productCount=count.product.length;
       if (productCount === cancelledProduct) {
@@ -2400,7 +2400,7 @@ console.log("err 6");
         res.redirect(`/orderDetails/${trackingId}`)
       }
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2516,7 +2516,7 @@ console.log("err 6");
       page.push(i);
     }
 
-      // console.log({ wishlistItems })
+      // 
       if (wishlistItems.length == 0) {
         res.render('wishlist', { user: true, wishlist: wishlistItems, empty: true })
 
@@ -2525,7 +2525,7 @@ console.log("err 6");
         res.render('wishlist', { user: true, wishlist: wishlistItems,page })
       }
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -2543,7 +2543,7 @@ console.log("err 6");
       const userwishlist = await db.getdb().collection('wishlist').findOne({ userId: mongodb.ObjectId(userId) })
       if (userwishlist) {
         const proExist = await db.getdb().collection('wishlist').findOne({ userId: mongodb.ObjectId(userId), 'products.productId': mongodb.ObjectId(productId) })
-        console.log({ proExist });
+        
 
         if (!proExist) {
           const product = await db.getdb().collection('wishlist').updateOne({ userId: mongodb.ObjectId(userId) }, { $addToSet: { products: proObj } });
@@ -2569,7 +2569,7 @@ console.log("err 6");
 
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2635,7 +2635,7 @@ console.log("err 6");
       res.redirect('back')
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -2709,7 +2709,7 @@ var newdate = day + "/" + month + "/" + year;
       }
       res.redirect('/adminOrders')
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -2717,18 +2717,18 @@ var newdate = day + "/" + month + "/" + year;
   adminCoupons:async(req,res)=>{
     try{
       const coupons=await db.getdb().collection('coupons').find({}).toArray();
-      console.log(coupons);
+      
       res.render('adminCoupons',{ stylesheet: 'adminOrders.css', admin: true, coupons: "active", couponList: coupons })
 
     }catch(err){
-      console.log(err);
+      
     }
   },
 
   // add coupons...............................
   addCoupon:async(req,res)=>{
     try{
-      console.log(req.body);
+      
 
       var dateObj = new Date();
       var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -2754,9 +2754,9 @@ var newdate = day + "/" + month + "/" + year;
             status:"couponExists"
           })
         }else{
-          console.log("entered");
+          
           await db.getdb().collection('coupons').insertOne({coupon:req.body.coupon,discount:newdisc,createdOn:newdate,expiresOn:req.body.expiresOn,modifiedOn:newdate,users:[]});
-          console.log("entered 2");
+          
          
           res.json({
             status:'success'
@@ -2765,7 +2765,7 @@ var newdate = day + "/" + month + "/" + year;
       }
       
     }catch(err){
-      console.log(err)
+      
     }
   },
 
@@ -2789,7 +2789,7 @@ editCoupon:async(req,res)=>{
     await db.getdb().collection('coupons').updateOne({_id:mongodb.ObjectId(couponId)},{$set:{discount:newdisc,expiresOn:expiresOn,modifiedOn:newdate}})
     res.redirect('/adminCoupons')
   }catch(err){
-console.log(err);
+
   }
 },
 
@@ -2801,7 +2801,7 @@ deleteCoupon:async(req,res)=>{
     res.redirect('/adminCoupons')
 
   }catch(err){
-    console.log(err);
+    
   }
 },
 
@@ -2876,7 +2876,7 @@ deleteCoupon:async(req,res)=>{
         })
       }
     } catch (err) {
-      console.log(err);
+      
       res.json({
         status:"error"
       })
@@ -2898,7 +2898,7 @@ deleteCoupon:async(req,res)=>{
 
       }
     } catch (err) {
-      console.log(err);
+      
     }
 
   },
@@ -2946,7 +2946,7 @@ deleteCoupon:async(req,res)=>{
             confirmPassword
           } = req.body;
           const lowerEmail = email.toLowerCase().trim();
-          console.log(req.body);
+          
           if(password===confirmPassword)
           {
 
@@ -2958,14 +2958,14 @@ deleteCoupon:async(req,res)=>{
            req.session.logintime = new Date();
            req.session.userId = user._id;
            const walletId = await db.getdb().collection('wallet').insertOne({ userId: mongodb.ObjectId(user._id), walletBalance: 0, transactions: [] })
-           console.log({ walletId });
+           
            if (req.body.referralcode) {
             const referralcode = req.body.referralcode;
             const referreduser = await db.getdb().collection('users').findOne({ 'referral.referralId': referralcode });
-            console.log({ referreduser })
+            
             if (referreduser) {
               const bonus = await db.getdb().collection('referral').findOne({})
-              console.log({ bonus })
+              
               const referralBonus = bonus.bonus;
               await db.getdb().collection('users').updateOne({ 'referral.referralId': referralcode }, { $inc: { 'referral.referralCount': 1, 'referral.totalReward': referralBonus }});
               
@@ -2998,7 +2998,7 @@ deleteCoupon:async(req,res)=>{
           }
         }
       } catch (err) {
-        console.log(err.message);
+        
       }
     }
   }
@@ -3009,7 +3009,7 @@ deleteCoupon:async(req,res)=>{
   loginUserValidation: async (req, res) => {
     try {
       if (!req.body.email || !req.body.password) {
-        console.log(req.body);
+        
         req.session.signinerror = "Enter Your Email and Password *";
         res.redirect('/login');
 
@@ -3026,7 +3026,7 @@ deleteCoupon:async(req,res)=>{
               req.session.signinerror = "User Account is Blocked by Admin * ";
               res.redirect('/login');
             } else {
-              console.log("entered if")
+              
               req.session.login = true;
               req.session.logintime = new Date();
               req.session.userId = result._id;
@@ -3042,14 +3042,14 @@ deleteCoupon:async(req,res)=>{
         } else {
           req.session.signinerror = "Invalid Credentials";
           res.redirect('/login');
-          // console.log("entered else");
+          // 
           // res.render('index', { loginerror: "Invalid Credentials" })
 
         }
       }
     }
     catch (err) {
-      console.log(err.message);
+      
       res.render('login', { loginerror: err.message })
 
     }
@@ -3066,15 +3066,15 @@ deleteCoupon:async(req,res)=>{
         res.redirect('/adminlogin')
 
       } else {
-        console.log(req.body);
+        
         const adminLowerEmail = (req.body.email).toLowerCase().trim();
         const password = req.body.password;
-        console.log(adminLowerEmail);
+        
         const validAdmin = await db.getdb().collection('admin').findOne({ email: adminLowerEmail });
         if (validAdmin) {
           const validation = await bcrypt.compare(password, validAdmin.password);
           if (validation) {
-            console.log("entered if")
+            
             req.session.adminlogin = true;
             req.session.email = adminLowerEmail;
             res.redirect('/adminhome');
@@ -3094,7 +3094,7 @@ deleteCoupon:async(req,res)=>{
 
       }
     } catch (err) {
-      console.log(err.message);
+      
     }
 
   },
@@ -3142,7 +3142,7 @@ deleteCoupon:async(req,res)=>{
           }
         ];
         const sales=await db.getdb().collection('orders').aggregate(agg).toArray();
-        console.log({sales})
+        
         // req.session.end=null;
         // req.session.start=null;
         res.render('adminSales', { stylesheet: 'adminUsers.css', admin: true, sales: "active",sales,start,end})
@@ -3164,28 +3164,28 @@ deleteCoupon:async(req,res)=>{
           }
         ];
         const sales=await db.getdb().collection('orders').aggregate(agg).toArray();
-        console.log({sales})
+        
 
 
         res.render('adminSales', { stylesheet: 'adminUsers.css', admin: true, sales: "active",sales})
         // req.session.sales=null;
       }
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
   salesReport:async(req,res)=>{
     try{
-      console.log(req.body)
+      
       const start=new Date(req.body.startdate)
       const end=new Date(req.body.enddate)
-      console.log(start,end)
+      
 
       
 req.session.start=start
 req.session.end=end
-// console.log({sales});
+// 
 res.redirect('/adminSales')
 // const convertJsonToExcel = (res) => {
 
@@ -3206,7 +3206,7 @@ res.redirect('/adminSales')
 // convertJsonToExcel(res)
 
     }catch(err){
-      console.log(err)
+      
     }
   },
 
@@ -3222,7 +3222,7 @@ res.redirect('/adminSales')
 
       res.render('adminOffers', { stylesheet: 'adminUsers.css', admin: true, offers: "active", categories, categoriestable, products, productstable })
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3257,7 +3257,7 @@ res.redirect('/adminSales')
             product.offerprice = Math.floor(product.price - (product.price * product.productDiscount) / 100);
           }
           //updating products
-          console.log({ product });
+          
           return await db
             .getdb()
             .collection('products')
@@ -3268,7 +3268,7 @@ res.redirect('/adminSales')
         res.redirect('/adminOffers');
       }
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3301,7 +3301,7 @@ res.redirect('/adminSales')
           product.offerprice = Math.floor(product.price - (product.price * product.productDiscount) / 100);
         }
         //updating products
-        // console.log({product});
+        // 
         return await db
           .getdb()
           .collection('products')
@@ -3311,7 +3311,7 @@ res.redirect('/adminSales')
 
       res.redirect('/adminOffers')
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3332,7 +3332,7 @@ res.redirect('/adminSales')
           offerprice = Math.floor(products[0].price - (products[0].price * products[0].productDiscount) / 100);
         }
         //updating products
-        // console.log({products});
+        // 
         await db.getdb().collection('products').updateOne({ _id: mongodb.ObjectId(productId) }, { $set: { offerprice: offerprice } });
 
 
@@ -3345,7 +3345,7 @@ res.redirect('/adminSales')
 
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3358,13 +3358,13 @@ res.redirect('/adminSales')
 
   addProductOffer: async (req, res) => {
     try {
-      console.log(req.body)
+      
       if (req.body.product && req.body.productdiscount) {
         const productId = req.body.product;
         const discount = parseInt(req.body.productdiscount);
         await db.getdb().collection('products').updateOne({ _id: mongodb.ObjectId(productId) }, { $set: { productDiscount: discount } })
         const products = await db.getdb().collection('products').find({ _id: mongodb.ObjectId(productId) }).toArray()
-        console.log({ products })
+        
 
         let offerprice;
         //calculating discount amount and updating the discount product
@@ -3374,7 +3374,7 @@ res.redirect('/adminSales')
           offerprice = Math.floor(products[0].price - (products[0].price * products[0].productDiscount) / 100);
         }
         //updating products
-        console.log({ products });
+        
         await db.getdb().collection('products').updateOne({ _id: mongodb.ObjectId(productId) }, { $set: { offerprice: offerprice } });
 
 
@@ -3384,7 +3384,7 @@ res.redirect('/adminSales')
 
 
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3408,7 +3408,7 @@ res.redirect('/adminSales')
 
       }
     } catch (err) {
-      console.log(err)
+      
     }
   },
 
@@ -3427,7 +3427,7 @@ res.redirect('/adminSales')
       res.render("adminCategories", { stylesheet: 'adminCategories.css', admin: true, categories: "active", categoriestable: categorieslist })
     }
   }catch(err){
-    console.log(err);
+    
   }
 
   },
@@ -3453,7 +3453,7 @@ res.redirect('/adminSales')
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3476,7 +3476,7 @@ res.redirect('/adminSales')
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3499,7 +3499,7 @@ res.redirect('/adminSales')
       }
       res.redirect('/adminCategories')
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3513,7 +3513,7 @@ res.redirect('/adminSales')
 
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3535,7 +3535,7 @@ res.redirect('/adminSales')
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3558,7 +3558,7 @@ res.redirect('/adminSales')
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3573,7 +3573,7 @@ res.redirect('/adminSales')
       await db.getdb().collection('brands').deleteOne({ _id: mongodb.ObjectId(deleteid) });
       res.redirect('/adminBrands')
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3581,20 +3581,20 @@ res.redirect('/adminSales')
   addSingleProduct:async(req,res)=>{
 
     try{
-      // console.log({body:req.body})
+      // 
       
     const files = req.files;
-    // console.log({files:req.files});
+    // 
     const urls =  await Promise.all(files.map(async (file) => {
       const { path } = file;
   //  main line for uploading..........
       const result = await cloudinary.uploader.upload(file.path)
   
-    // console.log(urls);
-      // console.log(result.secure_url);
+    // 
+      // 
       return result.secure_url;
     }));
-  // console.log(urls);
+  // 
     const {
       name,
       price,
@@ -3626,7 +3626,7 @@ res.redirect('/adminSales')
           }
         }
         catch(err){
-          console.log(err);
+          
         }
   },
 
@@ -3640,7 +3640,7 @@ res.redirect('/adminSales')
       await db.getdb().collection('products').updateOne({ _id: mongodb.ObjectId(deleteid)},{$set:{isDeleted:true,stocks:0}});
       res.redirect('/adminProducts')
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3678,13 +3678,13 @@ const agg = [
       
       categoryId = Product.categoryId
       brandId = Product.brandId
-      console.log(Product);
+      
       const allcategories = await db.getdb().collection("categories").find({}).toArray()
-      // console.log(allcategories);
+      // 
       const allbrands = await db.getdb().collection("brands").find({}).toArray()
       res.render('adminEditProduct', { stylesheet: 'adminEditProduct.css', admin: true, products: "active", productDetails: Product, categoriestable: allcategories, brandstable: allbrands });
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3695,20 +3695,20 @@ editSingleProduct:async(req,res)=>{
     const productId=req.params.id;
     const Product= await db.getdb().collection("products").findOne({_id:mongodb.ObjectId(productId)})
     const oldimages=Product.images;
-    // console.log(oldimages);
+    // 
   
     const files = req.files;
-    console.log({files:req.files});
+    
     const urls =  await Promise.all(files.map(async (file) => {
       const { path } = file;
   //  main line for uploading..........
       const result = await cloudinary.uploader.upload(file.path)
   
-    // console.log(urls);
+    // 
   
       return result.secure_url;
     }));
-  // console.log(urls);
+  // 
   oldimages.splice(0,urls.length,...urls)
     let {
       name,
@@ -3721,36 +3721,40 @@ editSingleProduct:async(req,res)=>{
       description,
       images
           }=req.body;
-  console.log({request:req.body})
   
-        const newprice=parseInt(price)
-        const newofferprice=parseInt(offerprice)
-        const newstock=parseInt(stocks)
+  
+        const newprice=Number(price)
+        
+        const newofferprice=Number(offerprice)
+        const newstock=Number(stocks)
         const newrating=0;
   
   const productOffer=await db.getdb().collection('products').findOne({_id:mongodb.ObjectId(productId)})
   
   const categoryOffer=await db.getdb().collection('categories').findOne({_id:mongodb.ObjectId(categoryId)})
-  if(categoryOffer.discount)
+        
+        
+let final;
+  if(categoryOffer.discount || productOffer.productDiscount)
   {
     if (categoryOffer.discount >= productOffer.productDiscount) {
-      offerprice = Math.floor(newprice - (newprice * categoryOffer.discount) / 100);
+      final = Math.floor(newprice - (newprice * categoryOffer.discount) / 100);
     } else {
-      offerprice = Math.floor(newprice - (newprice * productOffer.productDiscount) / 100);
+      final = Math.floor(newprice - (newprice * productOffer.productDiscount) / 100);
     }
   
-    await db.getdb().collection("products").updateOne({_id:Product._id},{$set:{name:name,price:newprice,offerprice:offerprice,color:color,stocks:newstock,categoryId:mongodb.ObjectId(categoryId),brandId:mongodb.ObjectId(brandId),rating:newrating,description:description,images:oldimages}})
+    await db.getdb().collection("products").updateOne({_id:Product._id},{$set:{name:name,price:newprice,offerprice:final,color:color,stocks:newstock,categoryId:mongodb.ObjectId(categoryId),brandId:mongodb.ObjectId(brandId),rating:newrating,description:description,images:oldimages}})
     res.redirect('/adminProducts')
   
   }else{
-    await db.getdb().collection("products").updateOne({_id:Product._id},{$set:{name:name,price:newprice,offerprice:offerprice,color:color,stocks:newstock,categoryId:mongodb.ObjectId(categoryId),brandId:mongodb.ObjectId(brandId),rating:newrating,description:description,images:oldimages}})
+    await db.getdb().collection("products").updateOne({_id:Product._id},{$set:{name:name,price:newprice,offerprice:newprice,color:color,stocks:newstock,categoryId:mongodb.ObjectId(categoryId),brandId:mongodb.ObjectId(brandId),rating:newrating,description:description,images:oldimages}})
             res.redirect('/adminProducts')
   
   }
   
   
   }catch(err){
-    console.log(err)
+    
   }
   },
 
@@ -3774,7 +3778,7 @@ editSingleProduct:async(req,res)=>{
       }
       else {
         const file = req.file;
-        console.log({ files: req.file });
+        
 
         const { path } = file;
         //  main line for uploading..........
@@ -3788,7 +3792,7 @@ editSingleProduct:async(req,res)=>{
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3800,13 +3804,13 @@ editSingleProduct:async(req,res)=>{
       const banner = req.body.banner
       const description = req.body.description
       // const image=req.body.banner
-      // console.log(editedCategory);
+      // 
       if (!req.body.banner || !req.body.description) {
         res.redirect("/adminBanners")
       }
       else {
         const file = req.file;
-        console.log({ files: req.file });
+        
 
         const { path } = file;
         //  main line for uploading..........
@@ -3820,7 +3824,7 @@ editSingleProduct:async(req,res)=>{
       }
 
     } catch (err) {
-      console.log(err);
+      
 
     }
   },
@@ -3834,7 +3838,7 @@ editSingleProduct:async(req,res)=>{
       await db.getdb().collection('banners').deleteOne({ _id: mongodb.ObjectId(deleteid) });
       res.redirect('/adminBanners')
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3849,7 +3853,7 @@ editSingleProduct:async(req,res)=>{
       res.render('adminOrders', { stylesheet: 'adminOrders.css', admin: true, orders: "active", ordersList: orders })
 
     } catch (err) {
-      console.log(err);
+      
     }
   },
 
@@ -3860,12 +3864,12 @@ editSingleProduct:async(req,res)=>{
       
       const trackingId = req.params.id;
       const orderDetails = await db.getdb().collection('orders').findOne({ tracking_id: mongodb.ObjectId(trackingId) })
-      console.log(orderDetails);
+      
       res.render('adminViewOrder', { stylesheet: 'adminOrders.css', admin: true, orders: "active", orderDetails: orderDetails })
 
       
     }catch(err){
-      console.log(err);
+      
     }
   },
 

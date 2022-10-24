@@ -95,8 +95,8 @@ router.post('/resendOtp',loginOtpControllers.resendOtp)
 
 router.get('/',sessionControllers.userSessionCheck,async(req,res)=> {
   try{
-    // console.log(req.url)
-    // console.log(new Date(req.session.logintime));
+    // 
+    // 
     const Products= await db.getdb().collection("products").find({}).limit(4).toArray()
           
      //to get wishlist products
@@ -113,10 +113,10 @@ router.get('/',sessionControllers.userSessionCheck,async(req,res)=> {
          const index = Products.findIndex(
            (product) => product._id.toString() === item.productId.toString()
          );
-         console.log(index);
+         
          if (index !== -1) {
           Products[index].wishlist = true;
-           console.log(Products[index]);
+           
          }
        });
      }
@@ -129,7 +129,7 @@ router.get('/',sessionControllers.userSessionCheck,async(req,res)=> {
     const allcategory= await db.getdb().collection('categories').find({}).limit(4).toArray();
     res.render('index',{user:true,products:Products,banners:banners,allcategory});
   }catch(err){
-console.log(err);
+
   }
 });
 
@@ -144,7 +144,7 @@ router.get('/userLogout',async(req,res)=> {
   req.session.userId=null;
   res.redirect('/login')
 }catch(err){
-  console.log(err);
+  
 }
 
 });
@@ -161,7 +161,7 @@ router.post('/search',productController.search)
 // get products page................................................
 router.get('/products',sessionControllers.userSessionCheck,async(req,res)=>{
   try{
-    console.log({query:req.query})
+    
      //pagination
      let pageNo;
      let isSort1;
@@ -186,7 +186,7 @@ router.get('/products',sessionControllers.userSessionCheck,async(req,res)=>{
      }else{
 
      }
-    console.log(req.query);
+    
 
 
     const limit = 9;
@@ -237,10 +237,10 @@ router.get('/products',sessionControllers.userSessionCheck,async(req,res)=>{
          const index = allProducts.findIndex(
            (product) => product._id.toString() === item.productId.toString()
          );
-         console.log(index);
+         
          if (index !== -1) {
           allProducts[index].wishlist = true;
-           console.log(allProducts[index]);
+           
          }
        });
      }
@@ -268,7 +268,7 @@ router.get('/products',sessionControllers.userSessionCheck,async(req,res)=>{
 
   
 }catch(err){
-console.log(err);
+
 }
 });
 
@@ -446,7 +446,7 @@ router.get('/adminHome',sessionControllers.adminHomeSession,productController.ad
 
 // products page for admin......................................................
 
-router.get('/adminProducts',sessionControllers.adminHomeSession,productController.adminProducts);
+router.get('/adminProducts',sessionControllers.adminHomeSession,productController.adminProducts)
 
 // userlist page for admin................................................
 
@@ -547,7 +547,7 @@ router.get('/addProducts',sessionControllers.adminHomeSession,async(req,res)=>{
     res.render('adminAddProducts',{ stylesheet: 'adminAddProducts.css',admin:true,products:"active",categoriestable:allcategories,brandstable:allbrands})
   }
 catch(err){
-  console.log(err);
+  
 }  
 
 }) 

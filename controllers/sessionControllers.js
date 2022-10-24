@@ -9,7 +9,7 @@ module.exports={
           
           if(user.passwordChangedAt){
             const oldtime=new Date(req.session.logintime);
-            // console.log(oldtime<=user.passwordChangedAt);
+            // 
             if(oldtime<=user.passwordChangedAt){
               req.session.destroy();
               res.set('Clear-Site-Data: "cookies", "storage", "executionContexts"');

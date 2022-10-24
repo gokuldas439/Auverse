@@ -252,7 +252,7 @@ submitHandler:function (form,e) {
 
 
       success: (response) => {
-        console.log(response)
+        
         razorpayPayment(response);
       }
     })
@@ -260,7 +260,7 @@ submitHandler:function (form,e) {
 });
 
 function razorpayPayment(order) {
-    console.log(order)
+    
     let amount = order.Order.amount
 
     var options = {
@@ -295,8 +295,8 @@ function razorpayPayment(order) {
   };
 
   function verifyPayment(payment, order) {
-    console.log("hi")
-    console.log(payment, order)
+    
+    
     $.ajax({
       url: '/verifyWalletPayment',
       data: {
@@ -305,7 +305,7 @@ function razorpayPayment(order) {
       },
       method: 'post',
       success: (response) => {
-        console.log(response)
+        
         if (response.status) {
           location.href='/userWallet'
         } else {
@@ -360,9 +360,9 @@ function razorpayPayment(order) {
     let params = new URLSearchParams(url.search);
     params.set('p', value);
     let newParams = params.toString();
-    console.log(window.location.protocol)
-    console.log(window.location.host)
-    console.log(newParams)
+    
+    
+    
    location.href = window.location.protocol + "//" + window.location.host + '/userWallet?' + newParams;
   }
 </script>

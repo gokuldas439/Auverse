@@ -47,7 +47,7 @@ const number=async(number)=>{
     }
 
     }catch(err){
-        console.log(err)
+        
         document.querySelector(".otpsendspan").textContent=err.response.data.message;
 
     }
@@ -73,7 +73,7 @@ document.querySelector(".form").addEventListener('submit',e=>{
 
 
 const submit=async(number,code)=>{
-    console.log("hi");
+    
     try{
         const result = await axios({
             method:'POST',
@@ -84,10 +84,10 @@ const submit=async(number,code)=>{
             }            
          });
          
-         console.log(result);
+         
          window.location="/"
         }catch(err){
-            console.log(err);
+            
         document.querySelector(".otpsubmitspan").textContent=err.response.data.message;
 
     }
@@ -97,10 +97,10 @@ document.querySelector(".submitform").addEventListener('submit',e=>{
     e.preventDefault();
     const mobile=document.getElementById('number').value;
     var otp=document.getElementById('otp').value;
-    console.log("data..."+otp,mobile)
+    
     if(otp){
-        console.log("data..."+otp,mobile)
-        console.log("entered the if js");
+        
+        
         submit(document.getElementById('number').value,document.getElementById('otp').value);
     }
     else{
@@ -154,7 +154,7 @@ const resendOtp=async(number)=>{
     }
 
     }catch(err){
-        console.log(err)
+        
         document.querySelector(".otpsendspan").textContent=err.response.data.message;
 
     }

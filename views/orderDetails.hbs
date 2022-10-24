@@ -369,7 +369,7 @@ html2pdf(element);
             onrendered: function(canvas) {
 
                 var imgData = canvas.toDataURL('image/png');
-                console.log('Report Image URL: '+imgData);
+                
                 var doc = new jsPDF('p', 'mm', [297, 210]); 
                 
                 doc.addImage(imgData, 'PNG', 10, 10);
@@ -407,7 +407,7 @@ GrabzIt("ODg4NTMxZDQ5NDhjNGRkZjg2ZjU0MGE1ZDg2YTAxMDI=").ConvertPage({"target": "
       submitHandler: function (form,e) { 
       e.preventDefault()
       const trackingid=document.getElementById('trackingid').value
-      console.log(trackingid)
+      
       $.ajax({
       url: `/invoice/${trackingid}`,
       method: 'post',
@@ -415,7 +415,7 @@ GrabzIt("ODg4NTMxZDQ5NDhjNGRkZjg2ZjU0MGE1ZDg2YTAxMDI=").ConvertPage({"target": "
 
 
       success: (response) => {
-        //console.log(response)
+        //
          var data = {
                       //"documentTitle": "RECEIPT", //Defaults to INVOICE
                       "currency": "INR",

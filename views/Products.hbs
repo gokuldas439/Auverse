@@ -626,14 +626,14 @@ input[type=range]:focus::-ms-fill-upper {
     var selectBox = document.getElementById("selectBox");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 
-    console.log(selectedValue)
+    
     let url = new URL(window.location.href);
     let params = new URLSearchParams(url.search);
     params.set('sort', selectedValue);
     let newParams = params.toString();
-    console.log(window.location.protocol)
-    console.log(window.location.host)
-    console.log(newParams)
+    
+    
+    
    location.href = window.location.protocol + "//" + window.location.host + '/products?' + newParams;
   }
 </script>
@@ -648,9 +648,9 @@ input[type=range]:focus::-ms-fill-upper {
     let params = new URLSearchParams(url.search);
     params.set('p', value);
     let newParams = params.toString();
-    console.log(window.location.protocol)
-    console.log(window.location.host)
-    console.log(newParams)
+    
+    
+    
    location.href = window.location.protocol + "//" + window.location.host + '/products?' + newParams;
   }
 </script>
@@ -665,12 +665,12 @@ input[type=range]:focus::-ms-fill-upper {
 <script>
   function price(){
     const value=document.getElementById('rangeValue').textContent;
-    console.log(value,typeof(value))
+    
     const price=value.slice(4)
 
      let url = new URL(window.location.href);
-    console.log(window.location.protocol)
-    console.log(window.location.host)
+    
+    
    window.location.href=`${window.location.protocol}//${window.location.host}/products?price=${price}`
 
   }

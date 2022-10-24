@@ -19,12 +19,12 @@ module.exports = {
 
     otpLogin: async (req, res) => {
         try {
-            console.log({resendotp:req.body})
+            
             const numbercheck=await db.getdb().collection("users").findOne({number:req.body.number})
             if(numbercheck){
 
-                console.log(req.body)
-                console.log("entered otplogin client")
+                
+                
                 const result = await client
                 .verify
                 .services(process.env.SERVICE_ID)
@@ -46,7 +46,7 @@ module.exports = {
             }
         }
          catch (err) {
-            console.log(err);
+            
 res.status(500).json({
     status:'failed',
     message:"Too many Requests. Please try again after sometime...."
@@ -58,8 +58,8 @@ res.status(500).json({
 
     submitOtp: async (req, res) => {
         try {
-            console.log(req.body);
-            console.log("entered submit otp");
+            
+            
             const data = await client
                 .verify
                 .services(process.env.SERVICE_ID)
@@ -90,7 +90,7 @@ res.status(500).json({
             } 
 
         } catch (err) {
-            console.log(err);
+            
             res.status(500).json({
             status:'failed',
             message:err.message
@@ -106,8 +106,8 @@ res.status(500).json({
             const numbercheck=await db.getdb().collection("users").findOne({number:req.body.number})
             if(numbercheck){
 
-                console.log(req.body)
-                console.log("entered otplogin client")
+                
+                
                 const result = await client
                 .verify
                 .services(process.env.SERVICE_ID)
@@ -129,7 +129,7 @@ res.status(500).json({
             }
         }
          catch (err) {
-            console.log(err);
+            
 res.status(500).json({
     status:'failed',
     message:"Too many Requests. Please try again after sometime...."
@@ -141,12 +141,12 @@ res.status(500).json({
 // forgot password.....................................................
 forgotPasswordLogin: async (req, res) => {
     try {
-        console.log({resendotp:req.body})
+        
         const numbercheck=await db.getdb().collection("users").findOne({number:req.body.number})
         if(numbercheck){
 
-            console.log(req.body)
-            console.log("entered otplogin client")
+            
+            
             const result = await client
             .verify
             .services(process.env.SERVICE_ID)
@@ -168,7 +168,7 @@ forgotPasswordLogin: async (req, res) => {
         }
     }
      catch (err) {
-        console.log(err);
+        
 res.status(500).json({
 status:'failed',
 message:"Too many Requests. Please try again after sometime...."
@@ -178,8 +178,8 @@ message:"Too many Requests. Please try again after sometime...."
 
 submitForgotPasswordOtp: async (req, res) => {
     try {
-        console.log(req.body);
-        console.log("entered submit otp");
+        
+        
         const data = await client
             .verify
             .services(process.env.SERVICE_ID)
@@ -210,7 +210,7 @@ submitForgotPasswordOtp: async (req, res) => {
         } 
 
     } catch (err) {
-        console.log(err);
+        
         res.status(500).json({
         status:'failed',
         message:err.message
@@ -227,8 +227,8 @@ resendForgotPasswordOtp: async (req, res) => {
         const numbercheck=await db.getdb().collection("users").findOne({number:req.body.number})
         if(numbercheck){
 
-            console.log(req.body)
-            console.log("entered otplogin client")
+            
+            
             const result = await client
             .verify
             .services(process.env.SERVICE_ID)
@@ -250,7 +250,7 @@ resendForgotPasswordOtp: async (req, res) => {
         }
     }
      catch (err) {
-        console.log(err);
+        
 res.status(500).json({
 status:'failed',
 message:"Too many Requests. Please try again after sometime...."

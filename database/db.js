@@ -7,7 +7,7 @@ let _db;
 
 const initdb=callback=>{
 if(_db){
-    console.log('db is initialized');
+    
     return callback(null,_db);
 }
 MongoClient.connect(mongodbURL)

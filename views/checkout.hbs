@@ -613,7 +613,7 @@ messages: {
     },
 
  submitHandler: function (form,e) {
-  console.log('entered jax')
+  
     e.preventDefault();
     $.ajax({
       url: "/placeOrder",
@@ -622,7 +622,7 @@ messages: {
 
 
       success: (response) => {
-        console.log(response)
+        
         if (response.err) {
           document.getElementById('errormsg').innerHTML = response.err
         }
@@ -636,11 +636,11 @@ messages: {
           location.href = response.link
         }
         else {
-          console.log("hii")
-          console.log(response.Order)
+          
+          
 
           razorpayPayment(response);
-          console.log("after function")
+          
         }
 
       }
@@ -648,7 +648,7 @@ messages: {
   })
 
   function razorpayPayment(order) {
-  //  console.log(order)
+  //  
     let amount = order.Order.amount
 
     var options = {
@@ -677,17 +677,17 @@ messages: {
         "color": "#3399cc"
       }
     };
-    console.log("err 1")
+    
     var rzp1 = new Razorpay(options);
-    console.log("err 2")
+    
     rzp1.open();
-    console.log("err 3")
+    
 
   };
 
   function verifyPayment(payment, order) {
-    console.log("hi")
-    console.log(payment, order)
+    
+    
     $.ajax({
       url: '/verifyPayment',
       data: {
@@ -696,7 +696,7 @@ messages: {
       },
       method: 'post',
       success: (response) => {
-        console.log(response)
+        
         if (response.status) {
           location.href='/orderStatus'
         } else {
@@ -732,7 +732,7 @@ messages: {
  submitHandler: function (form,e) {
 
     e.preventDefault()
-  console.log('entered jax')
+  
     $.ajax({
       url: "/applyCoupon",
       method: 'post',
@@ -740,7 +740,7 @@ messages: {
 
 
       success: (response) => {
-        console.log(response)
+        
         if (response.status=="success") {
           const removeCoupon=document.getElementById('removeCoupon')
         document.getElementById('couponSuccess').innerHTML=response.message
@@ -749,11 +749,11 @@ messages: {
         removeCoupon.hidden=false;
        let subtotal=document.getElementById('subtotalSpan').textContent;
        const total=parseInt(subtotal.slice(4).replace(',',''))
-       console.log(total)
+       
        const discount=response.discount
-       console.log(discount)
+       
       const final=Math.floor(total-total*discount/100);
-       console.log(final)
+       
         document.getElementById('discountSpan').innerHTML=`Rs. ${Math.floor(total*discount/100)}`
         document.getElementById('totalSpan').innerHTML=`Rs. ${final}`
  

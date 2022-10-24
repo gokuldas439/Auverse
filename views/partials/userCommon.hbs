@@ -312,9 +312,9 @@
   const searchBtn = document.getElementById("search-btn"); const searchInput =
   document.querySelector(".search-input"); searchBtn.addEventListener("click",
   function () { // searchInput.classList.add('active-search');
-  searchInput.classList.toggle("active-search"); console.log(searchInput); });
+  searchInput.classList.toggle("active-search"); 
   document.querySelector("main").addEventListener("click", () => {
-  searchInput.classList.remove("active-search"); }); console.log(searchBtn,
+  searchInput.classList.remove("active-search"); }); 
   searchInput);
 
 </script> --}}
@@ -348,13 +348,13 @@ const searchData=document.getElementById('search-box')
 
     }else{
 
-    console.log(e);
+    
     const result = await axios({
         method: 'POST',
          url: '/search',
          data:{e}
     });
-       console.log(result.data.search);
+       
        const res=result.data.search
        div.innerHTML='';
        if(res.length<1){

@@ -151,9 +151,9 @@
     let params = new URLSearchParams(url.search);
     params.set('p', value);
     let newParams = params.toString();
-    console.log(window.location.protocol)
-    console.log(window.location.host)
-    console.log(newParams)
+    
+    
+    
    location.href = window.location.protocol + "//" + window.location.host + '/wishlist?' + newParams;
   }
 </script>

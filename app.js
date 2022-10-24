@@ -48,7 +48,12 @@ Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, optio
 });
 
 Handlebars.registerHelper('toLocaleString', function(number) {
-  return number.toLocaleString()
+  try{
+
+    return number?.toLocaleString()
+  }catch(err){
+    
+  }
 })
 
 
@@ -90,9 +95,9 @@ app.use(function(err, req, res, next) {
 
 db.initdb((err,db)=>{
   if(err){
-    console.log(err);
+    
   }else{
-    console.log('db connected');
+    
   }
   
   }) 
