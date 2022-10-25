@@ -2146,7 +2146,7 @@ pagination=finaltransact[0].transactions.length / 6
         "|" +
         details["payment[razorpay_payment_id]"]
       );
-      
+      hmac=hmac.digest('hex');
       if (hmac == details["payment[razorpay_signature]"]) {
         const result = await db
           .getdb()
