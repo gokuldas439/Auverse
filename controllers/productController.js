@@ -1221,6 +1221,7 @@ pagination=finaltransact[0].transactions.length / 6
         "|" +
         details["payment[razorpay_payment_id]"]
       );
+      hmac=hmac.digest('hex')
       
       if (hmac == details["payment[razorpay_signature]"]) {
         const result = await db
@@ -1251,7 +1252,7 @@ pagination=finaltransact[0].transactions.length / 6
 
 
     } catch (err) {
-      
+      console.log(err)
     }
   },
 
@@ -2919,6 +2920,7 @@ deleteCoupon:async(req,res)=>{
   //   sigup the user...................................................................
 
   signupUser: async (req, res) => {
+    try{
     if (!req.body.name ||!req.body.number || !req.body.email || !req.body.password || !req.body.confirmPassword) {
       // req.session.panel = "right-panel-active"
       req.session.err = "All Fields are required *";
@@ -2931,7 +2933,7 @@ deleteCoupon:async(req,res)=>{
       res.redirect('/signup');
     }
     else {
-      try {
+      
         const result = await db.getdb().collection("users").findOne({ email: req.body.email });
         if (result) {
           // req.session.panel = "right-panel-active";
@@ -2983,8 +2985,9 @@ deleteCoupon:async(req,res)=>{
               await db.getdb().collection('wallet').updateOne({ _id: mongodb.ObjectId(walletId.insertedId) }, { $inc: { walletBalance: referralBonus } })
               await db.getdb().collection('wallet').updateOne({ _id: mongodb.ObjectId(walletId.insertedId) },{ $push: { transactions: { transactionId: new mongodb.ObjectId(), amount: referralBonus,date:newdate, reason: "Bonus for signingup using Referralcode", type: 'credited', status: "Confirmed" } } })
               
-            }
               
+            } 
+            res.redirect('/');             
           }
             
             else{
@@ -2997,10 +3000,11 @@ deleteCoupon:async(req,res)=>{
             res.redirect('/signup');
           }
         }
-      } catch (err) {
-        
-      }
+      } 
     }
+  }
+  catch (err) {
+  console.log(err)
   }
 },
   // login user...................................................................................
