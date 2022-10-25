@@ -194,7 +194,7 @@ input[type=range]:focus::-ms-fill-upper {
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#categoryCollapse" arial-expanded="false" >
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" onclick="categorytoggle()">
                     Category
                   </a>
 
@@ -224,12 +224,12 @@ input[type=range]:focus::-ms-fill-upper {
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#categoryCollapse1" arial-expanded="false" >
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" onclick="brandtoggle()" style="cursor:pointer;">
                     Brand
                   </a>
 
                   <!-- Collapse -->
-                  <div class="collapse" id="categoryCollapse1">
+                  <div class="collapse" id="brandCollapse">
                     <div class="form-group">
                       <ul class="list-styled mb-0" id="productsNav">
                         <li class="list-styled-item">
@@ -248,17 +248,19 @@ input[type=range]:focus::-ms-fill-upper {
                     </div>
                   </div>
 
+                 
+
                 </li>
                 
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6" data-bs-toggle="collapse" href="#priceCollapse">
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6" style="cursor: pointer;" onclick="pricetoggle()">
                     Price
                   </a>
 
                   <!-- Collapse -->
-                  <div class="collapse" id="priceCollapse" data-simplebar-collapse="#priceGroup">
+                  <div class="collapse" id="priceCollapse" >
 
                     <!-- Form group-->
                      <div class="rangediv">
@@ -676,4 +678,20 @@ input[type=range]:focus::-ms-fill-upper {
   }
 </script>
 
-
+ <script>
+                    function brandtoggle(){
+                      const brand=document.getElementById('brandCollapse')
+                      
+                        brand.classList.toggle("show")
+                    }
+                    function categorytoggle(){
+                      const category=document.getElementById('categoryCollapse')
+                      
+                        category.classList.toggle("show")
+                    }
+                    function pricetoggle(){
+                      const price=document.getElementById('priceCollapse')
+                     
+                        price.classList.toggle("show")
+                    }
+                  </script>
