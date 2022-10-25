@@ -194,7 +194,7 @@ input[type=range]:focus::-ms-fill-upper {
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" onclick="categorytoggle()" style="cursor: pointer;">
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#categoryCollapse" aria-expanded="false" style="cursor: pointer;">
                     Category
                   </a>
 
@@ -224,7 +224,7 @@ input[type=range]:focus::-ms-fill-upper {
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" onclick="brandtoggle()" style="cursor:pointer;">
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6 collapsed" data-bs-toggle="collapse" href="#brandCollapse" aria-expanded="false" style="cursor:pointer;">
                     Brand
                   </a>
 
@@ -255,7 +255,7 @@ input[type=range]:focus::-ms-fill-upper {
                 <li class="nav-item">
 
                   <!-- Toggle -->
-                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6" style="cursor: pointer;" onclick="pricetoggle()">
+                  <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6" style="cursor: pointer;"  data-bs-toggle="collapse" href="#priceCollapse" aria-expanded="false">
                     Price
                   </a>
 
@@ -677,21 +677,3 @@ input[type=range]:focus::-ms-fill-upper {
 
   }
 </script>
-
- <script>
-                    function brandtoggle(){
-                      const brand=document.getElementById('brandCollapse')
-                      
-                        brand.classList.toggle("show")
-                    }
-                    function categorytoggle(){
-                      const category=document.getElementById('categoryCollapse')
-                      
-                        category.classList.toggle("show")
-                    }
-                    function pricetoggle(){
-                      const price=document.getElementById('priceCollapse')
-                     
-                        price.classList.toggle("show")
-                    }
-                  </script>

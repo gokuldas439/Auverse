@@ -14,6 +14,7 @@ MongoClient.connect(mongodbURL)
 .then(client=>{
     _db=client.db('Auverse');
     callback(null,_db)
+    console.log("database connected")
 })
 .catch(err=>{
     callback(err);
