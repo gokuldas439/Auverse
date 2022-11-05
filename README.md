@@ -142,7 +142,7 @@ install dependencies :
 
 ## License
 
-[SSL](https://choosealicense.com/licenses/SSL/)
+[unlicense](https://choosealicense.com/licenses/unlicense/)
 
 
 ## Screenshots
