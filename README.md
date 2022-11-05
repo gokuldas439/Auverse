@@ -147,5 +147,5 @@ install dependencies :
 
 ## Screenshots
 
-![App Screenshot](https://awesomescreenshot.s3.amazonaws.com/image/3519975/33732289-503827608a54af3fd43df9bba8726007.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSCJQ2NM3XLFPVKA%2F20221025%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221025T090344Z&X-Amz-Expires=28800&X-Amz-SignedHeaders=host&X-Amz-Signature=ead1742763282c1999c44e1761243faa57580ac744b01d529f3204720f650a64)
+![App Screenshot](https://res.cloudinary.com/gokuldas/image/upload/v1667656543/Auverse_4_ycaexk.png)
 
