@@ -125,11 +125,11 @@ install dependencies :
 - P2P Wallet transfer
 - Multiple payment options on Purchasing Products(Razorpay, PayPal, COD & Wallet)
 - Email Notification on Product Purchases
-- Cancel & Return Order
+- Cancel & Return Orders
 - Invoice for the Products Delivered
 
 ### Admins
-- Dashboard with Donut & Bar chart Representation
+- Dashboard with doughnut & Bar chart Representation
 - Sales report with downloadable CSV, Excel & PDF
 - Product CRUD operations
 - Category CRUD operations
@@ -149,3 +149,12 @@ install dependencies :
 
 ![App Screenshot](https://res.cloudinary.com/gokuldas/image/upload/v1667656543/Auverse_4_ycaexk.png)
 
+##
+
+![App Screenshot](https://res.cloudinary.com/gokuldas/image/upload/v1667793727/Auverse_5_fufohw.png)
+
+##
+
+![App Screenshot](https://res.cloudinary.com/gokuldas/image/upload/v1667793727/Auverse_6_ii2apo.png)
+
+##
