@@ -134,6 +134,7 @@ install dependencies :
 - Product CRUD operations
 - Category CRUD operations
 - Brand CRUD operations
+- Refferal Bonus CRUD operations
 - User Details with user Status Changer
 - Users Order Details with Order Status Changer
 - Product & Category Offer Management
