@@ -5,7 +5,6 @@ This is my first full Stack project which is a fully functional Ecommerce platfo
 ## Acknowledgements
 
  - [My Linkedin profile](https://www.linkedin.com/in/gokuldas439)
- - [Live Project Link](https://www.auverse.tech)
 
 
 ## API Reference
