@@ -41,10 +41,6 @@ This is my first full Stack project which is a fully functional Ecommerce platfo
 
 
 
-## Link
-
-
-www.auverse.tech
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
